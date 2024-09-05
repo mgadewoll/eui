@@ -38,9 +38,10 @@ import { semanticColors } from '../../../../global_styling/variables/_color_matr
  */
 
 const semantic_colors = {
-  plain: '#fff',
+  ghost: '#fff',
   ink: '#000',
-  developerBlue: '#080F21',
+  mutedBlack: undefined,
+  developerBlue: undefined,
   ...semanticColors,
 };
 

@@ -15,6 +15,7 @@ export type _ColorData = string[];
 export type _ColorMatrix = {
   blue: _ColorData;
   blueGrey: _ColorData;
+  mutedGrey: _ColorData;
   teal: _ColorData;
   pink: _ColorData;
   green: _ColorData;
@@ -27,7 +28,8 @@ export type _SemanticColors = {
 };
 
 export const MATRIX_TO_SEMANTIC_COLOR_NAME_MAP = {
-  blueGrey: 'shade',
+  mutedGrey: 'shade',
+  blueGrey: 'devShade',
   blue: 'primary',
   pink: 'accent',
   teal: 'highlight',
@@ -83,22 +85,36 @@ export const COLOR_MATRIX: _ColorMatrix = {
     '#0f1f38',
     '#09182F',
   ],
-  // neutralGrey: [
-  //   '#f5f9fe',
-  //   '#e1e6ee',
-  //   '#ced4de',
-  //   '#bac2ce',
-  //   '#a7b0bf',
-  //   '#959faf',
-  //   '#838ea0',
-  //   '#727d8f',
-  //   '#626d7e',
-  //   '#505b6b',
-  //   '#404958',
-  //   '#303845',
-  //   '#212833',
-  //   '#131922',
-  // ],
+  mutedGrey: [
+    '#f6f9fc',
+    '#edeff3',
+    '#e3e6eb',
+    '#d9dde3',
+    '#d0d4da',
+    '#c6cbd2',
+    '#bdc2ca',
+    '#b3b9c2',
+    '#aab0ba',
+    '#a1a8b2',
+    '#989faa',
+    '#8f96a2',
+    '#868e9a',
+    '#7e8691',
+    '#767d89',
+    '#6e7581',
+    '#666d78',
+    '#5d6570',
+    '#555c67',
+    '#4d545e',
+    '#464c56',
+    '#3f444d',
+    '#373d45',
+    '#30353c',
+    '#292e34',
+    '#23262c',
+    '#1c1f24',
+    '#16181d',
+  ],
   teal: [
     '#eafdfc',
     '#c0f1ee',
@@ -206,12 +222,14 @@ export const getColorMatrixValue = (
   group: keyof _ColorMatrix,
   shade: number
 ) => {
-  const hasLargeScale = group === 'blueGrey';
+  const groupColors = COLOR_MATRIX[group];
+  // NOTE: this is currently very specific to our use case of n-14 (default) and n-28 (large) scales
+  const hasLargeScale = groupColors.length > COLOR_SHADES_COUNT;
 
   const step = hasLargeScale ? (shade / 10) * 2 - 1 : shade / 10;
   const position = step > 0 ? step - 1 : step;
 
-  return COLOR_MATRIX[group][position].toLowerCase();
+  return groupColors[position].toLowerCase();
 };
 
 export const semanticColors: _EuiThemeSemanticMatrixColors =
