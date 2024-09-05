@@ -47,13 +47,14 @@ export const euiButtonDisplayStyles = (euiThemeContext: UseEuiTheme) => {
   return {
     // Base
     euiButtonDisplay: css`
+      position: relative;
       ${euiButtonBaseCSS()}
       font-weight: ${euiTheme.font.weight.medium};
       ${logicalShorthandCSS('padding', `0 ${euiTheme.size.m}`)}
 
       &:hover:not(:disabled),
       &:focus {
-        text-decoration: underline;
+        // text-decoration: underline;
       }
     `,
     // States

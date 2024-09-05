@@ -20,7 +20,6 @@ import {
   _EuiThemeButtonColors,
 } from '../../../../global_styling/variables/colors';
 import { semanticColors } from '../../../../global_styling/variables/_color_matrix';
-import { hexToRgb, isColorDark } from '../../../../services';
 
 /*
  * LIGHT THEME
@@ -29,9 +28,10 @@ import { hexToRgb, isColorDark } from '../../../../services';
 
 // manual definition to ensure types?
 const semantic_colors: _EuiThemeSemanticColors = {
-  plain: '#fff',
+  ghost: '#fff',
   ink: '#000',
-  developerBlue: '#080F21',
+  mutedBlack: '#0e0f12',
+  developerBlue: '#080f21',
   ...semanticColors,
 };
 
@@ -42,7 +42,7 @@ const background_colors: _EuiThemeBackgroundColors = {
   backgroundWarning: semantic_colors.warning10,
   backgroundDanger: semantic_colors.danger10,
   backgroundSubdued: semantic_colors.shade10,
-  backgroundPlain: semantic_colors.plain,
+  backgroundPlain: semantic_colors.ghost,
   backgroundDisabled: semantic_colors.shade15,
 };
 
@@ -77,7 +77,7 @@ export const brand_colors: _EuiThemeBrandColors = {
 };
 
 export const shade_colors: _EuiThemeShadeColors = {
-  emptyShade: semantic_colors.plain,
+  emptyShade: semantic_colors.ghost,
   lightestShade: semantic_colors.shade10,
   lightShade: semantic_colors.shade30,
   mediumShade: semantic_colors.shade50,
@@ -101,7 +101,7 @@ export const text_colors: _EuiThemeTextColors = {
   textWarning: semantic_colors.warning100,
   textDanger: semantic_colors.danger100,
   textDisabled: semantic_colors.shade80,
-  textInverse: semantic_colors.plain,
+  textInverse: semantic_colors.ghost,
 };
 
 export const brand_text_colors: _EuiThemeBrandTextColors = {
@@ -121,11 +121,11 @@ export const special_colors: _EuiThemeSpecialColors = {
 };
 
 const form_colors: _EuiThemeFormColors = {
-  formBackground: semantic_colors.plain,
+  formBackground: semantic_colors.ghost,
   formBackgroundDisabled: semantic_colors.shade15,
-  formBackgroundFocused: semantic_colors.plain,
+  formBackgroundFocused: semantic_colors.ghost,
   formBorderColor: border_colors.borderPlain,
-  formAppendBackground: semantic_colors.plain,
+  formAppendBackground: semantic_colors.ghost,
   formControlPlaceholderColor: text_colors.textSubdued,
   formControlBorder: border_colors.borderPlain,
   formAutofillBackground: semantic_colors.primary10,
@@ -133,48 +133,38 @@ const form_colors: _EuiThemeFormColors = {
 };
 
 const button_colors: _EuiThemeButtonColors = {
-  buttonBackgroundPrimary: brand_colors.primary,
-  buttonBackgroundAccent: brand_colors.accent,
-  buttonBackgroundSuccess: brand_colors.success,
-  buttonBackgroundWarning: brand_colors.warning,
-  buttonBackgroundDanger: brand_colors.danger,
-  buttonBackgroundText: shade_colors.darkestShade,
+  buttonBackgroundPrimary: semantic_colors.primary90,
+  buttonBackgroundAccent: semantic_colors.accent90,
+  buttonBackgroundSuccess: semantic_colors.success90,
+  buttonBackgroundWarning: semantic_colors.warning90,
+  buttonBackgroundDanger: semantic_colors.danger90,
+  buttonBackgroundText: semantic_colors.shade90,
   buttonBackgroundDisabled: background_colors.backgroundDisabled,
 
-  buttonSecondaryBackgroundPrimary: semantic_colors.primary20,
-  buttonSecondaryBackgroundAccent: semantic_colors.accent20,
-  buttonSecondaryBackgroundSuccess: semantic_colors.success20,
-  buttonSecondaryBackgroundWarning: semantic_colors.warning20,
-  buttonSecondaryBackgroundDanger: semantic_colors.danger20,
-  buttonSecondaryBackgroundText: semantic_colors.shade20,
+  buttonSecondaryBackgroundPrimary: semantic_colors.ghost,
+  buttonSecondaryBackgroundAccent: semantic_colors.ghost,
+  buttonSecondaryBackgroundSuccess: semantic_colors.ghost,
+  buttonSecondaryBackgroundWarning: semantic_colors.ghost,
+  buttonSecondaryBackgroundDanger: semantic_colors.ghost,
+  buttonSecondaryBackgroundText: semantic_colors.ghost,
   buttonSecondaryBackgroundDisabled: background_colors.backgroundDisabled,
+  buttonSecondaryBackgroundHovered: background_colors.backgroundSubdued,
 
-  buttonEmptyBackgroundPrimary: background_colors.backgroundPrimary,
-  buttonEmptyBackgroundAccent: background_colors.backgroundAccent,
-  buttonEmptyBackgroundSuccess: background_colors.backgroundSuccess,
-  buttonEmptyBackgroundWarning: background_colors.backgroundWarning,
-  buttonEmptyBackgroundDanger: background_colors.backgroundDanger,
-  buttonEmptyBackgroundText: background_colors.backgroundSubdued,
+  buttonEmptyBackgroundPrimary: 'transparent',
+  buttonEmptyBackgroundAccent: 'transparent',
+  buttonEmptyBackgroundSuccess: 'transparent',
+  buttonEmptyBackgroundWarning: 'transparent',
+  buttonEmptyBackgroundDanger: 'transparent',
+  buttonEmptyBackgroundText: 'transparent',
   buttonEmptyBackgroundDisabled: 'transparent',
+  buttonEmptyBackgroundHovered: background_colors.backgroundSubdued,
 
-  buttonColorPrimary: isColorDark(...hexToRgb(brand_colors.primary as string))
-    ? semantic_colors.plain
-    : semantic_colors.ink,
-  buttonColorAccent: isColorDark(...hexToRgb(brand_colors.accent as string))
-    ? semantic_colors.plain
-    : semantic_colors.ink,
-  buttonColorSuccess: isColorDark(...hexToRgb(brand_colors.success as string))
-    ? semantic_colors.plain
-    : semantic_colors.ink,
-  buttonColorWarning: isColorDark(...hexToRgb(brand_colors.warning as string))
-    ? semantic_colors.plain
-    : semantic_colors.ink,
-  buttonColorDanger: isColorDark(...hexToRgb(brand_colors.danger as string))
-    ? semantic_colors.plain
-    : semantic_colors.ink,
-  buttonColorText: isColorDark(...hexToRgb(shade_colors.darkShade as string))
-    ? semantic_colors.plain
-    : semantic_colors.ink,
+  buttonColorPrimary: semantic_colors.ghost,
+  buttonColorAccent: semantic_colors.ghost,
+  buttonColorSuccess: semantic_colors.ghost,
+  buttonColorWarning: semantic_colors.ghost,
+  buttonColorDanger: semantic_colors.ghost,
+  buttonColorText: semantic_colors.ghost,
   buttonColorDisabled: text_colors.textDisabled,
 
   buttonSecondaryColorPrimary: text_colors.textPrimary,
@@ -193,7 +183,23 @@ const button_colors: _EuiThemeButtonColors = {
   buttonEmptyColorText: text_colors.textParagraph,
   buttonEmptyColorDisabled: text_colors.textDisabled,
 
-  buttonBorderColorPrimary: 'transparent',
+  buttonBorderColor: border_colors.borderPlain,
+  buttonBorderColorPrimary: border_colors.borderPrimary,
+  buttonBorderColorAccent: border_colors.borderAccent,
+  buttonBorderColorSuccess: border_colors.borderSuccess,
+  buttonBorderColorWarning: border_colors.borderWarning,
+  buttonBorderColorDanger: border_colors.borderDanger,
+  buttonBorderColorText: border_colors.borderPlain,
+  buttonBorderColorDisabled: border_colors.borderDisabled,
+
+  buttonBorderColorBevel: border_colors.borderPlain,
+  buttonBorderColorBevelPrimary: semantic_colors.primary120,
+  buttonBorderColorBevelAccent: semantic_colors.accent120,
+  buttonBorderColorBevelSuccess: semantic_colors.success120,
+  buttonBorderColorBevelWarning: semantic_colors.warning120,
+  buttonBorderColorBevelDanger: semantic_colors.danger120,
+  buttonBorderColorBevelText: semantic_colors.shade120,
+  buttonBorderColorBevelDisabled: semantic_colors.shade60,
 };
 
 export const light_colors: _EuiThemeColorsMode = {

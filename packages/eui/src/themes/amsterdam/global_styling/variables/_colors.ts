@@ -285,6 +285,7 @@ const button_colors: _EuiThemeButtonColors = {
     ([lightShade]) => transparentize(lightShade, 0.15),
     ['colors.lightShade']
   ),
+  buttonSecondaryBackgroundHovered: undefined,
 
   buttonEmptyBackgroundPrimary: computed(
     ([primary]) => tint(primary, 0.9),
@@ -311,24 +312,25 @@ const button_colors: _EuiThemeButtonColors = {
     ['colors.lightShade']
   ),
   buttonEmptyBackgroundDisabled: 'transparent',
+  buttonEmptyBackgroundHovered: 'transparent',
 
   buttonColorPrimary: isColorDark(...hexToRgb(brand_colors.primary as string))
-    ? semantic_colors.plain
+    ? semantic_colors.ghost
     : semantic_colors.ink,
   buttonColorAccent: isColorDark(...hexToRgb(brand_colors.accent as string))
-    ? semantic_colors.plain
+    ? semantic_colors.ghost
     : semantic_colors.ink,
   buttonColorSuccess: isColorDark(...hexToRgb(brand_colors.success as string))
-    ? semantic_colors.plain
+    ? semantic_colors.ghost
     : semantic_colors.ink,
   buttonColorWarning: isColorDark(...hexToRgb(brand_colors.warning as string))
-    ? semantic_colors.plain
+    ? semantic_colors.ghost
     : semantic_colors.ink,
   buttonColorDanger: isColorDark(...hexToRgb(brand_colors.danger as string))
-    ? semantic_colors.plain
+    ? semantic_colors.ghost
     : semantic_colors.ink,
   buttonColorText: isColorDark(...hexToRgb(shade_colors.darkShade as string))
-    ? semantic_colors.plain
+    ? semantic_colors.ghost
     : semantic_colors.ink,
   buttonColorDisabled: computed(
     ([disabledText]) => disabledText,
@@ -387,7 +389,23 @@ const button_colors: _EuiThemeButtonColors = {
     ['colors.disabledText']
   ),
 
-  buttonBorderColorPrimary: 'transparent',
+  buttonBorderColor: undefined,
+  buttonBorderColorPrimary: undefined,
+  buttonBorderColorAccent: undefined,
+  buttonBorderColorSuccess: undefined,
+  buttonBorderColorWarning: undefined,
+  buttonBorderColorDanger: undefined,
+  buttonBorderColorText: undefined,
+  buttonBorderColorDisabled: undefined,
+
+  buttonBorderColorBevel: undefined,
+  buttonBorderColorBevelPrimary: undefined,
+  buttonBorderColorBevelAccent: undefined,
+  buttonBorderColorBevelSuccess: undefined,
+  buttonBorderColorBevelWarning: undefined,
+  buttonBorderColorBevelDanger: undefined,
+  buttonBorderColorBevelText: undefined,
+  buttonBorderColorBevelDisabled: undefined,
 };
 
 export const light_colors: _EuiThemeColorsMode = {
@@ -584,6 +602,7 @@ const dark_button_colors: _EuiThemeButtonColors = {
     ([lightShade]) => transparentize(lightShade, 0.15),
     ['colors.lightShade']
   ),
+  buttonSecondaryBackgroundHovered: undefined,
 
   buttonEmptyBackgroundPrimary: computed(
     ([primary]) => tint(primary, 0.9),
@@ -610,34 +629,35 @@ const dark_button_colors: _EuiThemeButtonColors = {
     ['colors.lightShade']
   ),
   buttonEmptyBackgroundDisabled: 'transparent',
+  buttonEmptyBackgroundHovered: undefined,
 
   buttonColorPrimary: isColorDark(
     ...hexToRgb(dark_brand_colors.primary as string)
   )
-    ? semantic_colors.plain
+    ? semantic_colors.ghost
     : semantic_colors.ink,
   buttonColorAccent: isColorDark(
     ...hexToRgb(tint(dark_brand_colors.accent as string, 0.3))
   )
-    ? semantic_colors.plain
+    ? semantic_colors.ghost
     : semantic_colors.ink,
   buttonColorSuccess: isColorDark(
     ...hexToRgb(tint(dark_brand_colors.success as string, 0.3))
   )
-    ? semantic_colors.plain
+    ? semantic_colors.ghost
     : semantic_colors.ink,
   buttonColorWarning: isColorDark(
     ...hexToRgb(tint(dark_brand_colors.warning as string, 0.3))
   )
-    ? semantic_colors.plain
+    ? semantic_colors.ghost
     : semantic_colors.ink,
   buttonColorDanger: isColorDark(
     ...hexToRgb(tint(dark_brand_colors.danger as string, 0.3))
   )
-    ? semantic_colors.plain
+    ? semantic_colors.ghost
     : semantic_colors.ink,
   buttonColorText: isColorDark(...hexToRgb(dark_text_colors.text as string))
-    ? semantic_colors.plain
+    ? semantic_colors.ghost
     : semantic_colors.ink,
   buttonColorDisabled: computed(
     ([disabledText]) => disabledText,
@@ -696,7 +716,23 @@ const dark_button_colors: _EuiThemeButtonColors = {
     ['colors.disabledText']
   ),
 
-  buttonBorderColorPrimary: 'transparent',
+  buttonBorderColor: undefined,
+  buttonBorderColorPrimary: undefined,
+  buttonBorderColorAccent: undefined,
+  buttonBorderColorSuccess: undefined,
+  buttonBorderColorWarning: undefined,
+  buttonBorderColorDanger: undefined,
+  buttonBorderColorText: undefined,
+  buttonBorderColorDisabled: undefined,
+
+  buttonBorderColorBevel: undefined,
+  buttonBorderColorBevelPrimary: undefined,
+  buttonBorderColorBevelAccent: undefined,
+  buttonBorderColorBevelSuccess: undefined,
+  buttonBorderColorBevelWarning: undefined,
+  buttonBorderColorBevelDanger: undefined,
+  buttonBorderColorBevelText: undefined,
+  buttonBorderColorBevelDisabled: undefined,
 };
 
 export const dark_colors_ams: _EuiThemeColorsMode = {

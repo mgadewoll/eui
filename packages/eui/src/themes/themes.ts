@@ -8,7 +8,7 @@
 
 import { EuiThemeSystem } from '../services';
 import { EuiThemeAmsterdam, AMSTERDAM_NAME_KEY } from './amsterdam/theme';
-import { EuiThemeNew } from './new_theme/theme';
+import { EuiThemeNewButtonOption1 } from './theme_button_option1/theme';
 
 export interface EUI_THEME {
   text: string;
@@ -28,14 +28,14 @@ export const EUI_THEMES: EUI_THEME[] = [
     provider: EuiThemeAmsterdam,
   },
   {
-    text: 'New Theme: Light',
-    value: `new_light`,
-    provider: EuiThemeNew,
+    text: 'New Theme (Btn 1): Light',
+    value: `new_light_btn1`,
+    provider: EuiThemeNewButtonOption1,
   },
   {
-    text: 'New Theme: Dark',
-    value: `new_dark`,
-    provider: EuiThemeNew,
+    text: 'New Theme (Btn 1): Dark',
+    value: `new_dark_btn1`,
+    provider: EuiThemeNewButtonOption1,
   },
 ];
 

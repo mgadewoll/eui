@@ -7,8 +7,17 @@
  */
 
 import { css, keyframes, type SerializedStyles } from '@emotion/react';
-import { _EuiThemeButtonColors, euiCanAnimate } from '../index';
-import { UseEuiTheme, useEuiMemoizedStyles } from '../../services';
+import {
+  _EuiThemeBorderColors,
+  _EuiThemeButtonColors,
+  euiCanAnimate,
+} from '../index';
+import {
+  EuiThemeColorModeStandard,
+  UseEuiTheme,
+  useEuiMemoizedStyles,
+} from '../../services';
+import { CSSProperties } from 'react';
 
 export const BUTTON_COLORS = [
   'text',
@@ -44,10 +53,13 @@ export const euiButtonColor = (
     `buttonSecondaryBackground${colorName}` as keyof _EuiThemeButtonColors;
   const colorToken =
     `buttonSecondaryColor${colorName}` as keyof _EuiThemeButtonColors;
+  const borderColorToken =
+    `buttonSecondaryBorderColor${colorName}` as keyof _EuiThemeButtonColors;
 
   return {
     color: euiTheme.colors[colorToken],
     backgroundColor: euiTheme.colors[backgroundToken],
+    borderColor: euiTheme.colors[borderColorToken],
   };
 };
 
@@ -63,10 +75,14 @@ export const euiButtonFillColor = (
 ) => {
   const { euiTheme } = euiThemeContext;
 
-  const colorName = color.charAt(0).toUpperCase() + color.slice(1);
-  const backgroundToken =
-    `buttonBackground${colorName}` as keyof _EuiThemeButtonColors;
-  const colorToken = `buttonColor${colorName}` as keyof _EuiThemeButtonColors;
+  const backgroundToken = _getTokenName(
+    color,
+    'buttonBackground'
+  ) as keyof _EuiThemeButtonColors;
+  const colorToken = _getTokenName(
+    color,
+    'buttonColor'
+  ) as keyof _EuiThemeButtonColors;
 
   return {
     color: euiTheme.colors[colorToken],
@@ -86,11 +102,15 @@ export const euiButtonEmptyColor = (
 ) => {
   const { euiTheme } = euiThemeContext;
 
-  const colorName = color.charAt(0).toUpperCase() + color.slice(1);
-  const backgroundToken =
-    `buttonEmptyBackground${colorName}` as keyof _EuiThemeButtonColors;
-  const colorToken =
-    `buttonEmptyColor${colorName}` as keyof _EuiThemeButtonColors;
+  const backgroundToken = _getTokenName(
+    color,
+    'buttonEmptyBackground'
+  ) as keyof _EuiThemeButtonColors;
+
+  const colorToken = _getTokenName(
+    color,
+    'buttonEmptyColor'
+  ) as keyof _EuiThemeButtonColors;
 
   return {
     color: euiTheme.colors[colorToken],
@@ -119,28 +139,150 @@ const euiButtonDisplaysColors = (euiThemeContext: UseEuiTheme) => {
     Record<Colors, SerializedStyles>
   >;
 
+  const buttonBorderStyles = ({
+    colorMode,
+    borderWidth,
+    borderColor,
+    bevelColor,
+  }: {
+    colorMode?: EuiThemeColorModeStandard;
+    borderWidth: CSSProperties['borderWidth'];
+    borderColor?: CSSProperties['borderColor'];
+    bevelColor?: CSSProperties['borderColor'];
+  }) => {
+    const _borderColor = borderColor ?? 'transparent';
+    const direction = colorMode === 'DARK' ? 1 : -1;
+
+    return css`
+      // adding the faked border style as ::after to prevent hover gradient from overlapping
+      &:not(:focus-visible) {
+        &::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border-radius: inherit;
+          pointer-events: none;
+          box-shadow: inset 0 calc(${borderWidth} * ${direction}) 0 0
+              ${bevelColor},
+            inset 0 0 0 ${borderWidth} ${_borderColor};
+        }
+      }
+    `;
+  };
+
+  const buttonGradientStyle = css`
+    &:hover,
+    &:focus,
+    &:focus-visible,
+    &:active {
+      &::before {
+        content: '';
+        position: absolute;
+        z-index: 0;
+        inset: 0;
+        border-radius: inherit;
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.05),
+          rgba(255, 255, 255, 0.05)
+        );
+      }
+    }
+  `;
+
   BUTTON_DISPLAYS.forEach((display) => {
     displaysColorsMap[display] = {} as Record<Colors, SerializedStyles>;
 
     COLORS.forEach((color) => {
       switch (display) {
-        case 'base':
+        case 'base': {
+          const buttonStyles = euiButtonColor(euiThemeContext, color);
+          const { euiTheme, colorMode } = euiThemeContext;
+          // new theme specific style flag
+          const hasBorderStyles = euiTheme.colors.buttonBorderColor != null;
+
+          const newStyles =
+            hasBorderStyles &&
+            css`
+              ${buttonBorderStyles({
+                colorMode,
+                borderWidth: euiTheme.border.width.thin,
+                bevelColor: euiTheme.colors.buttonBorderColorBevel,
+              })}
+
+              ${
+                color !== 'disabled' &&
+                `
+                  &:hover,
+                  &:focus,
+                  &:active {
+                    background-color: ${euiTheme.colors.buttonSecondaryBackgroundHovered};
+                `
+              }}
+            `;
+
           displaysColorsMap[display][color] = css`
-            ${euiButtonColor(euiThemeContext, color)}
+            position: relative;
+            overflow: hidden;
+            background-color: ${buttonStyles.backgroundColor};
+            color: ${buttonStyles.color};
+
+            ${newStyles}
           `;
           break;
-        case 'fill':
+        }
+
+        case 'fill': {
+          const { euiTheme, colorMode } = euiThemeContext;
+          // new theme specific style flag
+          const hasBorderStyles = euiTheme.colors.buttonBorderColor != null;
+          const borderBevelToken = _getTokenName(
+            color,
+            'buttonBorderColorBevel'
+          ) as keyof _EuiThemeBorderColors;
+
+          const newStyles =
+            hasBorderStyles &&
+            css`
+              ${buttonBorderStyles({
+                colorMode,
+                borderWidth: euiTheme.border.width.thin,
+                bevelColor: euiTheme.colors[borderBevelToken],
+              })}
+
+              ${color !== 'disabled' && buttonGradientStyle}
+            `;
+
           displaysColorsMap[display][color] = css`
             ${euiButtonFillColor(euiThemeContext, color)}
 
+            ${newStyles}
+            
+
             /* Use full shade for outline-color except for dark mode text buttons which need to stay currentColor */
-            outline-color: ${euiThemeContext.colorMode === 'DARK' &&
-            color === 'text'
+            outline-color: ${colorMode === 'DARK' && color === 'text'
               ? 'currentColor'
-              : euiThemeContext.euiTheme.colors.fullShade};
+              : euiTheme.colors.fullShade};
           `;
           break;
-        case 'empty':
+        }
+
+        case 'empty': {
+          const { euiTheme } = euiThemeContext;
+          // new theme specific style flag
+          const hasBorderStyles = euiTheme.colors.buttonBorderColor != null;
+
+          const newStyles =
+            hasBorderStyles &&
+            css`
+              &:hover,
+              &:focus,
+              &:active {
+                background-color: ${euiTheme.colors
+                  .buttonEmptyBackgroundHovered};
+              }
+            `;
+
           displaysColorsMap[display][color] = css`
             color: ${euiButtonEmptyColor(euiThemeContext, color).color};
 
@@ -149,8 +291,11 @@ const euiButtonDisplaysColors = (euiThemeContext: UseEuiTheme) => {
               background-color: ${euiButtonEmptyColor(euiThemeContext, color)
                 .backgroundColor};
             }
+
+            ${newStyles}
           `;
           break;
+        }
       }
 
       // Tweak auto-generated Emotion label/className output
@@ -225,3 +370,9 @@ export const euiButtonSizeMap = ({ euiTheme }: UseEuiTheme) => ({
     fontScale: 's' as const,
   },
 });
+
+const _getTokenName = (variant: string, prefix: string) => {
+  const colorName = variant.charAt(0).toUpperCase() + variant.slice(1);
+
+  return `${prefix}${colorName}`;
+};

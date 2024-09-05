@@ -18,9 +18,9 @@ import { levels } from './global_styling/variables/_levels';
 import { font } from './global_styling/variables/_typography';
 import { focus } from './global_styling/variables/_states';
 
-export const NEW_THEME_KEY = 'EUI_THEME_NEW';
+export const NEW_THEME_BUTTON_OPTION_1_KEY = 'EUI_THEME_NEW_BUTTON_OPTION_1';
 
-export const euiThemeNew: EuiThemeShape = {
+export const euiThemeNewButtonOption1: EuiThemeShape = {
   colors,
   base,
   size,
@@ -32,4 +32,7 @@ export const euiThemeNew: EuiThemeShape = {
   focus,
 };
 
-export const EuiThemeNew = buildTheme(euiThemeNew, NEW_THEME_KEY);
+export const EuiThemeNewButtonOption1 = buildTheme(
+  euiThemeNewButtonOption1,
+  NEW_THEME_BUTTON_OPTION_1_KEY
+);
