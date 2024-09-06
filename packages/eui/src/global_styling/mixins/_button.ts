@@ -286,6 +286,7 @@ const euiButtonDisplaysColors = (euiThemeContext: UseEuiTheme) => {
 
           const newStyles =
             hasBorderStyles &&
+            color !== 'disabled' &&
             css`
               &:hover,
               &:focus,

@@ -26,8 +26,8 @@ import { semanticColors } from '../../../../global_styling/variables/_color_matr
  */
 
 const semantic_colors = {
-  ghost: '#fff',
-  ink: '#000',
+  white: '#fff',
+  black: '#000',
   mutedBlack: '#0e0f12',
   developerBlue: '#080f21',
   ...semanticColors,
@@ -40,7 +40,7 @@ const background_colors: _EuiThemeBackgroundColors = {
   backgroundWarning: semantic_colors.warning130,
   backgroundDanger: semantic_colors.danger130,
   backgroundSubdued: semantic_colors.shade140,
-  backgroundPlain: semantic_colors.ghost,
+  backgroundPlain: semantic_colors.white,
   backgroundDisabled: semantic_colors.shade135,
 };
 
@@ -81,7 +81,7 @@ export const shade_colors: _EuiThemeShadeColors = {
   mediumShade: semantic_colors.shade100,
   darkShade: semantic_colors.shade60,
   darkestShade: semantic_colors.shade30,
-  fullShade: semantic_colors.ghost,
+  fullShade: semantic_colors.white,
 };
 
 export const text_colors: _EuiThemeTextColors = {
@@ -99,7 +99,7 @@ export const text_colors: _EuiThemeTextColors = {
   textWarning: semantic_colors.warning40,
   textDanger: semantic_colors.danger60,
   textDisabled: semantic_colors.shade70,
-  textInverse: semantic_colors.ghost,
+  textInverse: semantic_colors.white,
 };
 
 export const brand_text_colors: _EuiThemeBrandTextColors = {
@@ -115,7 +115,7 @@ export const special_colors: _EuiThemeSpecialColors = {
   highlight: background_colors.backgroundWarning,
   disabled: background_colors.backgroundDisabled,
   disabledText: text_colors.textDisabled,
-  shadow: semantic_colors.ink,
+  shadow: semantic_colors.black,
 };
 
 const form_colors = {
@@ -133,35 +133,35 @@ const form_colors = {
 const button_colors: _EuiThemeButtonColors = {
   // primary = filled
   buttonBackgroundPrimary: semantic_colors.primary70,
-  buttonBackgroundAccent: semantic_colors.accent70,
+  buttonBackgroundAccent: semantic_colors.highlight70,
   buttonBackgroundSuccess: semantic_colors.success70,
-  buttonBackgroundWarning: semantic_colors.warning70,
+  buttonBackgroundWarning: semantic_colors.warning40,
   buttonBackgroundDanger: semantic_colors.danger70,
   buttonBackgroundText: semantic_colors.shade70,
   buttonBackgroundDisabled: background_colors.backgroundDisabled,
 
-  buttonColorPrimary: semantic_colors.ink,
-  buttonColorAccent: semantic_colors.ink,
-  buttonColorSuccess: semantic_colors.ink,
-  buttonColorWarning: semantic_colors.ink,
-  buttonColorDanger: semantic_colors.ink,
-  buttonColorText: semantic_colors.ink,
+  buttonColorPrimary: semantic_colors.black,
+  buttonColorAccent: semantic_colors.black,
+  buttonColorSuccess: semantic_colors.black,
+  buttonColorWarning: semantic_colors.warning130,
+  buttonColorDanger: semantic_colors.black,
+  buttonColorText: semantic_colors.black,
   buttonColorDisabled: text_colors.textDisabled,
 
   buttonBorderColor: border_colors.borderPlain, // style flag
 
-  buttonBorderColorPrimary: border_colors.borderPrimary,
-  buttonBorderColorAccent: border_colors.borderAccent,
-  buttonBorderColorSuccess: border_colors.borderSuccess,
-  buttonBorderColorWarning: border_colors.borderWarning,
-  buttonBorderColorDanger: border_colors.borderDanger,
-  buttonBorderColorText: border_colors.borderPlain,
-  buttonBorderColorDisabled: border_colors.borderDisabled,
+  buttonBorderColorPrimary: undefined,
+  buttonBorderColorAccent: undefined,
+  buttonBorderColorSuccess: undefined,
+  buttonBorderColorWarning: undefined,
+  buttonBorderColorDanger: undefined,
+  buttonBorderColorText: undefined,
+  buttonBorderColorDisabled: undefined,
 
   buttonBorderColorBevelPrimary: semantic_colors.primary40,
-  buttonBorderColorBevelAccent: semantic_colors.accent40,
+  buttonBorderColorBevelAccent: semantic_colors.highlight40,
   buttonBorderColorBevelSuccess: semantic_colors.success40,
-  buttonBorderColorBevelWarning: semantic_colors.warning40,
+  buttonBorderColorBevelWarning: semantic_colors.warning20,
   buttonBorderColorBevelDanger: semantic_colors.danger40,
   buttonBorderColorBevelText: semantic_colors.shade40,
   buttonBorderColorBevelDisabled: border_colors.borderPlain,
@@ -176,12 +176,12 @@ const button_colors: _EuiThemeButtonColors = {
   buttonSecondaryBackgroundDisabled: background_colors.backgroundDisabled,
   buttonSecondaryBackgroundHovered: semantic_colors.shade130, // style flag
 
-  buttonSecondaryColorPrimary: text_colors.textPrimary,
-  buttonSecondaryColorAccent: text_colors.textAccent,
-  buttonSecondaryColorSuccess: text_colors.textSuccess,
-  buttonSecondaryColorWarning: text_colors.textWarning,
-  buttonSecondaryColorDanger: text_colors.textDanger,
-  buttonSecondaryColorText: text_colors.textParagraph,
+  buttonSecondaryColorPrimary: semantic_colors.primary60,
+  buttonSecondaryColorAccent: semantic_colors.highlight60,
+  buttonSecondaryColorSuccess: semantic_colors.success60,
+  buttonSecondaryColorWarning: semantic_colors.warning60,
+  buttonSecondaryColorDanger: semantic_colors.danger60,
+  buttonSecondaryColorText: semantic_colors.white,
   buttonSecondaryColorDisabled: text_colors.textDisabled,
 
   buttonSecondaryBorderColorPrimary: semantic_colors.primary60,
@@ -208,14 +208,14 @@ const button_colors: _EuiThemeButtonColors = {
   buttonEmptyBackgroundDanger: 'transparent',
   buttonEmptyBackgroundText: 'transparent',
   buttonEmptyBackgroundDisabled: 'transparent',
-  buttonEmptyBackgroundHovered: background_colors.backgroundSubdued,
+  buttonEmptyBackgroundHovered: semantic_colors.shade130,
 
-  buttonEmptyColorPrimary: text_colors.textPrimary,
-  buttonEmptyColorAccent: text_colors.textAccent,
-  buttonEmptyColorSuccess: text_colors.textSuccess,
-  buttonEmptyColorWarning: text_colors.textWarning,
-  buttonEmptyColorDanger: text_colors.textDanger,
-  buttonEmptyColorText: text_colors.textParagraph,
+  buttonEmptyColorPrimary: semantic_colors.primary60,
+  buttonEmptyColorAccent: semantic_colors.highlight60,
+  buttonEmptyColorSuccess: semantic_colors.success60,
+  buttonEmptyColorWarning: semantic_colors.warning60,
+  buttonEmptyColorDanger: semantic_colors.danger60,
+  buttonEmptyColorText: semantic_colors.white,
   buttonEmptyColorDisabled: text_colors.textDisabled,
 };
 

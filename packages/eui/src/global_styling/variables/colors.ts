@@ -282,8 +282,8 @@ export type _EuiThemeSemanticMatrixColors = {
 };
 
 export type _EuiThemeSemanticColors = _EuiThemeSemanticMatrixColors & {
-  ghost: string;
-  ink: string;
+  white: string;
+  black: string;
   mutedBlack: string | undefined;
   developerBlue: string | undefined;
 };

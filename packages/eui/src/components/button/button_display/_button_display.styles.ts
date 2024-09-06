@@ -20,6 +20,7 @@ import { EuiButtonDisplaySizes } from './_button_display';
 // Does not include any visual styles
 export const euiButtonBaseCSS = () => {
   return `
+    position: relative;
     display: inline-block;
     appearance: none;
     cursor: pointer;
@@ -47,7 +48,6 @@ export const euiButtonDisplayStyles = (euiThemeContext: UseEuiTheme) => {
   return {
     // Base
     euiButtonDisplay: css`
-      position: relative;
       ${euiButtonBaseCSS()}
       font-weight: ${euiTheme.font.weight.medium};
       ${logicalShorthandCSS('padding', `0 ${euiTheme.size.m}`)}
