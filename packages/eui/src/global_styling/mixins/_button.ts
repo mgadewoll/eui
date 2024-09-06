@@ -151,6 +151,7 @@ const euiButtonDisplaysColors = (euiThemeContext: UseEuiTheme) => {
     bevelColor?: CSSProperties['borderColor'];
   }) => {
     const _borderColor = borderColor ?? 'transparent';
+    const _bevelColor = bevelColor ?? 'transparent';
     const direction = colorMode === 'DARK' ? 1 : -1;
 
     return css`
@@ -163,14 +164,14 @@ const euiButtonDisplaysColors = (euiThemeContext: UseEuiTheme) => {
           border-radius: inherit;
           pointer-events: none;
           box-shadow: inset 0 calc(${borderWidth} * ${direction}) 0 0
-              ${bevelColor},
+              ${_bevelColor},
             inset 0 0 0 ${borderWidth} ${_borderColor};
         }
       }
     `;
   };
 
-  const buttonGradientStyle = css`
+  const buttonGradientStyle = (ratio: number = 0.1) => css`
     &:hover,
     &:focus,
     &:focus-visible,
@@ -183,8 +184,8 @@ const euiButtonDisplaysColors = (euiThemeContext: UseEuiTheme) => {
         border-radius: inherit;
         background: linear-gradient(
           to top,
-          rgba(0, 0, 0, 0.05),
-          rgba(255, 255, 255, 0.05)
+          rgba(0, 0, 0, ${ratio}),
+          rgba(255, 255, 255, ${ratio})
         );
       }
     }
@@ -200,6 +201,16 @@ const euiButtonDisplaysColors = (euiThemeContext: UseEuiTheme) => {
           const { euiTheme, colorMode } = euiThemeContext;
           // new theme specific style flag
           const hasBorderStyles = euiTheme.colors.buttonBorderColor != null;
+          const hasHoverBackground =
+            euiTheme.colors.buttonSecondaryBackgroundHovered != null;
+          const borderToken = _getTokenName(
+            color,
+            'buttonSecondaryBorderColor'
+          ) as keyof _EuiThemeBorderColors;
+          const borderBevelToken = _getTokenName(
+            color,
+            'buttonSecondaryBorderColorBevel'
+          ) as keyof _EuiThemeBorderColors;
 
           const newStyles =
             hasBorderStyles &&
@@ -207,18 +218,19 @@ const euiButtonDisplaysColors = (euiThemeContext: UseEuiTheme) => {
               ${buttonBorderStyles({
                 colorMode,
                 borderWidth: euiTheme.border.width.thin,
-                bevelColor: euiTheme.colors.buttonBorderColorBevel,
+                bevelColor: euiTheme.colors[borderBevelToken],
+                borderColor: euiTheme.colors[borderToken],
               })}
 
-              ${
-                color !== 'disabled' &&
-                `
+              ${color !== 'disabled' &&
+              (hasHoverBackground
+                ? `
                   &:hover,
                   &:focus,
                   &:active {
                     background-color: ${euiTheme.colors.buttonSecondaryBackgroundHovered};
                 `
-              }}
+                : buttonGradientStyle(0.05))}
             `;
 
           displaysColorsMap[display][color] = css`
@@ -250,7 +262,7 @@ const euiButtonDisplaysColors = (euiThemeContext: UseEuiTheme) => {
                 bevelColor: euiTheme.colors[borderBevelToken],
               })}
 
-              ${color !== 'disabled' && buttonGradientStyle}
+              ${color !== 'disabled' && buttonGradientStyle()}
             `;
 
           displaysColorsMap[display][color] = css`

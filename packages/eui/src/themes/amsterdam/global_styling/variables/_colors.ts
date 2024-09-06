@@ -390,6 +390,7 @@ const button_colors: _EuiThemeButtonColors = {
   ),
 
   buttonBorderColor: undefined,
+
   buttonBorderColorPrimary: undefined,
   buttonBorderColorAccent: undefined,
   buttonBorderColorSuccess: undefined,
@@ -398,7 +399,6 @@ const button_colors: _EuiThemeButtonColors = {
   buttonBorderColorText: undefined,
   buttonBorderColorDisabled: undefined,
 
-  buttonBorderColorBevel: undefined,
   buttonBorderColorBevelPrimary: undefined,
   buttonBorderColorBevelAccent: undefined,
   buttonBorderColorBevelSuccess: undefined,
@@ -717,6 +717,7 @@ const dark_button_colors: _EuiThemeButtonColors = {
   ),
 
   buttonBorderColor: undefined,
+
   buttonBorderColorPrimary: undefined,
   buttonBorderColorAccent: undefined,
   buttonBorderColorSuccess: undefined,
@@ -725,7 +726,6 @@ const dark_button_colors: _EuiThemeButtonColors = {
   buttonBorderColorText: undefined,
   buttonBorderColorDisabled: undefined,
 
-  buttonBorderColorBevel: undefined,
   buttonBorderColorBevelPrimary: undefined,
   buttonBorderColorBevelAccent: undefined,
   buttonBorderColorBevelSuccess: undefined,

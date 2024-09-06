@@ -10,6 +10,9 @@ export type { EUI_THEME } from './themes';
 export { EUI_THEMES } from './themes';
 
 export { EuiThemeAmsterdam } from './amsterdam/theme';
-export { EuiThemeNewButtonOption1 } from './theme_button_option1/theme';
+export { EuiThemeNewButtonOption1 } from './theme_button_option_1/theme';
+export { EuiThemeNewButtonOption2_1 } from './theme_button_option_2_1/theme';
+export { EuiThemeNewButtonOption2_2 } from './theme_button_option_2_2/theme';
+export { EuiThemeNewButtonOption3 } from './theme_button_option_3/theme';
 
 export * from './amsterdam';

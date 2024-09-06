@@ -15,12 +15,21 @@ import { registerTheme, ExampleContext } from './services';
 import Routes from './routes';
 import themeLight from './theme_light.scss';
 import themeDark from './theme_dark.scss';
+import themeLightBtn from './theme_light_button.scss';
+import themeDarkBtn from './theme_dark_button.scss';
 import { ThemeProvider } from './components/with_theme/theme_context';
 
 registerTheme('light', [themeLight]);
+registerTheme('new_light_btn_1', [themeLightBtn]);
+registerTheme('new_light_btn_2_1', [themeLightBtn]);
+registerTheme('new_light_btn_2_2', [themeLightBtn]);
+registerTheme('new_light_btn_3', [themeLightBtn]);
+
 registerTheme('dark', [themeDark]);
-registerTheme('new_light', [themeLight]);
-registerTheme('new_dark', [themeDark]);
+registerTheme('new_dark_btn_1', [themeDarkBtn]);
+registerTheme('new_dark_btn_2_1', [themeDarkBtn]);
+registerTheme('new_dark_btn_2_2', [themeDarkBtn]);
+registerTheme('new_dark_btn_3', [themeDarkBtn]);
 
 // Set up app
 

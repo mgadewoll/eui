@@ -8,7 +8,10 @@
 
 import { EuiThemeSystem } from '../services';
 import { EuiThemeAmsterdam, AMSTERDAM_NAME_KEY } from './amsterdam/theme';
-import { EuiThemeNewButtonOption1 } from './theme_button_option1/theme';
+import { EuiThemeNewButtonOption1 } from './theme_button_option_1/theme';
+import { EuiThemeNewButtonOption2_1 } from './theme_button_option_2_1/theme';
+import { EuiThemeNewButtonOption2_2 } from './theme_button_option_2_2/theme';
+import { EuiThemeNewButtonOption3 } from './theme_button_option_3/theme';
 
 export interface EUI_THEME {
   text: string;
@@ -29,13 +32,43 @@ export const EUI_THEMES: EUI_THEME[] = [
   },
   {
     text: 'New Theme (Btn 1): Light',
-    value: `new_light_btn1`,
+    value: `new_light_btn_1`,
     provider: EuiThemeNewButtonOption1,
   },
   {
     text: 'New Theme (Btn 1): Dark',
-    value: `new_dark_btn1`,
+    value: `new_dark_btn_1`,
     provider: EuiThemeNewButtonOption1,
+  },
+  {
+    text: 'New Theme (Btn 2.1): Light',
+    value: `new_light_btn_2_1`,
+    provider: EuiThemeNewButtonOption2_1,
+  },
+  {
+    text: 'New Theme (Btn 2.1): Dark',
+    value: `new_dark_btn_2_1`,
+    provider: EuiThemeNewButtonOption2_1,
+  },
+  {
+    text: 'New Theme (Btn 2.2): Light',
+    value: `new_light_btn_2_2`,
+    provider: EuiThemeNewButtonOption2_2,
+  },
+  {
+    text: 'New Theme (Btn 2.2): Dark',
+    value: `new_dark_btn_2_2`,
+    provider: EuiThemeNewButtonOption2_2,
+  },
+  {
+    text: 'New Theme (Btn 3): Light',
+    value: `new_light_btn_3`,
+    provider: EuiThemeNewButtonOption3,
+  },
+  {
+    text: 'New Theme (Btn 3): Dark',
+    value: `new_dark_btn_3`,
+    provider: EuiThemeNewButtonOption3,
   },
 ];
 
