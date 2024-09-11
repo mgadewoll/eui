@@ -26,19 +26,29 @@ import {
   euiButtonFillColor,
   _EuiButtonColor,
   BUTTON_COLORS,
-} from '../../../themes/amsterdam/global_styling/mixins/button';
+} from '../../../global_styling/mixins/_button';
 import { euiScreenReaderOnly } from '../../accessibility';
 import { euiFormVariables } from '../../form/form.styles';
 
 export const euiButtonGroupButtonStyles = (euiThemeContext: UseEuiTheme) => {
   const { euiTheme } = euiThemeContext;
 
+  // new theme specific style flag
+  const hasNewThemeStyles = euiTheme.colors.buttonBorderColor != null;
+
   const { controlCompressedHeight, controlCompressedBorderRadius } =
     euiFormVariables(euiThemeContext);
+  const buttonSizeOffset = hasNewThemeStyles
+    ? euiTheme.border.width.thick
+    : euiTheme.border.width.thin;
   const compressedButtonHeight = mathWithUnits(
-    [controlCompressedHeight, euiTheme.border.width.thin],
+    [controlCompressedHeight, buttonSizeOffset],
     (x, y) => x - y * 2
   );
+
+  const baseSelector = '.euiButtonGroupButton';
+  const selectedSelectors =
+    '.euiButtonGroupButton-isSelected, .euiButtonGroup__tooltipWrapper-isSelected';
 
   const uncompressedBorderRadii = (
     radiusSize: CSSProperties['borderRadius']
@@ -53,6 +63,25 @@ export const euiButtonGroupButtonStyles = (euiThemeContext: UseEuiTheme) => {
       ${logicalShorthandCSS('border-radius', `0 ${radiusSize} ${radiusSize} 0`)}
     }
   `;
+
+  const newThemeStyles = hasNewThemeStyles && {
+    borders: css`
+      &:is(${baseSelector}) + *:is(${baseSelector}):not(${selectedSelectors}) {
+        border-inline-start: none;
+      }
+
+      &:is(${baseSelector}):has(+ *:is(${selectedSelectors})) {
+        border-inline-end: none;
+      }
+    `,
+    compressed: css`
+      background-clip: unset;
+      border-radius: inherit;
+    `,
+    selected: css`
+      z-index: 1;
+    `,
+  };
 
   return {
     // Base
@@ -75,6 +104,8 @@ export const euiButtonGroupButtonStyles = (euiThemeContext: UseEuiTheme) => {
       uncompressed: css`
         &:is(.euiButtonGroupButton-isSelected) {
           font-weight: ${euiTheme.font.weight.bold};
+
+          ${newThemeStyles && newThemeStyles.selected}
         }
 
         &:focus-visible {
@@ -82,19 +113,21 @@ export const euiButtonGroupButtonStyles = (euiThemeContext: UseEuiTheme) => {
         }
       `,
       get borders() {
-        const selectors =
-          '.euiButtonGroupButton-isSelected, .euiButtonGroup__tooltipWrapper-isSelected';
         const selectedColor = transparentize(euiTheme.colors.emptyShade, 0.2);
         const unselectedColor = transparentize(euiTheme.colors.fullShade, 0.1);
         const borderWidth = euiTheme.border.width.thin;
 
+        if (newThemeStyles) {
+          return newThemeStyles.borders;
+        }
+
         // "Borders" between buttons should be present between two of the same colored buttons,
         // and absent between selected vs non-selected buttons (different colors)
         return `
-          &:not(${selectors}) + *:not(${selectors}) {
+          &:not(${selectedSelectors}) + *:not(${selectedSelectors}) {
             box-shadow: -${borderWidth} 0 0 0 ${unselectedColor};
           }
-          &:is(${selectors}) + *:is(${selectors}) {
+          &:is(${selectedSelectors}) + *:is(${selectedSelectors}) {
             box-shadow: -${borderWidth} 0 0 0 ${selectedColor};
           }
         `;
@@ -131,8 +164,12 @@ export const euiButtonGroupButtonStyles = (euiThemeContext: UseEuiTheme) => {
 
       font-weight: ${euiTheme.font.weight.regular};
 
+      ${newThemeStyles && newThemeStyles.compressed}
+
       &:is(.euiButtonGroupButton-isSelected) {
         font-weight: ${euiTheme.font.weight.semiBold};
+
+        ${newThemeStyles && newThemeStyles.selected}
       }
     `,
     // States

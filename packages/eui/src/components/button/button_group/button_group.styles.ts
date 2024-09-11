@@ -25,6 +25,16 @@ export const euiButtonGroupStyles = {
 export const euiButtonGroupButtonsStyles = (euiThemeContext: UseEuiTheme) => {
   const { euiTheme } = euiThemeContext;
 
+  // new theme specific style flag
+  const hasNewThemeStyles = euiTheme.colors.buttonBorderColor != null;
+
+  const newThemeStyles = hasNewThemeStyles && {
+    compressed: css`
+      align-items: center;
+      padding: ${euiTheme.border.width.thin};
+    `,
+  };
+
   const {
     controlCompressedHeight,
     controlCompressedBorderRadius,
@@ -59,6 +69,8 @@ export const euiButtonGroupButtonsStyles = (euiThemeContext: UseEuiTheme) => {
       background-color: ${backgroundColor};
       border: ${euiTheme.border.width.thin} solid ${borderColor};
       border-radius: ${controlCompressedBorderRadius};
+
+      ${newThemeStyles && newThemeStyles.compressed}
     `,
   };
 };

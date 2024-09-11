@@ -35,6 +35,9 @@ export const euiButtonDisplayStyles = (euiThemeContext: UseEuiTheme) => {
   const { euiTheme } = euiThemeContext;
   const sizes = euiButtonSizeMap(euiThemeContext);
 
+  // new theme specific style flag
+  const hasNewThemeStyles = euiTheme.colors.buttonBorderColor != null;
+
   const _buttonSize = (sizeKey: EuiButtonDisplaySizes) => {
     const size = sizes[sizeKey];
     return css`
@@ -52,10 +55,13 @@ export const euiButtonDisplayStyles = (euiThemeContext: UseEuiTheme) => {
       font-weight: ${euiTheme.font.weight.medium};
       ${logicalShorthandCSS('padding', `0 ${euiTheme.size.m}`)}
 
-      &:hover:not(:disabled),
-      &:focus {
-        // text-decoration: underline;
-      }
+      ${!hasNewThemeStyles &&
+      `
+        &:hover:not(:disabled),
+        &:focus {
+          text-decoration: underline;
+        }
+      `}
     `,
     // States
     isDisabled: css`
