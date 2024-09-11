@@ -342,24 +342,6 @@ export type _EuiThemeButtonColors = {
   buttonBackgroundText: ColorModeSwitch;
   buttonBackgroundDisabled: ColorModeSwitch;
 
-  buttonSecondaryBackgroundPrimary: ColorModeSwitch;
-  buttonSecondaryBackgroundAccent: ColorModeSwitch;
-  buttonSecondaryBackgroundSuccess: ColorModeSwitch;
-  buttonSecondaryBackgroundWarning: ColorModeSwitch;
-  buttonSecondaryBackgroundDanger: ColorModeSwitch;
-  buttonSecondaryBackgroundText: ColorModeSwitch;
-  buttonSecondaryBackgroundDisabled: ColorModeSwitch;
-  buttonSecondaryBackgroundHovered: ColorModeSwitch | undefined; // style flag
-
-  buttonEmptyBackgroundPrimary: ColorModeSwitch;
-  buttonEmptyBackgroundAccent: ColorModeSwitch;
-  buttonEmptyBackgroundSuccess: ColorModeSwitch;
-  buttonEmptyBackgroundWarning: ColorModeSwitch;
-  buttonEmptyBackgroundDanger: ColorModeSwitch;
-  buttonEmptyBackgroundText: ColorModeSwitch;
-  buttonEmptyBackgroundDisabled: ColorModeSwitch;
-  buttonEmptyBackgroundHovered: ColorModeSwitch | undefined; // style flag
-
   buttonColorPrimary: ColorModeSwitch;
   buttonColorAccent: ColorModeSwitch;
   buttonColorSuccess: ColorModeSwitch;
@@ -367,22 +349,6 @@ export type _EuiThemeButtonColors = {
   buttonColorDanger: ColorModeSwitch;
   buttonColorText: ColorModeSwitch;
   buttonColorDisabled: ColorModeSwitch;
-
-  buttonSecondaryColorPrimary: ColorModeSwitch;
-  buttonSecondaryColorAccent: ColorModeSwitch;
-  buttonSecondaryColorSuccess: ColorModeSwitch;
-  buttonSecondaryColorWarning: ColorModeSwitch;
-  buttonSecondaryColorDanger: ColorModeSwitch;
-  buttonSecondaryColorText: ColorModeSwitch;
-  buttonSecondaryColorDisabled: ColorModeSwitch;
-
-  buttonEmptyColorPrimary: ColorModeSwitch;
-  buttonEmptyColorAccent: ColorModeSwitch;
-  buttonEmptyColorSuccess: ColorModeSwitch;
-  buttonEmptyColorWarning: ColorModeSwitch;
-  buttonEmptyColorDanger: ColorModeSwitch;
-  buttonEmptyColorText: ColorModeSwitch;
-  buttonEmptyColorDisabled: ColorModeSwitch;
 
   buttonBorderColor: ColorModeSwitch | undefined; // style flag
 
@@ -394,6 +360,31 @@ export type _EuiThemeButtonColors = {
   buttonBorderColorText: ColorModeSwitch | undefined;
   buttonBorderColorDisabled: ColorModeSwitch | undefined;
 
+  buttonBevelColorPrimary: ColorModeSwitch | undefined;
+  buttonBevelColorAccent: ColorModeSwitch | undefined;
+  buttonBevelColorSuccess: ColorModeSwitch | undefined;
+  buttonBevelColorWarning: ColorModeSwitch | undefined;
+  buttonBevelColorDanger: ColorModeSwitch | undefined;
+  buttonBevelColorText: ColorModeSwitch | undefined;
+  buttonBevelColorDisabled: ColorModeSwitch | undefined;
+
+  buttonSecondaryBackgroundPrimary: ColorModeSwitch;
+  buttonSecondaryBackgroundAccent: ColorModeSwitch;
+  buttonSecondaryBackgroundSuccess: ColorModeSwitch;
+  buttonSecondaryBackgroundWarning: ColorModeSwitch;
+  buttonSecondaryBackgroundDanger: ColorModeSwitch;
+  buttonSecondaryBackgroundText: ColorModeSwitch;
+  buttonSecondaryBackgroundDisabled: ColorModeSwitch;
+  buttonSecondaryBackgroundHovered: ColorModeSwitch | undefined; // style flag
+
+  buttonSecondaryColorPrimary: ColorModeSwitch;
+  buttonSecondaryColorAccent: ColorModeSwitch;
+  buttonSecondaryColorSuccess: ColorModeSwitch;
+  buttonSecondaryColorWarning: ColorModeSwitch;
+  buttonSecondaryColorDanger: ColorModeSwitch;
+  buttonSecondaryColorText: ColorModeSwitch;
+  buttonSecondaryColorDisabled: ColorModeSwitch;
+
   buttonSecondaryBorderColorPrimary: ColorModeSwitch | undefined;
   buttonSecondaryBorderColorAccent: ColorModeSwitch | undefined;
   buttonSecondaryBorderColorSuccess: ColorModeSwitch | undefined;
@@ -402,21 +393,30 @@ export type _EuiThemeButtonColors = {
   buttonSecondaryBorderColorText: ColorModeSwitch | undefined;
   buttonSecondaryBorderColorDisabled: ColorModeSwitch | undefined;
 
-  buttonBorderColorBevelPrimary: ColorModeSwitch | undefined;
-  buttonBorderColorBevelAccent: ColorModeSwitch | undefined;
-  buttonBorderColorBevelSuccess: ColorModeSwitch | undefined;
-  buttonBorderColorBevelWarning: ColorModeSwitch | undefined;
-  buttonBorderColorBevelDanger: ColorModeSwitch | undefined;
-  buttonBorderColorBevelText: ColorModeSwitch | undefined;
-  buttonBorderColorBevelDisabled: ColorModeSwitch | undefined;
+  buttonSecondaryBevelColorPrimary: ColorModeSwitch | undefined;
+  buttonSecondaryBevelColorAccent: ColorModeSwitch | undefined;
+  buttonSecondaryBevelColorSuccess: ColorModeSwitch | undefined;
+  buttonSecondaryBevelColorWarning: ColorModeSwitch | undefined;
+  buttonSecondaryBevelColorDanger: ColorModeSwitch | undefined;
+  buttonSecondaryBevelColorText: ColorModeSwitch | undefined;
+  buttonSecondaryBevelColorDisabled: ColorModeSwitch | undefined;
 
-  buttonSecondaryBorderColorBevelPrimary: ColorModeSwitch | undefined;
-  buttonSecondaryBorderColorBevelAccent: ColorModeSwitch | undefined;
-  buttonSecondaryBorderColorBevelSuccess: ColorModeSwitch | undefined;
-  buttonSecondaryBorderColorBevelWarning: ColorModeSwitch | undefined;
-  buttonSecondaryBorderColorBevelDanger: ColorModeSwitch | undefined;
-  buttonSecondaryBorderColorBevelText: ColorModeSwitch | undefined;
-  buttonSecondaryBorderColorBevelDisabled: ColorModeSwitch | undefined;
+  buttonEmptyBackgroundPrimary: ColorModeSwitch;
+  buttonEmptyBackgroundAccent: ColorModeSwitch;
+  buttonEmptyBackgroundSuccess: ColorModeSwitch;
+  buttonEmptyBackgroundWarning: ColorModeSwitch;
+  buttonEmptyBackgroundDanger: ColorModeSwitch;
+  buttonEmptyBackgroundText: ColorModeSwitch;
+  buttonEmptyBackgroundDisabled: ColorModeSwitch;
+  buttonEmptyBackgroundHovered: ColorModeSwitch | undefined; // style flag
+
+  buttonEmptyColorPrimary: ColorModeSwitch;
+  buttonEmptyColorAccent: ColorModeSwitch;
+  buttonEmptyColorSuccess: ColorModeSwitch;
+  buttonEmptyColorWarning: ColorModeSwitch;
+  buttonEmptyColorDanger: ColorModeSwitch;
+  buttonEmptyColorText: ColorModeSwitch;
+  buttonEmptyColorDisabled: ColorModeSwitch;
 };
 
 export type _EuiThemeColorsMode = _EuiThemeBrandColors &

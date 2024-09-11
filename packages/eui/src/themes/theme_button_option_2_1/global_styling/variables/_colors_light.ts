@@ -152,21 +152,21 @@ const button_colors: _EuiThemeButtonColors = {
 
   buttonBorderColor: border_colors.borderPlain, // style flag
 
-  buttonBorderColorPrimary: undefined,
-  buttonBorderColorAccent: undefined,
-  buttonBorderColorSuccess: undefined,
-  buttonBorderColorWarning: undefined,
-  buttonBorderColorDanger: undefined,
-  buttonBorderColorText: undefined,
-  buttonBorderColorDisabled: undefined,
+  buttonBorderColorPrimary: semantic_colors.primary90,
+  buttonBorderColorAccent: semantic_colors.highlight90,
+  buttonBorderColorSuccess: semantic_colors.success90,
+  buttonBorderColorWarning: semantic_colors.warning40,
+  buttonBorderColorDanger: semantic_colors.danger90,
+  buttonBorderColorText: semantic_colors.shade90,
+  buttonBorderColorDisabled: background_colors.backgroundDisabled,
 
-  buttonBorderColorBevelPrimary: semantic_colors.primary120,
-  buttonBorderColorBevelAccent: semantic_colors.highlight120,
-  buttonBorderColorBevelSuccess: semantic_colors.success120,
-  buttonBorderColorBevelWarning: semantic_colors.warning80,
-  buttonBorderColorBevelDanger: semantic_colors.danger120,
-  buttonBorderColorBevelText: semantic_colors.shade120,
-  buttonBorderColorBevelDisabled: semantic_colors.shade30,
+  buttonBevelColorPrimary: semantic_colors.primary120,
+  buttonBevelColorAccent: semantic_colors.highlight120,
+  buttonBevelColorSuccess: semantic_colors.success120,
+  buttonBevelColorWarning: semantic_colors.warning80,
+  buttonBevelColorDanger: semantic_colors.danger120,
+  buttonBevelColorText: semantic_colors.shade120,
+  buttonBevelColorDisabled: semantic_colors.shade30,
 
   // secondary = base
   buttonSecondaryBackgroundPrimary: semantic_colors.white,
@@ -194,13 +194,13 @@ const button_colors: _EuiThemeButtonColors = {
   buttonSecondaryBorderColorText: semantic_colors.shade30,
   buttonSecondaryBorderColorDisabled: border_colors.borderDisabled,
 
-  buttonSecondaryBorderColorBevelPrimary: undefined,
-  buttonSecondaryBorderColorBevelAccent: undefined,
-  buttonSecondaryBorderColorBevelSuccess: undefined,
-  buttonSecondaryBorderColorBevelWarning: undefined,
-  buttonSecondaryBorderColorBevelDanger: undefined,
-  buttonSecondaryBorderColorBevelText: undefined,
-  buttonSecondaryBorderColorBevelDisabled: undefined,
+  buttonSecondaryBevelColorPrimary: undefined,
+  buttonSecondaryBevelColorAccent: undefined,
+  buttonSecondaryBevelColorSuccess: undefined,
+  buttonSecondaryBevelColorWarning: undefined,
+  buttonSecondaryBevelColorDanger: undefined,
+  buttonSecondaryBevelColorText: undefined,
+  buttonSecondaryBevelColorDisabled: undefined,
 
   // teriary/ghost = empty
   buttonEmptyBackgroundPrimary: 'transparent',
