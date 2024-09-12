@@ -20,12 +20,36 @@ export const euiBadgeColors = (euiThemeContext: UseEuiTheme) => {
 
   return {
     // Colors shared between buttons and badges
-    primary: euiButtonFillColor(euiThemeContext, 'primary'),
-    success: euiButtonFillColor(euiThemeContext, 'success'),
-    warning: euiButtonFillColor(euiThemeContext, 'warning'),
-    danger: euiButtonFillColor(euiThemeContext, 'danger'),
-    accent: euiButtonFillColor(euiThemeContext, 'accent'),
-    disabled: euiButtonColor(euiThemeContext, 'disabled'),
+    primary: {
+      backgroundColor: euiButtonFillColor(euiThemeContext, 'primary')
+        .backgroundColor,
+      color: euiButtonFillColor(euiThemeContext, 'primary').color,
+    },
+    success: {
+      backgroundColor: euiButtonFillColor(euiThemeContext, 'primary')
+        .backgroundColor,
+      color: euiButtonFillColor(euiThemeContext, 'primary').color,
+    },
+    warning: {
+      backgroundColor: euiButtonFillColor(euiThemeContext, 'primary')
+        .backgroundColor,
+      color: euiButtonFillColor(euiThemeContext, 'primary').color,
+    },
+    danger: {
+      backgroundColor: euiButtonFillColor(euiThemeContext, 'primary')
+        .backgroundColor,
+      color: euiButtonFillColor(euiThemeContext, 'primary').color,
+    },
+    accent: {
+      backgroundColor: euiButtonFillColor(euiThemeContext, 'primary')
+        .backgroundColor,
+      color: euiButtonFillColor(euiThemeContext, 'primary').color,
+    },
+    disabled: {
+      backgroundColor: euiButtonColor(euiThemeContext, 'disabled')
+        .backgroundColor,
+      color: euiButtonColor(euiThemeContext, 'disabled').color,
+    },
     // Colors unique to badges
     default: getBadgeColors(euiThemeContext, euiTheme.colors.lightShade),
     // Hollow has a border and is used for autocompleters and beta badges

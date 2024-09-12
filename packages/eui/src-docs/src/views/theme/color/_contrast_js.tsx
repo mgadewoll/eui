@@ -40,7 +40,9 @@ export const ColorSectionJS: FunctionComponent<ColorSection> = ({
   const { euiTheme } = useEuiTheme();
   const colorsForContrast = showTextVariants ? textVariants : allowedColors;
 
-  function colorIsCore(color: string) {
+  function colorIsCore(color: string | undefined) {
+    if (!color) return false;
+
     return brandKeys.includes(color) || brandTextKeys.includes(color);
   }
 
@@ -77,7 +79,7 @@ export const ColorSectionJS: FunctionComponent<ColorSection> = ({
             return (
               <ColorsContrastItem
                 foreground={color2}
-                background={_colorValue ? colorValue : color}
+                background={_colorValue ? colorValue ?? color : color}
                 key={color2}
                 minimumContrast={minimumContrast}
                 styleString={hookName && `${hookName}('${color}')`}
