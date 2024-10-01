@@ -204,7 +204,7 @@ const button_colors: _EuiThemeButtonColors = {
   buttonSecondaryBevelColorWarning: semantic_colors.shade30,
   buttonSecondaryBevelColorDanger: semantic_colors.shade30,
   buttonSecondaryBevelColorText: semantic_colors.shade30,
-  buttonSecondaryBevelColorDisabled: semantic_colors.shade30,
+  buttonSecondaryBevelColorDisabled: semantic_colors.shade110,
 
   // teriary/ghost = empty
   buttonEmptyBackgroundPrimary: 'transparent',

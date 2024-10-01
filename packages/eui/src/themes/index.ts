@@ -14,5 +14,6 @@ export { EuiThemeNewButtonOption1 } from './theme_button_option_1/theme';
 export { EuiThemeNewButtonOption2_1 } from './theme_button_option_2_1/theme';
 export { EuiThemeNewButtonOption2_2 } from './theme_button_option_2_2/theme';
 export { EuiThemeNewButtonOption3 } from './theme_button_option_3/theme';
+export { EuiThemeNewButtonOption4 } from './theme_button_option_4/theme';
 
 export * from './amsterdam';
