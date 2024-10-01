@@ -12,6 +12,7 @@ import { EuiThemeNewButtonOption1 } from './theme_button_option_1/theme';
 import { EuiThemeNewButtonOption2_1 } from './theme_button_option_2_1/theme';
 import { EuiThemeNewButtonOption2_2 } from './theme_button_option_2_2/theme';
 import { EuiThemeNewButtonOption3 } from './theme_button_option_3/theme';
+import { EuiThemeNewButtonOption4 } from './theme_button_option_4/theme';
 
 export interface EUI_THEME {
   text: string;
@@ -69,6 +70,16 @@ export const EUI_THEMES: EUI_THEME[] = [
     text: 'New Theme (Btn 3): Dark',
     value: `new_dark_btn_3`,
     provider: EuiThemeNewButtonOption3,
+  },
+  {
+    text: 'New Theme (Btn 4): Light',
+    value: `new_light_btn_4`,
+    provider: EuiThemeNewButtonOption4,
+  },
+  {
+    text: 'New Theme (Btn 4): Dark',
+    value: `new_dark_btn_4`,
+    provider: EuiThemeNewButtonOption4,
   },
 ];
 

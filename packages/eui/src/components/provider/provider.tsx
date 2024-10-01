@@ -22,7 +22,7 @@ import {
   EuiGlobalStylesProps,
 } from '../../global_styling/reset/global_styles';
 import { EuiUtilityClasses } from '../../global_styling/utility/utility';
-import { EuiThemeAmsterdam } from '../../themes';
+import { EuiThemeNewButtonOption4 } from '../../themes/theme_button_option_4/theme';
 
 import { EuiCacheProvider } from './cache';
 import { EuiProviderNestedCheck, useIsNestedEuiProvider } from './nested';
@@ -84,7 +84,7 @@ export interface EuiProviderProps<T>
 
 export const EuiProvider = <T extends {} = {}>({
   cache = fallbackCache,
-  theme = EuiThemeAmsterdam,
+  theme = EuiThemeNewButtonOption4,
   globalStyles: Globals = EuiGlobalStyles,
   utilityClasses: Utilities = EuiUtilityClasses,
   colorMode,

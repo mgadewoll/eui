@@ -24,12 +24,14 @@ registerTheme('new_light_btn_1', [themeLightBtn]);
 registerTheme('new_light_btn_2_1', [themeLightBtn]);
 registerTheme('new_light_btn_2_2', [themeLightBtn]);
 registerTheme('new_light_btn_3', [themeLightBtn]);
+registerTheme('new_light_btn_4', [themeLightBtn]);
 
 registerTheme('dark', [themeDark]);
 registerTheme('new_dark_btn_1', [themeDarkBtn]);
 registerTheme('new_dark_btn_2_1', [themeDarkBtn]);
 registerTheme('new_dark_btn_2_2', [themeDarkBtn]);
 registerTheme('new_dark_btn_3', [themeDarkBtn]);
+registerTheme('new_dark_btn_4', [themeDarkBtn]);
 
 // Set up app
 

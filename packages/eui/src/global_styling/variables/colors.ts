@@ -335,11 +335,17 @@ export type _EuiThemeFormColors = {
 
 export type _EuiThemeButtonColors = {
   buttonBackgroundPrimary: ColorModeSwitch;
+  buttonBackgroundPrimaryHovered?: ColorModeSwitch;
   buttonBackgroundAccent: ColorModeSwitch;
+  buttonBackgroundAccentHovered?: ColorModeSwitch;
   buttonBackgroundSuccess: ColorModeSwitch;
+  buttonBackgroundSuccessHovered?: ColorModeSwitch;
   buttonBackgroundWarning: ColorModeSwitch;
+  buttonBackgroundWarningHovered?: ColorModeSwitch;
   buttonBackgroundDanger: ColorModeSwitch;
+  buttonBackgroundDangerHovered?: ColorModeSwitch;
   buttonBackgroundText: ColorModeSwitch;
+  buttonBackgroundTextHovered?: ColorModeSwitch;
   buttonBackgroundDisabled: ColorModeSwitch;
 
   buttonColorPrimary: ColorModeSwitch;
