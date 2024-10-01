@@ -39,7 +39,10 @@ export const euiButtonGroupButtonStyles = (euiThemeContext: UseEuiTheme) => {
   const { controlCompressedHeight, controlCompressedBorderRadius } =
     euiFormVariables(euiThemeContext);
   const buttonSizeOffset = hasNewThemeStyles
-    ? euiTheme.border.width.thick
+    ? mathWithUnits(
+        [euiTheme.border.width.thick, euiTheme.border.width.thin],
+        (x, y) => x + y
+      )
     : euiTheme.border.width.thin;
   const compressedButtonHeight = mathWithUnits(
     [controlCompressedHeight, buttonSizeOffset],
@@ -75,11 +78,16 @@ export const euiButtonGroupButtonStyles = (euiThemeContext: UseEuiTheme) => {
       }
     `,
     compressed: css`
+      gap: ${mathWithUnits(
+        [euiTheme.border.width.thin, euiTheme.border.width.thick],
+        (x, y) => x + y
+      )};
       background-clip: unset;
       border-radius: inherit;
     `,
     selected: css`
       z-index: 1;
+      font-weight: normal;
     `,
   };
 

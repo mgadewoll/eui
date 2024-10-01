@@ -12,6 +12,7 @@ import { logicalCSS } from '../../../global_styling';
 export const euiButtonDisplayContentStyles = ({ euiTheme }: UseEuiTheme) => ({
   // Base
   euiButtonDisplayContent: css`
+    position: relative;
     ${logicalCSS('height', '100%')}
     ${logicalCSS('width', '100%')}
     display: flex;

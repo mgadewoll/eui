@@ -48,6 +48,13 @@ export const euiButtonDisplayStyles = (euiThemeContext: UseEuiTheme) => {
     `;
   };
 
+  const hoverStyles = css`
+    &:hover:not(:disabled),
+    &:focus {
+      text-decoration: underline;
+    }
+  `;
+
   return {
     // Base
     euiButtonDisplay: css`
@@ -55,13 +62,7 @@ export const euiButtonDisplayStyles = (euiThemeContext: UseEuiTheme) => {
       font-weight: ${euiTheme.font.weight.medium};
       ${logicalShorthandCSS('padding', `0 ${euiTheme.size.m}`)}
 
-      ${!hasNewThemeStyles &&
-      `
-        &:hover:not(:disabled),
-        &:focus {
-          text-decoration: underline;
-        }
-      `}
+      ${!hasNewThemeStyles && hoverStyles}
     `,
     // States
     isDisabled: css`

@@ -26,13 +26,22 @@ export type _EuiFocusRingOffset =
  */
 
 export const euiOutline = (
-  { euiTheme }: UseEuiTheme,
+  { euiTheme, colorMode }: UseEuiTheme,
   offset: _EuiFocusRingOffset = 'center',
   color?: CSSProperties['outlineColor']
 ) => {
   // Width is enforced as a constant at the global theme layer
   const outlineWidth = euiTheme.focus.width;
   const outlineColor = color || euiTheme.focus.color;
+
+  const outerOutlineColor =
+    colorMode === 'DARK'
+      ? euiTheme.colors.highlight110
+      : euiTheme.colors.highlight90;
+  const innerOutlineColor =
+    colorMode === 'DARK'
+      ? euiTheme.colors.highlight40
+      : euiTheme.colors.highlight20 ?? outlineColor;
 
   let outlineOffset = offset;
   if (offset === 'inset') {
@@ -46,8 +55,16 @@ export const euiOutline = (
   // This is a separate function from `euiFocusRing` because some EUI components
   // need the outline styles only, not the :focus-visible settings (e.g. - :focus-within usage)
   return `
-    outline: ${outlineWidth} solid ${outlineColor};
+    outline: ${outlineWidth} solid ${innerOutlineColor};
     outline-offset: ${outlineOffset};
+    box-shadow: 0 0 0 ${mathWithUnits(
+      euiTheme.border.width.thick,
+      (x) =>
+        x * 2 +
+        (typeof outlineOffset === 'string'
+          ? parseInt(outlineOffset)
+          : outlineOffset)
+    )} ${outerOutlineColor};
   `;
 };
 
@@ -67,12 +84,13 @@ export const euiFocusRing = (
 
     // 👀 Chrome respects :focus-visible and allows coloring the \`auto\` style
     &:focus-visible {
-      outline-style: auto;
+      // outline-style: auto;
     }
 
     // 🙅‍♀️ But Chrome also needs to have the outline forcefully removed from regular \`:focus\` state
     &:not(:focus-visible) {
       outline: none;
+      box-shadow: none;
     }
   `;
 };

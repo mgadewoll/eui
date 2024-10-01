@@ -78,6 +78,11 @@ export const euiButtonFillColor = (
     'buttonBackground',
     color
   ) as keyof _EuiThemeButtonColors;
+  const backgroundHoverToken = _getTokenName(
+    'buttonBackground',
+    color,
+    'hovered'
+  ) as keyof _EuiThemeButtonColors;
   const colorToken = _getTokenName(
     'buttonColor',
     color
@@ -94,6 +99,7 @@ export const euiButtonFillColor = (
   return {
     color: euiTheme.colors[colorToken],
     backgroundColor: euiTheme.colors[backgroundToken],
+    backgroundColorHovered: euiTheme.colors[backgroundHoverToken],
     borderColor: euiTheme.colors[borderColorToken],
     bevelColor: euiTheme.colors[bevelColorToken],
   };
@@ -142,19 +148,47 @@ export const useEuiButtonColorCSS = (options: _EuiButtonOptions = {}) => {
 const buttonBevelStyles = ({
   colorMode,
   borderWidth,
+  borderColor,
+  borderColorHovered,
   bevelColor,
 }: {
   colorMode?: EuiThemeColorModeStandard;
   borderWidth: CSSProperties['borderWidth'];
+  borderColor?: CSSProperties['borderColor'];
+  borderColorHovered?: CSSProperties['borderColor'];
   bevelColor?: CSSProperties['borderColor'];
 }) => {
   const _bevelColor = bevelColor ?? 'transparent';
   const direction = colorMode === 'DARK' ? 1 : -1;
 
-  const bevelShadow = `inset 0 calc(${borderWidth} * ${direction}) 0 0 ${_bevelColor}`;
+  const getBoxShadow = (isHover = false) => {
+    const _borderColor = isHover ? borderColorHovered : borderColor;
+    const bottomBevelShadow = `inset 0 calc(${borderWidth} * ${direction}) 0 0 ${_bevelColor}`;
+    const bevelShadow = `${bottomBevelShadow}, inset 0 1px 0 0 ${_borderColor},
+          inset 1px 0 0 0 ${_borderColor}, inset -1px 0 0 0 ${_borderColor}`;
+
+    return isHover ? bevelShadow : bottomBevelShadow;
+  };
+
+  const hoverStyles =
+    borderColorHovered &&
+    css`
+      &:hover,
+      &:focus,
+      &:active {
+        &::after {
+          content: '';
+          position: absolute;
+          inset: -${borderWidth};
+          border-radius: inherit;
+          pointer-events: none;
+          box-shadow: ${getBoxShadow(true)};
+        }
+      }
+    `;
 
   return css`
-    // adding the "fake" border as ::after to prevent hover gradient from overlapping
+    /* adding the "fake" border as ::after to ensure expected design */
     &:not(:focus-visible) {
       &::after {
         content: '';
@@ -162,8 +196,11 @@ const buttonBevelStyles = ({
         inset: -${borderWidth};
         border-radius: inherit;
         pointer-events: none;
-        box-shadow: ${bevelShadow};
+        /* uses box-shadow as border to ensure smooth connection between bevel and border */
+        box-shadow: ${getBoxShadow()};
       }
+
+      ${hoverStyles}
     }
   `;
 };
@@ -216,28 +253,29 @@ const euiButtonDisplaysColors = (euiThemeContext: UseEuiTheme) => {
           const newStyles =
             hasNewThemeStyles &&
             css`
+              /* use border as base under box-shadow to ensure round corners */
               border: ${euiTheme.border.width.thin} solid
                 ${buttonStyles.borderColor};
 
               ${buttonBevelStyles({
                 colorMode,
                 borderWidth: euiTheme.border.width.thin,
+                borderColor: buttonStyles.borderColor,
                 bevelColor: buttonStyles.bevelColor,
               })}
 
-              ${color !== 'disabled' &&
-              (hasHoverBackground
+              ${color !== 'disabled' && hasHoverBackground
                 ? `
-                  &:hover,
-                  &:focus,
-                  &:active {
-                    background-color: ${euiTheme.colors.buttonSecondaryBackgroundHovered};
-                `
-                : buttonGradientStyle(euiTheme.border.width.thin, 0.05))}
+                    &:hover,
+                    &:focus,
+                    &:active {
+                      background-color: ${euiTheme.colors.buttonSecondaryBackgroundHovered}
+                    }
+                  `
+                : buttonGradientStyle(euiTheme.border.width.thin, 0.05)}
             `;
 
           displaysColorsMap[display][color] = css`
-            position: relative;
             background-color: ${buttonStyles.backgroundColor};
             color: ${buttonStyles.color};
 
@@ -251,6 +289,23 @@ const euiButtonDisplaysColors = (euiThemeContext: UseEuiTheme) => {
           // new theme specific style flag
           const buttonStyles = euiButtonFillColor(euiThemeContext, color);
           const hasNewThemeStyles = euiTheme.colors.buttonBorderColor != null;
+          const hasPrimaryBackgroundHover =
+            euiTheme.colors.buttonBackgroundPrimaryHovered != null;
+
+          const hoverStyles =
+            color !== 'disabled'
+              ? hasPrimaryBackgroundHover
+                ? css`
+                    &:hover,
+                    &:focus,
+                    &:active {
+                      border: ${euiTheme.border.width.thin} solid
+                        ${buttonStyles.backgroundColorHovered};
+                      background-color: ${buttonStyles.backgroundColorHovered};
+                    }
+                  `
+                : buttonGradientStyle(euiTheme.border.width.thin)
+              : undefined;
 
           const newStyles =
             hasNewThemeStyles &&
@@ -258,14 +313,18 @@ const euiButtonDisplaysColors = (euiThemeContext: UseEuiTheme) => {
               border: ${euiTheme.border.width.thin} solid
                 ${buttonStyles.borderColor};
 
-              ${buttonBevelStyles({
+              ${color !== 'disabled' &&
+              buttonBevelStyles({
                 colorMode,
                 borderWidth: euiTheme.border.width.thin,
+                borderColor: buttonStyles.borderColor,
+                borderColorHovered: hasPrimaryBackgroundHover
+                  ? buttonStyles.backgroundColorHovered
+                  : undefined,
                 bevelColor: buttonStyles.bevelColor,
               })}
 
-              ${color !== 'disabled' &&
-              buttonGradientStyle(euiTheme.border.width.thin)}
+              ${hoverStyles}
             `;
 
           displaysColorsMap[display][color] = css`
@@ -273,11 +332,6 @@ const euiButtonDisplaysColors = (euiThemeContext: UseEuiTheme) => {
             color: ${buttonStyles.color};
 
             ${newStyles}
-
-            /* Use full shade for outline-color except for dark mode text buttons which need to stay currentColor */
-            outline-color: ${colorMode === 'DARK' && color === 'text'
-              ? 'currentColor'
-              : euiTheme.colors.fullShade};
           `;
           break;
         }
@@ -302,6 +356,8 @@ const euiButtonDisplaysColors = (euiThemeContext: UseEuiTheme) => {
 
           displaysColorsMap[display][color] = css`
             color: ${buttonStyles.color};
+            /* keep same dimension with filled/base versions */
+            border: 1px solid transparent;
 
             &:focus,
             &:active {
@@ -339,32 +395,25 @@ const euiButtonFocusAnimation = keyframes`
   }
 `;
 const euiButtonFocusCSS = ({ euiTheme }: UseEuiTheme) => {
-  // new theme specific style flag
-  const hasNewThemeStyles = euiTheme.colors.buttonBorderColor != null;
-
   const focusCSS = css`
     ${euiCanAnimate} {
-      transition: transform ${euiTheme.animation.normal} ease-in-out,
-        background-color ${euiTheme.animation.normal} ease-in-out;
+      transition: transform ${euiTheme.animation.normal} ease-in-out;
 
-      ${!hasNewThemeStyles &&
-      `
-        &:hover:not(:disabled) {
-          transform: translateY(-1px);
-        }
-      `}
+      &:hover:not(:disabled) {
+        transform: translateY(-1px);
+        /* transition background only on hover makes the mouse enter transition smooth and the mouse leave snappy */
+        transition: transform ${euiTheme.animation.normal} ease-in-out,
+          background-color ${euiTheme.animation.normal} ease-in-out;
+      }
 
       &:focus {
         animation: ${euiButtonFocusAnimation} ${euiTheme.animation.normal}
           ${euiTheme.animation.bounce};
       }
 
-      ${!hasNewThemeStyles &&
-      `
-        &:active:not(:disabled) {
-        transform: translateY(1px);
+      &:active:not(:disabled) {
+        transform: translateY(-1px);
       }
-      `}
     }
   `;
   // Remove the auto-generated label.
@@ -396,8 +445,11 @@ export const euiButtonSizeMap = ({ euiTheme }: UseEuiTheme) => ({
   },
 });
 
-const _getTokenName = (prefix: string, variant: string) => {
+const _getTokenName = (prefix: string, variant: string, suffix?: string) => {
   const colorName = variant.charAt(0).toUpperCase() + variant.slice(1);
+  const _suffix = suffix
+    ? suffix.charAt(0).toUpperCase() + suffix.slice(1)
+    : '';
 
-  return `${prefix}${colorName}`;
+  return `${prefix}${colorName}${_suffix}`;
 };

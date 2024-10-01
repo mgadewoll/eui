@@ -8,7 +8,7 @@
 
 import { css } from '@emotion/react';
 import { UseEuiTheme } from '../../../services';
-import { logicalCSS } from '../../../global_styling';
+import { logicalCSS, mathWithUnits } from '../../../global_styling';
 import { euiFormVariables } from '../../form/form.styles';
 
 export const euiButtonGroupStyles = {
@@ -31,7 +31,11 @@ export const euiButtonGroupButtonsStyles = (euiThemeContext: UseEuiTheme) => {
   const newThemeStyles = hasNewThemeStyles && {
     compressed: css`
       align-items: center;
-      padding: ${euiTheme.border.width.thin};
+      padding: ${mathWithUnits(
+        [euiTheme.border.width.thin, euiTheme.border.width.thick],
+        (x, y) => x + y
+      )};
+      gap: ${mathWithUnits([euiTheme.border.width.thick], (x) => x * 2)};
     `,
   };
 
