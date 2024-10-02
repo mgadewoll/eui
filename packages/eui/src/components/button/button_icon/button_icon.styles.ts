@@ -56,8 +56,13 @@ export const euiButtonIconStyles = (euiThemeContext: UseEuiTheme) => {
   };
 };
 
-export const _emptyHoverStyles = (euiThemeContext: UseEuiTheme) =>
-  BUTTON_COLORS.reduce(
+export const _emptyHoverStyles = (euiThemeContext: UseEuiTheme) => {
+  const { euiTheme } = euiThemeContext;
+  const hasNewThemeStyles = euiTheme.colors.buttonBorderColor != null;
+
+  if (hasNewThemeStyles) return {};
+
+  return BUTTON_COLORS.reduce(
     (styles, color) => ({
       ...styles,
       [color]: css`
@@ -69,3 +74,4 @@ export const _emptyHoverStyles = (euiThemeContext: UseEuiTheme) =>
     }),
     {} as Record<_EuiButtonColor, SerializedStyles>
   );
+};
