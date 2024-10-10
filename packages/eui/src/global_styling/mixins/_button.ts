@@ -167,7 +167,7 @@ const buttonBevelStyles = ({
     const bevelShadow = `${bottomBevelShadow}, inset 0 1px 0 0 ${_borderColor},
           inset 1px 0 0 0 ${_borderColor}, inset -1px 0 0 0 ${_borderColor}`;
 
-    return isHover ? bevelShadow : bottomBevelShadow;
+    return bevelShadow;
   };
 
   const hoverStyles =
@@ -264,7 +264,8 @@ const euiButtonDisplaysColors = (euiThemeContext: UseEuiTheme) => {
                 bevelColor: buttonStyles.bevelColor,
               })}
 
-              ${color !== 'disabled' && hasHoverBackground
+              ${color !== 'disabled' &&
+              (hasHoverBackground
                 ? `
                     &:hover,
                     &:focus,
@@ -272,7 +273,7 @@ const euiButtonDisplaysColors = (euiThemeContext: UseEuiTheme) => {
                       background-color: ${euiTheme.colors.buttonSecondaryBackgroundHovered}
                     }
                   `
-                : buttonGradientStyle(euiTheme.border.width.thin, 0.05)}
+                : buttonGradientStyle(euiTheme.border.width.thin, 0.05))}
             `;
 
           displaysColorsMap[display][color] = css`
