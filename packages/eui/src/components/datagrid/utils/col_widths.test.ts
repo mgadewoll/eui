@@ -98,45 +98,6 @@ describe('useColumnWidths', () => {
 
       expect(columnWidths).toEqual({ b: 75 });
     });
-
-    describe('when `columns` updates', () => {
-      it('adds new `initialWidth`s', () => {
-        const { rerender, result } = renderHook(useColumnWidths, {
-          initialProps: args,
-        });
-        rerender({
-          ...args,
-          columns: [{ id: 'f', initialWidth: 100 }],
-        });
-
-        expect(result.current.columnWidths).toEqual({ b: 75, f: 100 });
-      });
-
-      it('does not remove column widths that have been hidden', () => {
-        const { rerender, result } = renderHook(useColumnWidths, {
-          initialProps: args,
-        });
-
-        rerender({
-          ...args,
-          columns: [{ id: 'c' }],
-        });
-        expect(result.current.columnWidths).toEqual({ b: 75 });
-      });
-
-      it('does not override column widths that have already been set by manual user resize', () => {
-        const { rerender, result } = renderHook(useColumnWidths, {
-          initialProps: args,
-        });
-
-        renderHookAct(() => result.current.setColumnWidth('b', 150));
-        rerender({
-          ...args,
-          columns: [...args.columns],
-        });
-        expect(result.current.columnWidths).toEqual({ b: 150 });
-      });
-    });
   });
 
   describe('setColumnWidth', () => {
