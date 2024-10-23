@@ -37,8 +37,13 @@ setEuiDevProviderWarning('error');
 /**
  * Custom global decorators
  */
+import { isExperimentalThemeEnabled } from '../src/themes';
 import { customJsxDecorator } from './addons/code-snippet/decorators/jsx_decorator';
-import { EuiProviderDecorator, euiProviderDecoratorGlobals } from './decorator';
+import {
+  EuiProviderDecorator,
+  euiProviderDecoratorGlobals,
+  euiProviderDecoratorGlobalsExperimental,
+} from './decorator';
 
 const preview: Preview = {
   decorators: [
@@ -49,12 +54,18 @@ const preview: Preview = {
         highContrastMode={context.globals.highContrastMode}
         {...(context.componentId === 'theming-euiprovider' && context.args)}
         writingMode={context.globals.writingMode}
+        themeName={context.globals.theme}
       >
         <Story />
       </EuiProviderDecorator>
     ),
   ],
-  globalTypes: { ...euiProviderDecoratorGlobals },
+  globalTypes: isExperimentalThemeEnabled()
+    ? {
+        ...euiProviderDecoratorGlobals,
+        ...euiProviderDecoratorGlobalsExperimental,
+      }
+    : { ...euiProviderDecoratorGlobals },
   parameters: {
     backgrounds: { disable: true }, // Use colorMode instead
     options: {

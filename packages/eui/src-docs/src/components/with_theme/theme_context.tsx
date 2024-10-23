@@ -1,8 +1,14 @@
 import React, { PropsWithChildren } from 'react';
 import {
+  EuiThemeBorealis,
+  EUI_THEME_BOREALIS_KEY,
+} from '@elastic/eui-theme-borealis';
+
+import {
   EUI_THEMES,
   EUI_THEME,
   AMSTERDAM_NAME_KEY,
+  isExperimentalThemeEnabled,
 } from '../../../../src/themes';
 import { EuiThemeColorModeStandard } from '../../../../src/services';
 // @ts-ignore importing from a JS file
@@ -12,13 +18,35 @@ import { applyTheme, registerTheme } from '../../services';
 import amsterdamThemeLight from '../../theme_light.scss';
 // @ts-ignore Sass
 import amsterdamThemeDark from '../../theme_dark.scss';
+
+// @ts-ignore Sass
+import borealisThemeLight from '../../theme_new_light.scss';
+// @ts-ignore Sass
+import borealisThemeDark from '../../theme_new_dark.scss';
+
+const EXPERIMENTAL_THEMES: EUI_THEME[] = isExperimentalThemeEnabled()
+  ? [
+      {
+        text: 'Borealis',
+        value: EUI_THEME_BOREALIS_KEY,
+        provider: EuiThemeBorealis,
+      },
+    ]
+  : [];
+
+export const AVAILABLE_THEMES = [...EUI_THEMES, ...EXPERIMENTAL_THEMES];
+
 const THEME_CSS_MAP = {
   [AMSTERDAM_NAME_KEY]: {
     LIGHT: amsterdamThemeLight,
     DARK: amsterdamThemeDark,
   },
+  [EUI_THEME_BOREALIS_KEY]: {
+    LIGHT: borealisThemeLight,
+    DARK: borealisThemeDark,
+  },
 };
-EUI_THEMES.forEach((theme) => {
+AVAILABLE_THEMES.forEach((theme) => {
   registerTheme(
     theme.value,
     THEME_CSS_MAP[theme.value as keyof typeof THEME_CSS_MAP]

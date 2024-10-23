@@ -20,7 +20,7 @@ function ColorModeToggle({
   const { colorMode, changeColorMode } = useContext(AppThemeContext);
 
   useEffect(() => {
-    changeColorMode;
+    changeColorMode(value);
   }, []);
 
   const handleOnChange = (colorMode: EuiThemeColorMode) => {

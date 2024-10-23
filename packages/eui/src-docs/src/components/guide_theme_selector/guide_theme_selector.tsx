@@ -2,7 +2,8 @@
 import React, { useState, useContext } from 'react';
 
 import { EuiThemeProvider, useEuiTheme } from '../../../../src/services';
-import { EUI_THEME, EUI_THEMES } from '../../../../src/themes';
+import { EUI_THEME } from '../../../../src/themes';
+import { AVAILABLE_THEMES } from '../with_theme/theme_context';
 
 import { ThemeContext } from '../with_theme';
 import {
@@ -30,7 +31,8 @@ export const GuideThemeSelector = () => {
       : euiThemeContext.highContrastMode;
 
   const currentTheme: EUI_THEME =
-    EUI_THEMES.find((theme) => theme.value === context.theme) || EUI_THEMES[0];
+    AVAILABLE_THEMES.find((theme) => theme.value === context.theme) ||
+    AVAILABLE_THEMES[0];
 
   const [isPopoverOpen, setPopover] = useState(false);
   const onButtonClick = () => setPopover(!isPopoverOpen);
@@ -88,7 +90,7 @@ export const GuideThemeSelector = () => {
     >
       <EuiContextMenuPanel
         size="s"
-        items={EUI_THEMES.map((theme) => {
+        items={AVAILABLE_THEMES.map((theme) => {
           return (
             <EuiContextMenuItem
               key={theme.value}
