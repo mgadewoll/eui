@@ -33,13 +33,11 @@ export const AVAILABLE_THEMES = [
 
 const EUI_COLOR_MODES = ['light', 'dark'] as EuiThemeColorMode[];
 
-const EUI_THEME_NAMES = AVAILABLE_THEMES.map(({ value }) => value);
-
 const defaultState = {
-  theme: EUI_THEME_NAMES[0] as string,
   colorMode: EUI_COLOR_MODES[0] as EuiThemeColorMode,
-  changeTheme: (themeValue: EuiThemeColorMode) => {},
   changeColorMode: (colorMode: EuiThemeColorMode) => {},
+  theme: AVAILABLE_THEMES[0]!,
+  changeTheme: (themeValue: string) => {},
 };
 
 export const AppThemeContext = createContext(defaultState);
@@ -48,22 +46,10 @@ export const AppThemeProvider: FunctionComponent<PropsWithChildren> = ({
   children,
 }) => {
   const isBrowser = useIsBrowser();
-
-  const [theme, setTheme] = useState<string>(() => {
-    if (isBrowser) {
-      return (
-        (localStorage.getItem('theme') as EuiThemeColorMode) ??
-        defaultState.theme
-      );
-    }
-
-    return defaultState.colorMode;
-  });
-
   const [colorMode, setColorMode] = useState<EuiThemeColorMode>(() => {
     if (isBrowser) {
       return (
-        (localStorage.getItem('colorMode') as EuiThemeColorMode) ??
+        (localStorage.getItem('theme') as EuiThemeColorMode) ??
         defaultState.colorMode
       );
     }
@@ -71,22 +57,28 @@ export const AppThemeProvider: FunctionComponent<PropsWithChildren> = ({
     return defaultState.colorMode;
   });
 
+  const [theme, setTheme] = useState(defaultState.theme);
+
+  const handleChangeTheme = (themeValue: string) => {
+    const themeObj = AVAILABLE_THEMES.find((t) => t.value === themeValue);
+
+    setTheme((currentTheme) => themeObj ?? currentTheme);
+  };
+
   return (
     <AppThemeContext.Provider
       value={{
-        theme: theme,
         colorMode,
-        changeTheme: setTheme,
+        theme,
         changeColorMode: setColorMode,
+        changeTheme: handleChangeTheme,
       }}
     >
       <EuiProvider
         globalStyles={false}
         modify={EuiThemeOverrides}
         colorMode={colorMode}
-        theme={
-          AVAILABLE_THEMES.find((theme) => theme.value === theme)?.provider
-        }
+        theme={theme.provider}
       >
         {children}
       </EuiProvider>
