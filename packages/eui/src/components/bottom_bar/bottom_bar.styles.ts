@@ -7,7 +7,7 @@
  */
 
 import { css, keyframes } from '@emotion/react';
-import { UseEuiTheme, shade } from '../../services';
+import { UseEuiTheme } from '../../services';
 import { euiCanAnimate, logicalCSS } from '../../global_styling';
 import { highContrastModeStyles } from '../../global_styling/functions/high_contrast';
 import { euiShadowFlat } from '../../themes/amsterdam/global_styling/mixins';

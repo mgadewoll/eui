@@ -62,6 +62,7 @@ export const euiBetaBadgeStyles = (euiThemeContext: UseEuiTheme) => {
     accent: hasVisColorAdjustment
       ? css(badgeColors.accentText)
       : css(badgeColors.accent),
+    accentSecondary: css(badgeColors.accentSecondaryText),
     subdued: css(badgeColors.subdued),
     hollow: css`
       color: ${badgeColors.hollow.color};
