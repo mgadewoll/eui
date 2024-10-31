@@ -9,17 +9,15 @@ import {
   EuiCode,
   EuiColorPickerSwatch,
   EuiText,
-  useEuiBackgroundColor,
-  useEuiPaddingSize,
   BACKGROUND_COLORS,
-  euiBackgroundColor,
-  useEuiPaddingCSS,
   EuiButtonGroup,
   EuiDescribedFormGroup,
   EuiPanel,
   EuiSpacer,
-  _EuiBackgroundColorOptions,
   logicalCSS,
+  useEuiPaddingCSS,
+  useEuiBackgroundColor,
+  useEuiPaddingSize,
 } from '../../../../../src';
 
 import { EuiThemeColors, ThemeRowType } from '../_props';
@@ -33,6 +31,11 @@ import {
   text_colors,
 } from '../../../../../src/themes/amsterdam/global_styling/variables/_colors';
 import { ThemeValuesTable } from '../_components/_theme_values_table';
+import {
+  _EuiThemeBackgroundColors,
+  _EuiThemeTransparentBackgroundColors,
+  getTokenName,
+} from '@elastic/eui-theme-common';
 
 export const brandKeys = Object.keys(brand_colors);
 
@@ -265,6 +268,8 @@ export const SpecialValuesJS = () => {
 };
 
 export const UtilsJS = () => {
+  const { euiTheme } = useEuiTheme();
+
   return (
     <>
       <EuiText grow={false}>
@@ -298,7 +303,9 @@ export const UtilsJS = () => {
         }
         example={
           <p css={[useEuiBackgroundColorCSS().accent, useEuiPaddingCSS().l]}>
-            <code>background-color: {useEuiBackgroundColor('accent')}</code>
+            <code>
+              background-color: {euiTheme.colors.backgroundBaseAccent}
+            </code>
           </p>
         }
         snippetLanguage="tsx"
@@ -340,7 +347,7 @@ method?: 'opaque' | 'transparent';`}
 };
 
 export const UtilsValuesJS = () => {
-  const euiTheme = useEuiTheme();
+  const { euiTheme } = useEuiTheme();
   const backgroundButtons = ['opaque', 'transparent'].map((m) => {
     return {
       id: m,
@@ -381,16 +388,21 @@ export const UtilsValuesJS = () => {
 
       <ThemeValuesTable
         items={BACKGROUND_COLORS.map((color) => {
+          const backgroundToken = getTokenName('backgroundBase', color);
+          const transparentBackgroundToken =
+            color === 'transparent'
+              ? backgroundToken
+              : getTokenName('backgroundTransparent', color);
+
+          const token =
+            backgroundSelected === 'transparent'
+              ? (transparentBackgroundToken as keyof _EuiThemeTransparentBackgroundColors)
+              : (backgroundToken as keyof _EuiThemeBackgroundColors);
+
           return {
             id: color,
-            token:
-              backgroundSelected === 'transparent'
-                ? `useEuiBackgroundColor('${color}', 'transparent')`
-                : `useEuiBackgroundColor('${color}')`,
-            value: euiBackgroundColor(euiTheme, color, {
-              method:
-                backgroundSelected as _EuiBackgroundColorOptions['method'],
-            }),
+            token,
+            value: euiTheme.colors[token],
           };
         })}
         render={(item) => (

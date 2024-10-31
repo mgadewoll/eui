@@ -31,16 +31,18 @@ export const euiColorPickerSwatchStyles = (euiThemeContext: UseEuiTheme) => {
         euiTheme.border.radius.medium,
         (x) => x / 2
       )};
+
       ${highContrastModeStyles(euiThemeContext, {
         none: `
           border: ${euiTheme.border.width.thin} solid
-            ${transparentize(euiTheme.colors.fullShade, 0.1)};
+        ${euiTheme.colors.borderBaseFormsColorSwatch};
           box-shadow: inset 0 0 0 ${euiTheme.border.width.thin}
             ${transparentize(euiTheme.colors.emptyShade, 0.05)};
         `,
         preferred: `border: ${euiTheme.border.thin};`,
         forced: preventForcedColors(euiThemeContext),
       })}
+
       cursor: pointer;
 
       &:disabled {

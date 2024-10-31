@@ -20,13 +20,13 @@ export const euiMarkStyles = (euiThemeContext: UseEuiTheme) => {
         // Can't use 'inherit' because the text to background color contrast may not be sufficient
         none: `
           color: ${euiTheme.colors.text};
-          background-color: ${euiTheme.focus.backgroundColor};
+          background-color: ${euiTheme.components.markBackground};
         `,
         // `!important` is required here because some marked text links
         // (e.g. EuiSideNav) will take precedence otherwise
         preferred: `
           color: ${euiTheme.colors.emptyShade} !important;
-          background-color: ${euiTheme.colors.primaryText};
+          background-color: ${euiTheme.colors.textPrimary};
         `,
       })}
       font-weight: ${euiTheme.font.weight.bold};

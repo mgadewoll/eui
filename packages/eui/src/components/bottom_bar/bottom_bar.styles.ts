@@ -31,7 +31,7 @@ export const euiBottomBarStyles = (euiThemeContext: UseEuiTheme) => {
     // Base
     // `color` is inherited from the wrapping `EuiThemeProvider colorMode="dark"`
     euiBottomBar: css`
-      background-color: ${shade(euiTheme.colors.lightestShade, 0.5)};
+      background-color: ${euiTheme.components.bottomBarBackground};
       ${logicalCSS('border-top', euiTheme.border.thin)}
       ${highContrastModeStyles(euiThemeContext, {
         none: euiShadowFlat(euiThemeContext),

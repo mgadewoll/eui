@@ -6,14 +6,7 @@
  * Side Public License, v 1.
  */
 
-import {
-  UseEuiTheme,
-  shade,
-  tint,
-  darken,
-  transparentize,
-  makeHighContrastColor,
-} from '../../services';
+import { UseEuiTheme, makeHighContrastColor } from '../../services';
 import {
   logicalCSS,
   mathWithUnits,
@@ -21,7 +14,6 @@ import {
   euiFontSize,
 } from '../../global_styling';
 import { highContrastModeStyles } from '../../global_styling/functions/high_contrast';
-import { euiButtonColor } from '../../themes/amsterdam/global_styling/mixins';
 
 // There are multiple components that only need the form max-width size &
 // don't need the extra overhead/color computing expense of every form var.
@@ -30,13 +22,11 @@ export const euiFormMaxWidth = ({ euiTheme }: UseEuiTheme) =>
   mathWithUnits(euiTheme.size.base, (x) => x * 25);
 
 export const euiFormVariables = (euiThemeContext: UseEuiTheme) => {
-  const { euiTheme, colorMode, highContrastMode } = euiThemeContext;
-  const isColorDark = colorMode === 'DARK';
+  const { euiTheme, highContrastMode } = euiThemeContext;
+
   const backgroundColor = highContrastMode
     ? euiTheme.colors.emptyShade
-    : isColorDark
-    ? shade(euiTheme.colors.lightestShade, 0.4)
-    : tint(euiTheme.colors.lightestShade, 0.6);
+    : euiTheme.components.forms.background;
 
   const controlHeight = euiTheme.size.xxl;
   const controlCompressedHeight = euiTheme.size.xl;
@@ -57,26 +47,20 @@ export const euiFormVariables = (euiThemeContext: UseEuiTheme) => {
   };
 
   const colors = {
-    textColor: euiTheme.colors.text,
+    textColor: euiTheme.colors.textParagraph,
     backgroundColor: backgroundColor,
-    backgroundDisabledColor: darken(euiTheme.colors.lightestShade, 0.05),
-    backgroundReadOnlyColor: euiTheme.colors.emptyShade,
     borderColor: highContrastMode
       ? euiTheme.border.color
-      : transparentize(
-          colorMode === 'DARK'
-            ? euiTheme.colors.ghost
-            : darken(euiTheme.border.color, 4),
-          0.1
-        ),
-    controlDisabledColor: euiTheme.colors.mediumShade,
+      : euiTheme.components.forms.border,
+    backgroundDisabledColor: euiTheme.components.forms.backgroundDisabled,
+    backgroundReadOnlyColor: euiTheme.components.forms.backgroundReadOnly,
+    controlDisabledColor: euiTheme.components.forms.controlBackgroundDisabled,
+
     controlBoxShadow: '0 0 transparent',
     controlPlaceholderText: makeHighContrastColor(euiTheme.colors.subduedText)(
       backgroundColor
     ),
-    appendPrependBackground: isColorDark
-      ? shade(euiTheme.colors.lightShade, 0.15)
-      : tint(euiTheme.colors.lightShade, 0.5),
+    appendPrependBackground: euiTheme.components.forms.prependBackground,
   };
 
   const controlLayout = {
@@ -261,12 +245,9 @@ export const euiFormControlDefaultShadow = (
 };
 
 export const euiFormControlFocusStyles = (euiThemeContext: UseEuiTheme) => {
-  const { euiTheme, colorMode } = euiThemeContext;
+  const { euiTheme } = euiThemeContext;
   const focusColor = euiTheme.colors.primary;
-  const backgroundColor =
-    colorMode === 'DARK'
-      ? shade(euiTheme.colors.emptyShade, 0.4)
-      : euiTheme.colors.emptyShade;
+  const backgroundColor = euiTheme.components.forms.backgroundFocused;
   return `
     --euiFormControlStateColor: ${focusColor};
     background-color: ${backgroundColor};
@@ -319,23 +300,19 @@ export const euiFormControlReadOnlyStyles = (euiThemeContext: UseEuiTheme) => {
 };
 
 export const euiFormControlAutoFillStyles = (euiThemeContext: UseEuiTheme) => {
-  const { euiTheme, colorMode } = euiThemeContext;
+  const { euiTheme } = euiThemeContext;
 
   // Make the text color slightly less prominent than the default colors.text
   const textColor = euiTheme.colors.darkestShade;
 
-  const { backgroundColor } = euiButtonColor(euiThemeContext, 'primary');
-  const tintedBackgroundColor =
-    colorMode === 'DARK'
-      ? shade(backgroundColor, 0.5)
-      : tint(backgroundColor, 0.7);
+  const tintedBackgroundColor = euiTheme.components.forms.backgroundAutofilled;
   // Hacky workaround to background-color, since Chrome doesn't normally allow overriding its styles
   // @see https://developer.mozilla.org/en-US/docs/Web/CSS/:autofill#sect1
   const backgroundShadow = `inset 0 0 0 100vw ${tintedBackgroundColor}`;
 
   // Re-create the border, since the above webkit box shadow overrides the default border box-shadow
   // + change the border color to match states, since the underline background gradient no longer works
-  const borderColor = transparentize(euiTheme.colors.primaryText, 0.2);
+  const borderColor = euiTheme.components.forms.borderAutofilled;
   const invalidBorder = euiTheme.colors.danger;
   const borderShadow = (color: string) =>
     `inset 0 0 0 ${euiTheme.border.width.thin} ${color}`;
@@ -387,7 +364,7 @@ const euiPlaceholderPerBrowser = (content: string) => `
  */
 
 export const euiFormCustomControlVariables = (euiThemeContext: UseEuiTheme) => {
-  const { euiTheme, colorMode, highContrastMode } = euiThemeContext;
+  const { euiTheme, highContrastMode } = euiThemeContext;
 
   const sizes = {
     control: euiTheme.size.base,
@@ -396,16 +373,16 @@ export const euiFormCustomControlVariables = (euiThemeContext: UseEuiTheme) => {
   };
 
   const colors = {
-    unselected: euiTheme.colors.emptyShade,
+    unselected: euiTheme.components.forms.controlBackgroundUnselected,
     unselectedBorder: highContrastMode
       ? euiTheme.border.color
-      : colorMode === 'DARK'
-      ? tint(euiTheme.colors.lightestShade, 0.31) // WCAG AA requirements
-      : shade(euiTheme.colors.lightestShade, 0.4),
+      : euiTheme.components.forms.controlBorder,
     selected: euiTheme.colors.primary,
+    selectedBorder: euiTheme.components.forms.controlBorderSelected,
     selectedIcon: euiTheme.colors.emptyShade,
-    disabled: euiTheme.colors.lightShade,
-    disabledIcon: euiTheme.colors.darkShade,
+    disabled: euiTheme.components.forms.colorDisabled,
+    disabledBorder: euiTheme.components.forms.controlBorderDisabled,
+    disabledIcon: euiTheme.components.forms.iconDisabled,
     disabledLabel: euiTheme.colors.disabledText, // Lighter than formVars.disabledColor because it typically doesn't have as dark a background
   };
 

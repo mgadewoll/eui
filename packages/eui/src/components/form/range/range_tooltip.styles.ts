@@ -10,7 +10,6 @@ import { css } from '@emotion/react';
 import { euiFontSize, mathWithUnits } from '../../../global_styling';
 import { UseEuiTheme } from '../../../services';
 import { _popoverArrowStyles } from '../../../services/popover';
-import { euiToolTipBackgroundColor } from '../../tool_tip/tool_tip.styles';
 import { euiRangeVariables } from './range.styles';
 
 export const euiRangeTooltipStyles = (euiThemeContext: UseEuiTheme) => {
@@ -36,10 +35,11 @@ export const euiRangeTooltipValueStyles = (euiThemeContext: UseEuiTheme) => {
   const range = euiRangeVariables(euiThemeContext);
   const { euiTheme, colorMode, highContrastMode } = euiThemeContext;
 
+  const toolTipBackgroundColor = euiTheme.components.tooltipBackground;
   const borderColor = highContrastMode
     ? euiTheme.border.color
     : colorMode === 'DARK'
-    ? euiTheme.colors.mediumShade
+    ? toolTipBackgroundColor
     : 'transparent';
 
   const arrowSize = euiTheme.size.m;
@@ -57,7 +57,7 @@ export const euiRangeTooltipValueStyles = (euiThemeContext: UseEuiTheme) => {
 
       ${euiFontSize(euiThemeContext, 's')}
       color: ${euiTheme.colors.ghost};
-      background-color: ${euiToolTipBackgroundColor(euiTheme, colorMode)};
+      background-color: ${toolTipBackgroundColor};
       border: ${euiTheme.border.width.thin} solid ${borderColor};
       border-radius: ${euiTheme.border.radius.small};
 

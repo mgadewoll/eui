@@ -9,11 +9,7 @@
 import { css, type SerializedStyles } from '@emotion/react';
 import { CSSProperties } from 'react';
 
-import {
-  UseEuiTheme,
-  makeDisabledContrastColor,
-  transparentize,
-} from '../../../services';
+import { UseEuiTheme, makeDisabledContrastColor } from '../../../services';
 import {
   mathWithUnits,
   logicalCSS,
@@ -26,7 +22,7 @@ import {
   euiButtonFillColor,
   _EuiButtonColor,
   BUTTON_COLORS,
-} from '../../../themes/amsterdam/global_styling/mixins/button';
+} from '../../../global_styling/mixins/_button';
 import { euiScreenReaderOnly } from '../../accessibility';
 import { euiFormVariables } from '../../form/form.styles';
 
@@ -88,10 +84,10 @@ export const euiButtonGroupButtonStyles = (euiThemeContext: UseEuiTheme) => {
           '.euiButtonGroupButton-isSelected, .euiButtonGroup__tooltipWrapper-isSelected';
         const selectedColor = highContrastMode
           ? euiTheme.colors.emptyShade
-          : transparentize(euiTheme.colors.emptyShade, 0.2);
+          : euiTheme.components.buttonGroupBorderColorSelected;
         const unselectedColor = highContrastMode
           ? 'inherit'
-          : transparentize(euiTheme.colors.fullShade, 0.1);
+          : euiTheme.components.buttonGroupBorderColor;
 
         // "Borders" between buttons should be present between two of the same colored buttons,
         // and absent between selected vs non-selected buttons (different colors)

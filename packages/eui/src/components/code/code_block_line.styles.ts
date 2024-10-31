@@ -14,7 +14,7 @@
  */
 
 import { css } from '@emotion/css';
-import { euiBackgroundColor, mathWithUnits } from '../../global_styling';
+import { mathWithUnits } from '../../global_styling';
 import { UseEuiTheme } from '../../services';
 
 // Note: These styles must be in a separate file due to using `css` from `@emotion/css`
@@ -52,7 +52,7 @@ export const euiCodeBlockLineStyles = (euiThemeContext: UseEuiTheme) => {
         user-select: text;
       `,
       isHighlighted: css`
-        background: ${euiBackgroundColor(euiThemeContext, 'primary')};
+        background: ${euiTheme.colors.backgroundBasePrimary};
         border-inline-start: ${highlightWidth} solid ${euiTheme.colors.primary};
         padding-inline-start: ${highlightOffset};
       `,

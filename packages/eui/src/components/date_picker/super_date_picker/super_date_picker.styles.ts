@@ -8,12 +8,7 @@
 
 import { css } from '@emotion/react';
 
-import {
-  UseEuiTheme,
-  tint,
-  shade,
-  makeHighContrastColor,
-} from '../../../services';
+import { UseEuiTheme, makeHighContrastColor } from '../../../services';
 import {
   euiFontSize,
   euiMaxBreakpoint,
@@ -30,7 +25,7 @@ import {
 } from '../../form/form.styles';
 
 export const euiSuperDatePickerStyles = (euiThemeContext: UseEuiTheme) => {
-  const { euiTheme, colorMode } = euiThemeContext;
+  const { euiTheme } = euiThemeContext;
   const forms = euiFormVariables(euiThemeContext);
 
   const inputWidth = euiTheme.base * 30;
@@ -52,9 +47,7 @@ export const euiSuperDatePickerStyles = (euiThemeContext: UseEuiTheme) => {
 
   // Needs updating colors
   const needsUpdatingBackgroundColor =
-    colorMode === 'DARK'
-      ? shade(euiTheme.colors.success, 0.7)
-      : tint(euiTheme.colors.success, 0.9);
+    euiTheme.components.superDatePickerBackgroundSuccees;
   const needsUpdatingTextColor = makeHighContrastColor(euiTheme.colors.success)(
     needsUpdatingBackgroundColor
   );

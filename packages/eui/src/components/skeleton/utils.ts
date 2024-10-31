@@ -8,7 +8,7 @@
 
 import { css } from '@emotion/react';
 
-import { UseEuiTheme, shade, tint } from '../../services';
+import { tint, UseEuiTheme } from '../../services';
 import { euiCanAnimate, logicalCSS } from '../../global_styling';
 import { euiAnimSlideX } from '../../global_styling/utility/animations';
 
@@ -21,19 +21,13 @@ export const euiSkeletonGradientAnimation = (
   { euiTheme, colorMode, highContrastMode }: UseEuiTheme,
   { slideSize = '-53%', gradientSize = '220%' }: AnimationOptions = {}
 ) => {
-  const gradientStartStop =
-    colorMode === 'DARK'
-      ? shade(euiTheme.colors.lightShade, 0.12)
-      : tint(euiTheme.colors.lightShade, 0.65);
+  const gradientStartStop = euiTheme.colors.backgroundBaseSkeletonEdge;
   // Increase "shine" visibility in high contrast modes
-  const gradientMiddle =
-    colorMode === 'DARK'
-      ? highContrastMode
-        ? tint(euiTheme.colors.lightShade, 0.12)
-        : euiTheme.colors.lightShade
-      : highContrastMode
-      ? euiTheme.colors.emptyShade
-      : tint(euiTheme.colors.lightShade, 0.8);
+  const gradientMiddle = highContrastMode
+    ? colorMode === 'DARK'
+      ? tint(euiTheme.colors.lightShade, 0.12)
+      : euiTheme.colors.emptyShade
+    : euiTheme.colors.backgroundBaseSkeletonMiddle;
 
   return css`
     background-color: ${gradientStartStop};

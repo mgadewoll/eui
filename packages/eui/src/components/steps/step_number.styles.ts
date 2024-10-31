@@ -20,9 +20,8 @@ import {
   preventForcedColors,
 } from '../../global_styling/functions/high_contrast';
 import { UseEuiTheme } from '../../services';
-import { euiButtonFillColor } from '../../themes/amsterdam/global_styling/mixins';
-
 import { euiStepVariables } from './step.styles';
+import { euiButtonFillColor } from '../../global_styling/mixins';
 
 export const euiStepNumberStyles = (euiThemeContext: UseEuiTheme) => {
   const { euiTheme } = euiThemeContext;

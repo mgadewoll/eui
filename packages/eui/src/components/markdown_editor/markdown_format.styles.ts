@@ -119,19 +119,29 @@ export const euiMarkdownFormatStyles = (euiThemeContext: UseEuiTheme) => {
     ),
     colors: {
       default: css(
-        euiMarkdownAdjustBorderColors(euiThemeContext, euiTheme.border.color)
+        euiMarkdownAdjustBorderColors(
+          euiThemeContext,
+          euiTheme.euiTheme.components.markdownFormatTableBorderColor
+        )
       ),
       subdued: css(
         euiMarkdownAdjustBorderColors(
           euiThemeContext,
-          highContrastMode ? euiTheme.border.color : euiTheme.colors.subduedText
+          highContrastMode ? euiTheme.border.color : euiTheme.colors.textSubdued
         )
       ),
+
       success: css(
         euiMarkdownAdjustBorderColors(euiThemeContext, euiTheme.colors.success)
       ),
       accent: css(
         euiMarkdownAdjustBorderColors(euiThemeContext, euiTheme.colors.accent)
+      ),
+      accentSecondary: css(
+        euiMarkdownAdjustBorderColors(
+          euiThemeContext,
+          euiTheme.euiTheme.colors.accentSecondary
+        )
       ),
       warning: css(
         euiMarkdownAdjustBorderColors(euiThemeContext, euiTheme.colors.warning)

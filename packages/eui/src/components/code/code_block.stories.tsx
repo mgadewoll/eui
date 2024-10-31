@@ -20,7 +20,7 @@ const meta: Meta<EuiCodeBlockProps> = {
   title: 'Editors & Syntax/EuiCodeBlock',
   component: EuiCodeBlock,
   argTypes: {
-    lineNumbers: { control: 'boolean' },
+    lineNumbers: { control: 'object' },
     overflowHeight: { control: 'number' },
   },
   args: {
@@ -101,6 +101,21 @@ export const Annotations: Story = {
     const dialog = await canvas.findByRole('dialog');
 
     expect(dialog).toHaveTextContent('Hello world');
+  },
+};
+
+export const Highlight: Story = {
+  tags: ['vrt-only'],
+  args: {
+    children: `<p>
+  <!-- Hello world -->
+  Lorem ipsum
+</p>`,
+    lineNumbers: {
+      start: 1,
+      highlight: '2-3',
+      annotations: { 3: 'A special note about this line' },
+    },
   },
 };
 
