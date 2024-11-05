@@ -37,7 +37,7 @@ describe('euiFormVariables', () => {
         "controlCompressedBorderRadius": "4px",
         "controlCompressedHeight": "32px",
         "controlCompressedPadding": "8px",
-        "controlDisabledColor": "transparent",
+        "controlDisabledColor": "#D3DAE6",
         "controlHeight": "40px",
         "controlIconSize": {
           "l": "24px",
@@ -56,6 +56,7 @@ describe('euiFormVariables', () => {
         "maxWidth": "400px",
         "stateUnderlineHeight": "2px",
         "textColor": "#343741",
+        "textColorDisabled": "#98A2B3",
       }
     `);
   });
@@ -93,32 +94,33 @@ describe('euiFormControlStyles', () => {
             border-radius: 4px;
           ",
         "disabled": "
-          color: transparent;
+          color: #98A2B3;
           /* Required for Safari */
-          -webkit-text-fill-color: transparent;
+          -webkit-text-fill-color: #98A2B3;
           background-color: #eef1f7;
+          false
           cursor: not-allowed;
           --euiFormControlStateColor: transparent;
 
           
         &::-webkit-input-placeholder { 
-            color: transparent;
+            color: #98A2B3;
             opacity: 1;
            }
         &::-moz-placeholder { 
-            color: transparent;
+            color: #98A2B3;
             opacity: 1;
            }
         &:-ms-input-placeholder { 
-            color: transparent;
+            color: #98A2B3;
             opacity: 1;
            }
         &:-moz-placeholder { 
-            color: transparent;
+            color: #98A2B3;
             opacity: 1;
            }
         &::placeholder { 
-            color: transparent;
+            color: #98A2B3;
             opacity: 1;
            }
 

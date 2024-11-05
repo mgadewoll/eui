@@ -34,6 +34,9 @@ export const euiToastStyles = (euiThemeContext: UseEuiTheme) => {
       ${logicalCSS('padding-vertical', euiTheme.size.base)}
       background-color: ${euiTheme.colors.emptyShade};
       ${logicalCSS('width', '100%')}
+      border: ${euiTheme.border.width.thin} solid ${euiTheme.colors
+        .borderBaseFloating};
+
       ${euiTextBreakWord()} /* Prevent long lines from overflowing */
 
       &:hover,
