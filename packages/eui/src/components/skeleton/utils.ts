@@ -9,7 +9,11 @@
 import { css } from '@emotion/react';
 
 import { tint, UseEuiTheme } from '../../services';
-import { euiCanAnimate, logicalCSS } from '../../global_styling';
+import {
+  euiCanAnimate,
+  euiCantAnimate,
+  logicalCSS,
+} from '../../global_styling';
 import { euiAnimSlideX } from '../../global_styling/utility/animations';
 
 type AnimationOptions = {
@@ -30,7 +34,9 @@ export const euiSkeletonGradientAnimation = (
     : euiTheme.colors.backgroundBaseSkeletonMiddle;
 
   return css`
-    background-color: ${gradientStartStop};
+    ${euiCantAnimate} {
+      background-color: ${gradientStartStop}; // static background when no animation is played
+    }
 
     ${euiCanAnimate} {
       overflow: hidden;
