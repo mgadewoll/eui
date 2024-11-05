@@ -94,9 +94,9 @@ describe('euiFormControlStyles', () => {
             border-radius: 4px;
           ",
         "disabled": "
-          color: transparent;
+          color: #98A2B3;
           /* Required for Safari */
-          -webkit-text-fill-color: transparent;
+          -webkit-text-fill-color: #98A2B3;
           background-color: #eef1f7;
           false
           cursor: not-allowed;
@@ -104,23 +104,23 @@ describe('euiFormControlStyles', () => {
 
           
         &::-webkit-input-placeholder { 
-            color: transparent;
+            color: #98A2B3;
             opacity: 1;
            }
         &::-moz-placeholder { 
-            color: transparent;
+            color: #98A2B3;
             opacity: 1;
            }
         &:-ms-input-placeholder { 
-            color: transparent;
+            color: #98A2B3;
             opacity: 1;
            }
         &:-moz-placeholder { 
-            color: transparent;
+            color: #98A2B3;
             opacity: 1;
            }
         &::placeholder { 
-            color: transparent;
+            color: #98A2B3;
             opacity: 1;
            }
 
