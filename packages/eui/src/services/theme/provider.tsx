@@ -46,7 +46,9 @@ import {
   EuiThemeHighContrastMode,
   EuiThemeSystem,
   EuiThemeModifications,
+  EuiThemeComputed,
 } from './types';
+import { EUI_VIS_COLOR_STORE } from '../color';
 
 export interface EuiThemeProviderProps<T> extends PropsWithChildren {
   theme?: EuiThemeSystem<T>;
@@ -141,14 +143,34 @@ export const EuiThemeProvider = <T extends {} = {}>({
           isEqual(parentModifications, modifications)
   );
 
+  const updateVisColorStore = useCallback((theme: EuiThemeComputed) => {
+    EUI_VIS_COLOR_STORE.setVisColors(
+      theme.colors.vis,
+      theme.flags?.hasVisColorAdjustment ?? true
+    );
+  }, []);
+
+  const getInitialTheme = () => {
+    const theme = getComputed(
+      system,
+      buildTheme(
+        modificationsWithHighContrast,
+        `_${system.key}`
+      ) as typeof system,
+      colorMode
+    );
+
+    setTimeout(() => {
+      updateVisColorStore(theme);
+    });
+
+    return theme;
+  };
+
   const [theme, setTheme] = useState(
     isParentTheme.current && Object.keys(parentTheme).length
       ? { ...parentTheme } // Intentionally create a new object to break referential equality
-      : getComputed(
-          system,
-          buildTheme<any>(modificationsWithHighContrast, `_${system.key}`),
-          colorMode
-        )
+      : getInitialTheme()
   );
 
   // TODO: temp. testing code only, remove once obsolete
@@ -169,8 +191,10 @@ export const EuiThemeProvider = <T extends {} = {}>({
       setSystem(newSystem);
       prevSystemKey.current = newSystem.key;
       isParentTheme.current = false;
+
+      updateVisColorStore(theme);
     }
-  }, [_system, parentSystem]);
+  }, [_system, parentSystem, theme, updateVisColorStore]);
 
   useEffect(() => {
     const newModifications = mergeDeep(parentModifications, _modifications);

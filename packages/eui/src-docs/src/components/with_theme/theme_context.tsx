@@ -17,12 +17,22 @@ import { applyTheme, registerTheme } from '../../services';
 // @ts-ignore Sass
 import amsterdamThemeLight from '../../theme_light.scss';
 // @ts-ignore Sass
+import borealisThemeLight from '../../theme_borealis_light.scss';
+// @ts-ignore Sass
 import amsterdamThemeDark from '../../theme_dark.scss';
+// @ts-ignore Sass
+import borealisThemeDark from '../../theme_borealis_dark.scss';
 
-// @ts-ignore Sass
-import borealisThemeLight from '../../theme_new_light.scss';
-// @ts-ignore Sass
-import borealisThemeDark from '../../theme_new_dark.scss';
+const THEME_CSS_MAP = {
+  [AMSTERDAM_NAME_KEY]: {
+    LIGHT: amsterdamThemeLight,
+    DARK: amsterdamThemeDark,
+  },
+  [EUI_THEME_BOREALIS_KEY]: {
+    LIGHT: borealisThemeLight,
+    DARK: borealisThemeDark,
+  },
+};
 
 const EXPERIMENTAL_THEMES: EUI_THEME[] = isExperimentalThemeEnabled()
   ? [
@@ -35,24 +45,14 @@ const EXPERIMENTAL_THEMES: EUI_THEME[] = isExperimentalThemeEnabled()
   : [];
 
 export const AVAILABLE_THEMES = [...EUI_THEMES, ...EXPERIMENTAL_THEMES];
+const THEME_NAMES = AVAILABLE_THEMES.map(({ value }) => value);
 
-const THEME_CSS_MAP = {
-  [AMSTERDAM_NAME_KEY]: {
-    LIGHT: amsterdamThemeLight,
-    DARK: amsterdamThemeDark,
-  },
-  [EUI_THEME_BOREALIS_KEY]: {
-    LIGHT: borealisThemeLight,
-    DARK: borealisThemeDark,
-  },
-};
 AVAILABLE_THEMES.forEach((theme) => {
   registerTheme(
     theme.value,
     THEME_CSS_MAP[theme.value as keyof typeof THEME_CSS_MAP]
   );
 });
-const THEME_NAMES = EUI_THEMES.map(({ value }) => value);
 
 import { type ThemeLanguages } from './language_selector';
 

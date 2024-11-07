@@ -8,6 +8,8 @@
 
 import { css } from '@emotion/react';
 import chroma from 'chroma-js';
+import { _EuiThemeVisColors } from '@elastic/eui-theme-common';
+
 import {
   logicalCSS,
   logicalSizeCSS,
@@ -24,9 +26,7 @@ import {
   shade,
 } from '../../services';
 import type { TokenFill } from './token_types';
-
-const visColors = euiPaletteColorBlind();
-const visColorsBehindText = euiPaletteColorBlindBehindText();
+import { TOKEN_COLOR_TO_ICON_COLOR_MAP } from './token_map';
 
 const getTokenColor = (
   euiThemeContext: UseEuiTheme,
@@ -34,6 +34,12 @@ const getTokenColor = (
   color: number | string
 ) => {
   const { euiTheme, colorMode, highContrastMode } = euiThemeContext;
+  const { hasVisColorAdjustment } = euiTheme.flags;
+  // use inside function as they are not returning constants,
+  // but internally depend on EUI_VIS_COLOR_STORE to update per theme
+  const visColors = euiPaletteColorBlind();
+  const visColorsBehindText = euiPaletteColorBlindBehindText();
+
   const isVizColor = typeof color === 'number';
 
   const iconColor = isVizColor ? visColors[color] : euiTheme.colors.darkShade;
@@ -48,7 +54,24 @@ const getTokenColor = (
     ? shade(iconColor, 0.7)
     : tint(iconColor, 0.9);
 
-  const lightColor = makeHighContrastColor(iconColor)(backgroundLightColor);
+  const getIconVisColor = (
+    euiTheme: UseEuiTheme['euiTheme'],
+    color: number
+  ) => {
+    const iconColorKey =
+      `euiColorVis${color}` as keyof typeof TOKEN_COLOR_TO_ICON_COLOR_MAP;
+    const iconColorToken = TOKEN_COLOR_TO_ICON_COLOR_MAP[
+      iconColorKey
+    ] as keyof _EuiThemeVisColors;
+
+    return euiTheme.colors.vis[iconColorToken];
+  };
+
+  const lightColor = hasVisColorAdjustment
+    ? makeHighContrastColor(iconColor)(backgroundLightColor)
+    : isVizColor
+    ? getIconVisColor(euiTheme, color)
+    : iconColor;
 
   const boxShadowColor = highContrastMode
     ? iconColor

@@ -3,7 +3,6 @@ import React, { useState, useContext } from 'react';
 
 import { EuiThemeProvider, useEuiTheme } from '../../../../src/services';
 import { EUI_THEME } from '../../../../src/themes';
-import { AVAILABLE_THEMES } from '../with_theme/theme_context';
 
 import { ThemeContext } from '../with_theme';
 import {
@@ -15,6 +14,7 @@ import {
   EuiSwitch,
   EuiSwitchEvent,
 } from '../../../../src/components';
+import { AVAILABLE_THEMES } from '../with_theme/theme_context';
 
 export const GuideThemeSelector = () => {
   const context = useContext(ThemeContext);

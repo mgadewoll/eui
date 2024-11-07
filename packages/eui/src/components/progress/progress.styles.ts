@@ -16,11 +16,7 @@ import {
   euiTextTruncate,
 } from '../../global_styling';
 import { highContrastModeStyles } from '../../global_styling/functions/high_contrast';
-import {
-  UseEuiTheme,
-  euiPaletteColorBlind,
-  makeHighContrastColor,
-} from '../../services';
+import { UseEuiTheme, makeHighContrastColor } from '../../services';
 import { euiText } from '../text/text.styles';
 
 /**

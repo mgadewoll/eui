@@ -10,8 +10,10 @@ import React, { HTMLAttributes, FunctionComponent, useMemo } from 'react';
 import { CommonProps, ExclusiveUnion } from '../common';
 import classNames from 'classnames';
 
-import { isColorDark, hexToRgb, isValidHex } from '../../services/color';
 import {
+  isColorDark,
+  hexToRgb,
+  isValidHex,
   euiPaletteColorBlindBehindText,
   toInitials,
   useEuiMemoizedStyles,
@@ -20,7 +22,6 @@ import {
 import { IconType, EuiIcon, IconSize, IconColor } from '../icon';
 
 import { euiAvatarStyles } from './avatar.styles';
-const visColors = euiPaletteColorBlindBehindText();
 
 export const SIZES = ['s', 'm', 'l', 'xl'] as const;
 export type EuiAvatarSize = (typeof SIZES)[number];
@@ -127,7 +128,13 @@ export const EuiAvatar: FunctionComponent<EuiAvatarProps> = ({
 }) => {
   checkValidInitials(initials);
   const { casing = type === 'space' ? 'none' : 'uppercase', ...rest } = props;
-  const { highContrastMode, euiTheme } = useEuiTheme();
+  const { euiTheme, highContrastMode } = useEuiTheme();
+
+  const visColors = useMemo(
+    () => euiPaletteColorBlindBehindText(),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [euiTheme]
+  );
 
   const isPlain = color === 'plain';
   const isSubdued = color === 'subdued';
@@ -175,7 +182,7 @@ export const EuiAvatar: FunctionComponent<EuiAvatarProps> = ({
         color: textColor,
       };
     }
-  }, [imageUrl, color, isNamedColor, name.length]);
+  }, [imageUrl, color, isNamedColor, name.length, visColors]);
 
   const highContrastBorder = useMemo(
     // Render a border since background-colors are ignored in Windows forced contrast themes
