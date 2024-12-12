@@ -94,7 +94,7 @@ export const EuiCommentEvent: FunctionComponent<EuiCommentEventProps> = ({
   }
 
   if (isTypeRegular && !eventColor) {
-    eventColor = 'subdued';
+    eventColor = 'highlighted';
   }
   if (isTypeUpdate && !eventColor) {
     eventColor = 'transparent';
@@ -120,20 +120,21 @@ export const EuiCommentEvent: FunctionComponent<EuiCommentEventProps> = ({
   const { highContrastMode } = useEuiTheme();
   const showEventBorders = isTypeRegular;
   const showHighContrastBorder = isTypeUpdate && highContrastMode;
-  const borderStyles = useEuiBorderColorCSS();
+  const borderColor = eventColor === 'highlighted' ? 'subdued' : eventColor;
 
+  const borderStyles = useEuiBorderColorCSS();
   const styles = useEuiMemoizedStyles(euiCommentEventStyles);
   const cssStyles = [
     styles.euiCommentEvent,
     (showEventBorders || showHighContrastBorder) && styles.border,
-    (showEventBorders || showHighContrastBorder) && borderStyles[eventColor!],
+    (showEventBorders || showHighContrastBorder) && borderStyles[borderColor!],
   ];
 
   const headerStyles = useEuiMemoizedStyles(euiCommentEventHeaderStyles);
   const cssHeaderStyles = [
     headerStyles.euiCommentEvent__header,
     showEventBorders && headerStyles.border,
-    showEventBorders && borderStyles[eventColor!],
+    showEventBorders && borderStyles[borderColor!],
   ];
 
   const bodyStyles = useEuiMemoizedStyles(euiCommentEventBodyStyles);

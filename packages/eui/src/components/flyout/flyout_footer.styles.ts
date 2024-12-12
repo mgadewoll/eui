@@ -16,7 +16,7 @@ export const euiFlyoutFooterStyles = (euiThemeContext: UseEuiTheme) => {
 
   return {
     euiFlyoutFooter: css`
-      background-color: ${euiTheme.colors.lightestShade};
+      background-color: ${euiTheme.components.flyoutFooterBackground};
       flex-grow: 0;
       ${highContrastModeStyles(euiThemeContext, {
         preferred: logicalCSS('border-top', euiTheme.border.thin),
