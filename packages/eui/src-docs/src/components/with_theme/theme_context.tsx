@@ -99,10 +99,6 @@ export class ThemeProvider extends React.Component<PropsWithChildren, State> {
       colorMode
     );
 
-    const colorMode =
-      (localStorage.getItem('colorMode') as EuiThemeColorModeStandard) ||
-      undefined;
-
     const themeLanguage = this.getThemeLanguage();
 
     this.state = {

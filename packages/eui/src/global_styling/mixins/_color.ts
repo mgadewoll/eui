@@ -106,7 +106,6 @@ export const useEuiBackgroundColor = (
 };
 
 /**
- * @deprecated
  * @returns An object map of color keys to CSS,
  * e.g. { danger: css``, success: css``, ... }
  */
