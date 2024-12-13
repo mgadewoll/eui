@@ -62,7 +62,6 @@ export const euiNotificationBadgeStyles = (euiThemeContext: UseEuiTheme) => {
     `,
     // Colors
     accent: css(badgeColors.accentText),
-    accentSecondary: css(badgeColors.accentSecondaryText),
     success: css(badgeColors.success),
     subdued: css(badgeColors.subdued),
   };
