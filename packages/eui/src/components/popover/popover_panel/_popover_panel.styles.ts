@@ -64,16 +64,6 @@ export const euiPopoverPanelStyles = (euiThemeContext: UseEuiTheme) => {
       &:focus {
         outline-offset: 0;
       }
-
-      &::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        border-radius: inherit;
-        border: ${euiTheme.border.width.thin} solid
-          ${euiTheme.colors.borderBaseFloating};
-        pointer-events: none;
-      }
     `,
     isOpen: css`
       opacity: 1;
