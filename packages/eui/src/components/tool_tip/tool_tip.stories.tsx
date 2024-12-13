@@ -60,18 +60,6 @@ export const Playground: Story = {
     children: <EuiButton autoFocus>Tooltip trigger</EuiButton>,
     content: 'tooltip content',
   },
-  // play: lokiPlayDecorator(async (context) => {
-  //   const { bodyElement, step } = context;
-
-  //   const canvas = within(bodyElement);
-
-  //   await step('show tooltip on click', async () => {
-  //     await userEvent.click(canvas.getByRole('button'));
-  //     await waitFor(() => {
-  //       expect(canvas.getByRole('tooltip')).toBeVisible();
-  //     });
-  //   });
-  // }),
   play: lokiPlayDecorator(async () => {
     // Reduce VRT flakiness/screenshots before tooltip is fully visible
     await sleep(300);

@@ -18,6 +18,9 @@ import { EuiPopoverFooter, EuiPopoverFooterProps } from './popover_footer';
 const meta: Meta<EuiPopoverFooterProps> = {
   title: 'Layout/EuiPopover/EuiPopoverFooter',
   component: EuiPopoverFooter,
+  parameters: {
+    loki: { chromeSelector: LOKI_SELECTORS.portal },
+  },
   decorators: [
     (Story, { args }) => (
       <EuiPopover isOpen button={<EuiButton>trigger</EuiButton>}>
