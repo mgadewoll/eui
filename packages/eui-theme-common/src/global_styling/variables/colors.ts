@@ -166,7 +166,6 @@ export type _EuiThemeSpecialColors = {
   /**
    * The base color for shadows that gets `transparentized`
    * at a value based on the `colorMode` and then layered.
-   * @deprecated - use specific shadow tokens instead
    */
   shadow: ColorModeSwitch;
 };
