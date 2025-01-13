@@ -863,6 +863,7 @@ export class EuiComboBox<T> extends Component<
                 {...inputPopoverProps}
                 isOpen={isListOpen}
                 closePopover={this.closeList}
+                ownFocus
                 input={
                   <EuiComboBoxInput
                     compressed={compressed}
