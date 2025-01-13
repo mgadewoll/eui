@@ -27,6 +27,15 @@ const options = [
   { label: 'Item 3' },
   { label: 'Item 4', disabled: true },
   { label: 'Item 5' },
+  // TODO: REVERT ME
+  { label: 'Item 6' },
+  { label: 'Item 7' },
+  { label: 'Item 8' },
+  { label: 'Item 9' },
+  { label: 'Item 10' },
+  { label: 'Item 11' },
+  { label: 'Item 12' },
+  { label: 'Item 13' },
 ];
 
 const meta: Meta<EuiComboBoxProps<{}>> = {
