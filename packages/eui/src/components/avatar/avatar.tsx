@@ -136,14 +136,6 @@ export const EuiAvatar: FunctionComponent<EuiAvatarProps> = ({
     [euiTheme]
   );
 
-  const { euiTheme } = useEuiTheme();
-
-  const visColors = useMemo(
-    () => euiPaletteColorBlindBehindText(),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [euiTheme]
-  );
-
   const isPlain = color === 'plain';
   const isSubdued = color === 'subdued';
   const isNamedColor = isPlain || isSubdued || color === null;

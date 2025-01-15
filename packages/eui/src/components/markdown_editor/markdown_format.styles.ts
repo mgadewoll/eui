@@ -121,7 +121,7 @@ export const euiMarkdownFormatStyles = (euiThemeContext: UseEuiTheme) => {
       default: css(
         euiMarkdownAdjustBorderColors(
           euiThemeContext,
-          euiTheme.euiTheme.components.markdownFormatTableBorderColor
+          euiTheme.components.markdownFormatTableBorderColor
         )
       ),
       subdued: css(
@@ -140,7 +140,7 @@ export const euiMarkdownFormatStyles = (euiThemeContext: UseEuiTheme) => {
       accentSecondary: css(
         euiMarkdownAdjustBorderColors(
           euiThemeContext,
-          euiTheme.euiTheme.colors.accentSecondary
+          euiTheme.colors.accentSecondary
         )
       ),
       warning: css(
