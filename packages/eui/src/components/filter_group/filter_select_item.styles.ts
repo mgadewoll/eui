@@ -45,10 +45,7 @@ export const euiFilterSelectItemStyles = (euiThemeContext: UseEuiTheme) => {
       color: ${euiTheme.colors.text};
       ${logicalCSS(
         'border-bottom',
-        `${euiTheme.border.width.thin} solid ${transparentize(
-          euiTheme.border.color,
-          0.4
-        )}`
+        `${euiTheme.border.width.thin} solid ${euiTheme.colors.borderBaseSubdued}`
       )}
 
       &:hover {

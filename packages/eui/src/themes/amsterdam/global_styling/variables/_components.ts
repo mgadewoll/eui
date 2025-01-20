@@ -47,6 +47,10 @@ const component_colors: _EuiThemeComponentColors = {
     ['colors.darkestShade']
   ),
 
+  buttonGroupBackgroundDisabledSelected: computed(
+    ([disabled]) => disabled,
+    ['colors.disabled']
+  ),
   buttonGroupBorderColor: computed(
     ([fullShade]) => transparentize(fullShade, 0.1),
     ['colors.fullShade']
@@ -263,6 +267,15 @@ const component_colors: _EuiThemeComponentColors = {
     ['colors.fullShade']
   ),
 
+  overlayMaskBackground: computed(
+    ([backgroundBaseInteractiveOverlay]) => backgroundBaseInteractiveOverlay,
+    ['colors.backgroundBaseInteractiveOverlay']
+  ),
+  overlayMaskBackgroundHighContrast: computed(
+    ([ink]) => transparentize(ink, 0.85),
+    ['colors.ink']
+  ),
+
   popoverPanelBackground: computed(
     ([emptyShade]) => emptyShade,
     ['colors.emptyShade']
@@ -279,6 +292,11 @@ const component_colors: _EuiThemeComponentColors = {
   selectableListItemBorderColor: computed(
     ([color]) => transparentize(color, 0.4),
     ['border.color']
+  ),
+
+  skeletonBackgroundSkeletonMiddleHighContrast: computed(
+    ([emptyShade]) => emptyShade,
+    ['colors.emptyShade']
   ),
 
   superDatePickerBackgroundSuccees: computed(
@@ -453,6 +471,11 @@ export const components: _EuiThemeComponents = {
     scrollbarTrackColor: computed(
       ([body]) => tint(body, 0.07),
       ['colors.body']
+    ),
+
+    skeletonBackgroundSkeletonMiddleHighContrast: computed(
+      ([lightShade]) => tint(lightShade, 0.12),
+      ['colors.lightShade']
     ),
 
     superDatePickerBackgroundSuccees: computed(

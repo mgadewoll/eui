@@ -145,26 +145,21 @@ export const useEuiBackgroundColorCSS = () =>
  */
 
 export const euiBorderColor = (
-  { euiTheme, highContrastMode }: UseEuiTheme,
+  { euiTheme }: UseEuiTheme,
   color: _EuiBackgroundColor
 ): string => {
   switch (color) {
     case 'transparent':
       return euiTheme.border.color;
     default: {
-      const highContrastTokenName = getTokenName(
-        'text',
-        color
-      ) as keyof _EuiThemeBrandTextColors;
-
+      // border tokens are overridden in for high contrast mode
+      // in high_contrast_overrides.ts
       const tokenName = getTokenName(
         'borderBase',
         color
       ) as keyof _EuiThemeBorderColors;
 
-      return highContrastMode
-        ? euiTheme.colors[highContrastTokenName]
-        : euiTheme.colors[tokenName];
+      return euiTheme.colors[tokenName];
     }
   }
 };
@@ -175,10 +170,13 @@ export const euiBorderColor = (
  */
 const _euiBorderColors = (euiThemeContext: UseEuiTheme) =>
   BACKGROUND_COLORS.reduce((acc, color) => {
+    // border tokens are overridden in for high contrast mode
+    // in high_contrast_overrides.ts
     const borderToken = getTokenName(
       'borderBase',
       color
     ) as keyof _EuiThemeBorderColors;
+
     const borderColor =
       color === 'transparent'
         ? euiThemeContext.euiTheme.border.color

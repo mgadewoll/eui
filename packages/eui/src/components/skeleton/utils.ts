@@ -8,7 +8,7 @@
 
 import { css } from '@emotion/react';
 
-import { tint, UseEuiTheme } from '../../services';
+import { UseEuiTheme } from '../../services';
 import {
   euiCanAnimate,
   euiCantAnimate,
@@ -22,16 +22,16 @@ type AnimationOptions = {
 };
 
 export const euiSkeletonGradientAnimation = (
-  { euiTheme, colorMode, highContrastMode }: UseEuiTheme,
+  { euiTheme, highContrastMode }: UseEuiTheme,
   { slideSize = '-53%', gradientSize = '220%' }: AnimationOptions = {}
 ) => {
   const gradientStartStop = euiTheme.colors.backgroundBaseSkeletonEdge;
   // Increase "shine" visibility in high contrast modes
   const gradientMiddle = highContrastMode
-    ? colorMode === 'DARK'
-      ? tint(euiTheme.colors.lightShade, 0.12)
-      : euiTheme.colors.emptyShade
+    ? euiTheme.components.skeletonBackgroundSkeletonMiddleHighContrast
     : euiTheme.colors.backgroundBaseSkeletonMiddle;
+
+  console.log(gradientMiddle);
 
   return css`
     ${euiCantAnimate} {

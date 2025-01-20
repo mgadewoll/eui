@@ -273,9 +273,15 @@ export const euiFormControlDisabledStyles = (euiThemeContext: UseEuiTheme) => {
 
   const border =
     hasGlobalFocusColor &&
-    `
+    highContrastModeStyles(euiThemeContext, {
+      none: `
+        border: none;
     box-shadow: inset 0 0 0 ${euiTheme.border.width.thin} ${euiTheme.colors.borderBaseDisabled};
-  `.trim();
+    `,
+      preferred: `
+        border: ${euiTheme.border.width.thin} solid ${euiTheme.border.color};
+    `,
+    });
 
   return `
     color: ${form.textColorDisabled};

@@ -11,10 +11,6 @@ import { _EuiThemeButtonColors } from './buttons';
 import { _EuiThemeForm, _EuiThemeFormColors } from './forms';
 
 export type _EuiThemeComponentColors = {
-  buttonGroupBorderColor: ColorModeSwitch;
-  buttonGroupBorderColorSelected: ColorModeSwitch;
-  buttonGroupFocusColor: ColorModeSwitch;
-
   badgeBackground: ColorModeSwitch;
   badgeBackgroundSubdued: ColorModeSwitch;
   badgeBorderColorHollow: ColorModeSwitch;
@@ -24,6 +20,11 @@ export type _EuiThemeComponentColors = {
 
   breadcrumbsApplicationBackground: ColorModeSwitch;
   breadcrumbsApplicationColor: ColorModeSwitch;
+
+  buttonGroupBackgroundDisabledSelected: ColorModeSwitch;
+  buttonGroupBorderColor: ColorModeSwitch;
+  buttonGroupBorderColorSelected: ColorModeSwitch;
+  buttonGroupFocusColor: ColorModeSwitch;
 
   codeBackground: ColorModeSwitch;
   codeBackgroundSelected: ColorModeSwitch;
@@ -87,6 +88,9 @@ export type _EuiThemeComponentColors = {
 
   markdownFormatTableBorderColor: ColorModeSwitch;
 
+  overlayMaskBackground: ColorModeSwitch;
+  overlayMaskBackgroundHighContrast: ColorModeSwitch;
+
   popoverPanelBackground: ColorModeSwitch;
   popoverFooterBorderColor: ColorModeSwitch;
 
@@ -95,6 +99,8 @@ export type _EuiThemeComponentColors = {
   sideNavItemEmphasizedBackground: ColorModeSwitch;
 
   selectableListItemBorderColor: ColorModeSwitch;
+
+  skeletonBackgroundSkeletonMiddleHighContrast: ColorModeSwitch;
 
   superDatePickerBackgroundSuccees: ColorModeSwitch;
 
