@@ -231,7 +231,7 @@ export const ThemeExample = {
           <p>
             For instance, we compute text variants of our base colors. So
             locally overriding the <EuiCode>colors.primary</EuiCode> color will
-            automatically cascade to the <EuiCode>colors.primaryText</EuiCode>.
+            automatically cascade to the <EuiCode>colors.textPrimary</EuiCode>.
             You can however, directly override computed values as well by
             passing a custom value to this theme variable.
           </p>

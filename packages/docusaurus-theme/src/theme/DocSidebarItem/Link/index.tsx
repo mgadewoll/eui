@@ -13,7 +13,7 @@ import { useEuiMemoizedStyles, UseEuiTheme } from '@elastic/eui';
 const getStyles = ({ euiTheme }: UseEuiTheme) => ({
   menuListItem: css`
     .menu__link {
-      color: ${euiTheme.colors.text};
+      color: ${euiTheme.colors.textParagraph};
       font-size: var(--eui-font-size-s);
       line-height: var(--eui-line-height-s);
 

@@ -114,13 +114,13 @@ export const TextJS: FunctionComponent<ThemeRowType> = ({ description }) => {
         example={
           <div
             css={css`
-              color: ${euiTheme.colors.warningText};
+              color: ${euiTheme.colors.textWarning};
             `}
           >
-            <strong>color: {euiTheme.colors.warningText}</strong>
+            <strong>color: {euiTheme.colors.textWarning}</strong>
           </div>
         }
-        snippet={'color: ${euiTheme.colors.warningText};'}
+        snippet={'color: ${euiTheme.colors.textWarning};'}
         snippetLanguage="emotion"
       />
     </>

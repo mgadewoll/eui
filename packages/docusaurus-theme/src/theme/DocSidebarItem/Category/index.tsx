@@ -30,7 +30,7 @@ const getStyles = ({ euiTheme }: UseEuiTheme) => ({
     --ifm-menu-link-padding-vertical: calc(${euiTheme.size.xs} + 2px);
 
     .menu__link--sublist {
-      color: ${euiTheme.colors.text};
+      color: ${euiTheme.colors.textParagraph};
       font-size: var(--eui-font-size-s);
       line-height: var(--eui-line-height-s);
       font-weight: ${euiTheme.font.weight.bold};

@@ -24,12 +24,12 @@ export const getItemStyles = ({ euiTheme }: UseEuiTheme) => ({
     }
 
     &.breadcrumbs__item--active .breadcrumbs__link {
-      color: ${euiTheme.colors.text};
+      color: ${euiTheme.colors.textParagraph};
     }
   `,
   icon: css`
     block-size: ${euiTheme.size.s};
     inline-size: ${euiTheme.size.s};
-    fill: ${euiTheme.colors.text};
+    fill: ${euiTheme.colors.textParagraph};
   `,
 });

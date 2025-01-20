@@ -12,7 +12,7 @@ const Box: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
       css={{
         background: euiTheme.colors.highlight,
         padding: euiTheme.size.xl,
-        color: euiTheme.colors.primaryText,
+        color: euiTheme.colors.textPrimary,
       }}
     >
       <p>
@@ -40,7 +40,7 @@ export default () => {
         <Box>
           The <EuiCode>colors.primary</EuiCode> value has been changed to{' '}
           <EuiCode>#db1dde</EuiCode> (<EuiCode>#e378e4</EuiCode> for dark mode)
-          and so the calculated value of <EuiCode>colors.primaryText</EuiCode>{' '}
+          and so the calculated value of <EuiCode>colors.textPrimary</EuiCode>{' '}
           has also been updated.
         </Box>
       </EuiThemeProvider>

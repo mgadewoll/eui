@@ -24,11 +24,12 @@ export const coreColors = [
 ];
 
 export const coreTextVariants = [
-  'euiColorPrimaryText',
-  'euiColorAccentText',
-  'euiColorSuccessText',
-  'euiColorWarningText',
-  'euiColorDangerText',
+  'euiColorTextPrimary',
+  'euiColorTextAccent',
+  'euiColorTextAccentSecondary',
+  'euiColorTextSuccess',
+  'euiColorTextWarning',
+  'euiColorTextDanger',
 ];
 
 export const grayColors = [

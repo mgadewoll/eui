@@ -7,7 +7,7 @@ import { useEuiMemoizedStyles, UseEuiTheme } from '@elastic/eui';
 const getStyles = ({ euiTheme }: UseEuiTheme) => {
   return {
     list: css`
-      --ifm-toc-link-color: ${euiTheme.colors.text};
+      --ifm-toc-link-color: ${euiTheme.colors.textParagraph};
       --ifm-toc-padding-vertical: ${euiTheme.size.s};
       --ifm-toc-padding-horizontal: ${euiTheme.size.m};
 

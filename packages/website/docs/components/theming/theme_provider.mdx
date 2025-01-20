@@ -247,7 +247,7 @@ export default () => {
 
 The benefit of EUI's theme structure is that it only hard-codes a few color and size variables. The rest are **computed** values based on this base few. When you update a core variable, this will cascade into the other computed values.
 
-For instance, we compute text variants of our base colors. So locally overriding the `colors.primary` color will automatically cascade to the `colors.primaryText`. You can however, directly override computed values as well by passing a custom value to this theme variable.
+For instance, we compute text variants of our base colors. So locally overriding the `colors.primary` color will automatically cascade to the `colors.textPrimary`. You can however, directly override computed values as well by passing a custom value to this theme variable.
 
 ```tsx interactive
 import React, { FunctionComponent, ReactNode } from 'react';
@@ -267,7 +267,7 @@ const Box: FunctionComponent<{ children: ReactNode }> = ({ children }) => {
       css={{
         background: euiTheme.colors.highlight,
         padding: euiTheme.size.xl,
-        color: euiTheme.colors.primaryText,
+        color: euiTheme.colors.textPrimary,
       }}
     >
       <p>
@@ -295,7 +295,7 @@ export default () => {
         <Box>
           The <EuiCode>colors.primary</EuiCode> value has been changed to{' '}
           <EuiCode>#db1dde</EuiCode> (<EuiCode>#e378e4</EuiCode> for dark mode)
-          and so the calculated value of <EuiCode>colors.primaryText</EuiCode>{' '}
+          and so the calculated value of <EuiCode>colors.textPrimary</EuiCode>{' '}
           has also been updated.
         </Box>
       </EuiThemeProvider>

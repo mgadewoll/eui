@@ -66,7 +66,7 @@ const getStyles = (euiThemeContext: UseEuiTheme) => {
       min-block-size: 40rem;
       padding: 7rem 0;
 
-      color: ${euiTheme.colors.text};
+      color: ${euiTheme.colors.textParagraph};
     `,
     left: css`
       flex: 1;

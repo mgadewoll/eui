@@ -88,7 +88,7 @@ export default ({ snippet }: { snippet: ReactNode }) => {
                   <EuiAvatar
                     name="event icon"
                     size="s"
-                    color={euiTheme.colors.primaryText}
+                    color={euiTheme.colors.textPrimary}
                     initials="B"
                   />
                 </span>

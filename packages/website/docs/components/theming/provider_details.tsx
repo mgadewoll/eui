@@ -42,7 +42,7 @@ export const ProviderDetails = ({
               aria-hidden="true"
               type="stopFilled"
               size="s"
-              css={{ color: euiTheme.colors.text }}
+              css={{ color: euiTheme.colors.textParagraph }}
             />
           </div>
         </EuiFlexItem>
