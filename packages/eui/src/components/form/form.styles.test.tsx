@@ -126,11 +126,11 @@ describe('euiFormControlStyles', () => {
 
         ",
         "focus": "
-        --euiFormControlStateColor: #0077CC;
-        background-color: #FFFFFF;
-        background-size: 100% 100%;
-        outline: none; /* Remove all outlines and rely on our own bottom border gradient */
-      ",
+          --euiFormControlStateColor: #0077CC;
+          background-color: #FFFFFF;
+          background-size: 100% 100%;
+          outline: none; /* Remove all outlines and rely on our own bottom border gradient */
+        ",
         "formWidth": "
             max-inline-size: 400px;
             inline-size: 100%;
@@ -256,11 +256,12 @@ describe('euiFormCustomControlStyles', () => {
             "selected": "
                 color: #FFFFFF;
                 background-color: #0077CC;
+                border-color: #0077CC;
               ",
             "unselected": "
                 color: transparent;
                 background-color: #FFFFFF;
-                border: 1px solid #919296;
+                border-color: #919296;
 
                 &:has(input:focus) {
                   border-color: #0077CC;

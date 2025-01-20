@@ -7,19 +7,9 @@ exports[`euiProgressStyles indeterminate div CSS colors accent 1`] = `
 `;
 
 exports[`euiProgressStyles indeterminate div CSS colors accentSecondary 1`] = `
-"
-  &::before {
+"&::before {
     background-color: #00BFB3;
-  }
-;;label:accentSecondary;"
-`;
-
-exports[`euiProgressStyles indeterminate div CSS colors accentSecondary 1`] = `
-"
-  &::before {
-    background-color: #00BFB3;
-  }
-;;label:accentSecondary;"
+  };;label:accentSecondary;"
 `;
 
 exports[`euiProgressStyles indeterminate div CSS colors danger 1`] = `
@@ -29,11 +19,9 @@ exports[`euiProgressStyles indeterminate div CSS colors danger 1`] = `
 `;
 
 exports[`euiProgressStyles indeterminate div CSS colors primary 1`] = `
-"
-  &::before {
+"&::before {
     background-color: #0077CC;
-  }
-;;label:primary;"
+  };;label:primary;"
 `;
 
 exports[`euiProgressStyles indeterminate div CSS colors subdued 1`] = `
@@ -146,25 +134,12 @@ exports[`euiProgressStyles native progress CSS colors accent 1`] = `
 `;
 
 exports[`euiProgressStyles native progress CSS colors accentSecondary 1`] = `
-"
-  &::-webkit-progress-value {
+"&::-webkit-progress-value {
     background-color: #00BFB3;
   }
   &::-moz-progress-bar {
     background-color: #00BFB3;
-  }
-;;label:accentSecondary;"
-`;
-
-exports[`euiProgressStyles native progress CSS colors accentSecondary 1`] = `
-"
-  &::-webkit-progress-value {
-    background-color: #00BFB3;
-  }
-  &::-moz-progress-bar {
-    background-color: #00BFB3;
-  }
-;;label:accentSecondary;"
+  };;label:accentSecondary;"
 `;
 
 exports[`euiProgressStyles native progress CSS colors danger 1`] = `
@@ -177,14 +152,12 @@ exports[`euiProgressStyles native progress CSS colors danger 1`] = `
 `;
 
 exports[`euiProgressStyles native progress CSS colors primary 1`] = `
-"
-  &::-webkit-progress-value {
+"&::-webkit-progress-value {
     background-color: #0077CC;
   }
   &::-moz-progress-bar {
     background-color: #0077CC;
-  }
-;;label:primary;"
+  };;label:primary;"
 `;
 
 exports[`euiProgressStyles native progress CSS colors subdued 1`] = `
