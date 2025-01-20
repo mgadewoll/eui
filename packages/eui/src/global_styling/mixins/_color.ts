@@ -11,7 +11,6 @@ import { UseEuiTheme, useEuiMemoizedStyles } from '../../services';
 import {
   _EuiThemeBackgroundColors,
   _EuiThemeBorderColors,
-  _EuiThemeBrandTextColors,
   _EuiThemeTransparentBackgroundColors,
   getTokenName,
 } from '@elastic/eui-theme-common';
