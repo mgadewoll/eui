@@ -58,7 +58,7 @@ export const euiFormVariables = (euiThemeContext: UseEuiTheme) => {
     controlDisabledColor: euiTheme.components.forms.controlBackgroundDisabled,
 
     controlBoxShadow: '0 0 transparent',
-    controlPlaceholderText: makeHighContrastColor(euiTheme.colors.subduedText)(
+    controlPlaceholderText: makeHighContrastColor(euiTheme.colors.textSubdued)(
       backgroundColor
     ),
     appendPrependBackground: euiTheme.components.forms.prependBackground,
@@ -276,7 +276,7 @@ export const euiFormControlDisabledStyles = (euiThemeContext: UseEuiTheme) => {
     highContrastModeStyles(euiThemeContext, {
       none: `
         border: none;
-    box-shadow: inset 0 0 0 ${euiTheme.border.width.thin} ${euiTheme.colors.borderBaseDisabled};
+        box-shadow: inset 0 0 0 ${euiTheme.border.width.thin} ${euiTheme.colors.borderBaseDisabled};
     `,
       preferred: `
         border: ${euiTheme.border.width.thin} solid ${euiTheme.border.color};

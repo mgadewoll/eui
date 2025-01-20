@@ -35,7 +35,7 @@ export const euiText = (
   inheritColor = false
 ) => {
   return {
-    color: inheritColor ? 'inherit' : euiTheme.colors.text,
+    color: inheritColor ? 'inherit' : euiTheme.colors.textParagraph,
     fontWeight: euiTheme.font.weight.regular,
   };
 };
@@ -189,7 +189,7 @@ const euiScaleText = (
 
     .eui-definitionListReverse dt {
       font-size: ${euiFontSize(euiThemeContext, 'xs', options).fontSize};
-      color: ${euiTheme.colors.text};
+      color: ${euiTheme.colors.textParagraph};
     }
 
     small {
@@ -231,7 +231,7 @@ const euiScaleText = (
       content: '';
       ${logicalCSS(
         'border-bottom',
-        `${euiTheme.border.width.thin} solid ${euiTheme.colors.text}`
+        `${euiTheme.border.width.thin} solid ${euiTheme.colors.textParagraph}`
       )}
       position: absolute;
       ${logicalCSS('bottom', euiTheme.size.xxs)}
@@ -279,7 +279,7 @@ export const euiTextStyles = (euiThemeContext: UseEuiTheme) => {
       /* The blockquote color in euiMarkdownFormat inherits the color from the parent element
          For this reason, we just apply the subdued text color for blockquotes not in markdown */
       blockquote:not(.euiMarkdownFormat__blockquote) {
-        color: ${euiTheme.colors.subduedText};
+        color: ${euiTheme.colors.textSubdued};
       }
 
       h1 {
@@ -342,7 +342,8 @@ export const euiTextStyles = (euiThemeContext: UseEuiTheme) => {
         ${logicalCSS('padding-vertical', euiTheme.size.xxs)}
         ${logicalCSS('padding-horizontal', euiTheme.size.xs)}
         line-height: 1;
-        border: ${euiTheme.border.width.thin} solid ${euiTheme.colors.text};
+        border: ${euiTheme.border.width.thin} solid
+          ${euiTheme.colors.textParagraph};
         border-radius: ${mathWithUnits(
           euiTheme.border.radius.small,
           (x) => x / 2

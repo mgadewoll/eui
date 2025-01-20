@@ -19,7 +19,7 @@ export const euiMarkStyles = (euiThemeContext: UseEuiTheme) => {
         // Override the browser's black color.
         // Can't use 'inherit' because the text to background color contrast may not be sufficient
         none: `
-          color: ${euiTheme.colors.text};
+          color: ${euiTheme.colors.textParagraph};
           background-color: ${euiTheme.components.markBackground};
         `,
         // `!important` is required here because some marked text links

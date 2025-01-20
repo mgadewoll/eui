@@ -88,7 +88,7 @@ export const euiBreadcrumbContentStyles = (euiThemeContext: UseEuiTheme) => {
         &[class*='euiLink-subdued'] {
           &:hover,
           &:focus {
-            color: ${euiTheme.colors.text};
+            color: ${euiTheme.colors.textParagraph};
           }
         }
       }

@@ -114,7 +114,7 @@ export const euiToastHeaderStyles = (euiThemeContext: UseEuiTheme) => {
     // Elements
     euiToastHeader__icon: css`
       flex: 0 0 auto;
-      fill: ${euiTheme.colors.title};
+      fill: ${euiTheme.colors.textHeading};
 
       /* Vertically center icon with first line of title */
       transform: translateY(2px);

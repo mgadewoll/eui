@@ -84,7 +84,7 @@ export const euiStepNumberStyles = (euiThemeContext: UseEuiTheme) => {
     // status
     incomplete: css`
       background-color: transparent;
-      color: ${euiTheme.colors.text};
+      color: ${euiTheme.colors.textParagraph};
       border: ${euiTheme.border.thick};
     `,
     disabled: css`

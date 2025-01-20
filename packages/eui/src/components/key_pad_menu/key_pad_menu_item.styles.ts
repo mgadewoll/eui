@@ -31,7 +31,8 @@ export const euiKeyPadMenuItemStyles = (euiThemeContext: UseEuiTheme) => {
       padding: ${euiTheme.size.xs};
       ${logicalSizeCSS(euiKeyPadMenuSize)}
       border-radius: ${euiTheme.border.radius.medium};
-      color: ${euiTheme.colors.text}; /* Override possible link color */
+      color: ${euiTheme.colors
+        .textParagraph}; /* Override possible link color */
 
       ${euiCanAnimate} {
         transition: background-color ${euiTheme.animation.fast} ease-in,
@@ -64,11 +65,11 @@ export const euiKeyPadMenuItemStyles = (euiThemeContext: UseEuiTheme) => {
       }
     `,
     selected: css`
-      color: ${euiTheme.colors.title};
+      color: ${euiTheme.colors.textHeading};
       background-color: ${euiTheme.focus.backgroundColor};
 
       &:is(*, :hover, :focus, :focus-within) {
-        color: ${euiTheme.colors.primaryText};
+        color: ${euiTheme.colors.textPrimary};
 
         ${highContrastModeStyles(euiThemeContext, {
           // Skip checkable items (which render a <label> instead of <button>/<a>),
@@ -85,15 +86,17 @@ export const euiKeyPadMenuItemStyles = (euiThemeContext: UseEuiTheme) => {
     disabled: {
       disabled: css`
         cursor: not-allowed;
-        color: ${euiTheme.colors.disabledText};
+        color: ${euiTheme.colors.textDisabled};
 
         ${highContrastModeStyles(euiThemeContext, {
           none: `
             .euiKeyPadMenuItem__icon {
-              filter: grayscale(100%);
+              img {
+                filter: grayscale(100%);
+              }
 
               svg * {
-                fill: ${euiTheme.colors.disabledText};
+                fill: ${euiTheme.colors.textDisabled};
               }
             }
           `,

@@ -30,7 +30,7 @@ export const euiTabStyles = (euiThemeContext: UseEuiTheme) => {
 
       /* Font-weight used by append/prepend nodes - the tab title receives a heavier weight */
       font-weight: ${euiTheme.font.weight.semiBold};
-      color: ${euiTheme.colors.title};
+      color: ${euiTheme.colors.textHeading};
 
       &:focus {
         outline-offset: -${euiTheme.focus.width};
@@ -54,7 +54,7 @@ export const euiTabStyles = (euiThemeContext: UseEuiTheme) => {
       justify-content: center;
     `,
     selected: css`
-      color: ${euiTheme.colors.primaryText};
+      color: ${euiTheme.colors.textPrimary};
 
       &::after {
         content: '';
@@ -64,12 +64,12 @@ export const euiTabStyles = (euiThemeContext: UseEuiTheme) => {
     disabled: {
       disabled: css`
         cursor: not-allowed;
-        color: ${euiTheme.colors.disabledText};
+        color: ${euiTheme.colors.textDisabled};
       `,
       selected: css`
         &::after {
           content: '';
-          border-color: ${euiTheme.colors.disabledText};
+          border-color: ${euiTheme.colors.textDisabled};
         }
       `,
     },

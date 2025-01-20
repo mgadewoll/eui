@@ -35,19 +35,19 @@ export const euiStatTitleStyles = ({ euiTheme }: UseEuiTheme) => {
       color: ${euiTheme.colors.fullShade};
     `,
     subdued: css`
-      color: ${euiTheme.colors.subduedText};
+      color: ${euiTheme.colors.textSubdued};
     `,
     primary: css`
-      color: ${euiTheme.colors.primaryText};
+      color: ${euiTheme.colors.textPrimary};
     `,
     success: css`
-      color: ${euiTheme.colors.successText};
+      color: ${euiTheme.colors.textSuccess};
     `,
     danger: css`
-      color: ${euiTheme.colors.dangerText};
+      color: ${euiTheme.colors.textDanger};
     `,
     accent: css`
-      color: ${euiTheme.colors.accentText};
+      color: ${euiTheme.colors.textAccent};
     `,
     // Loading
     isLoading: css`

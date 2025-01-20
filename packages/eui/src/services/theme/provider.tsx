@@ -242,13 +242,13 @@ export const EuiThemeProvider = <T extends {} = {}>({
   const nestedThemeContext = useMemo(() => {
     return {
       isGlobalTheme: false, // The theme that determines the global body styles
-      bodyColor: isGlobalTheme ? theme.colors.text : bodyColor,
+      bodyColor: isGlobalTheme ? theme.colors.textParagraph : bodyColor,
       hasDifferentColorFromGlobalTheme: isGlobalTheme
         ? false
-        : bodyColor !== theme.colors.text,
+        : bodyColor !== theme.colors.textParagraph,
       colorClassName: css`
         label: euiColorMode-${_colorMode || colorMode};
-        color: ${theme.colors.text};
+        color: ${theme.colors.textParagraph};
       `,
       setGlobalCSSVariables: isGlobalTheme
         ? setThemeCSSVariables
