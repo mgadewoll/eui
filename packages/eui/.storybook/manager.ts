@@ -20,7 +20,7 @@ addons.setConfig({
       patterns: (item) => {
         // Storybook only accepts string literals in the tags
         // handling this centrally via a map doesn't work :(
-        return !item.tags?.includes('vrt-only');
+        return !['vrt-only', 'sr-only'].some((tag) => item.tags?.includes(tag));
       },
     },
   },

@@ -41,7 +41,12 @@ export const EuiProviderDecorator: FunctionComponent<
 
   return (
     <EuiProvider componentDefaults={portalInsert} {...euiProviderProps}>
-      <div id="story-wrapper" ref={setPortalSibling} css={writingModeCss}>
+      <div
+        id="story-wrapper"
+        ref={setPortalSibling}
+        css={writingModeCss}
+        tabIndex={-1}
+      >
         {portalInsert && children}
       </div>
     </EuiProvider>
@@ -82,19 +87,19 @@ type ToolbarDisplay = { title: string; icon: string };
 const storybookToolbarColorModes: Array<
   ToolbarDisplay & { value: EuiThemeColorMode }
 > = [
-  { value: 'light', title: 'Light mode', icon: 'circlehollow' },
-  { value: 'dark', title: 'Dark mode', icon: 'circle' },
-];
+    { value: 'light', title: 'Light mode', icon: 'circlehollow' },
+    { value: 'dark', title: 'Dark mode', icon: 'circle' },
+  ];
 
 const storybookToolbarWritingModes: Array<
   ToolbarDisplay & { value: WritingModes }
 > = [
-  { value: 'ltr', title: 'LTR', icon: 'arrowleft' },
-  { value: 'rtl', title: 'RTL', icon: 'arrowright' },
-  { value: 'vertical-lr', title: 'Vertical LTR', icon: 'arrowup' },
-  { value: 'vertical-rl', title: 'Vertical RTL', icon: 'arrowdown' },
-  { value: 'sideways', title: 'Sideways LTR', icon: 'collapse' },
-];
+    { value: 'ltr', title: 'LTR', icon: 'arrowleft' },
+    { value: 'rtl', title: 'RTL', icon: 'arrowright' },
+    { value: 'vertical-lr', title: 'Vertical LTR', icon: 'arrowup' },
+    { value: 'vertical-rl', title: 'Vertical RTL', icon: 'arrowdown' },
+    { value: 'sideways', title: 'Sideways LTR', icon: 'collapse' },
+  ];
 
 /**
  * Export Storybook toolbar globals/context that affect our EuiProvider decorator

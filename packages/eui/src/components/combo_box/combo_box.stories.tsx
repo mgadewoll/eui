@@ -20,6 +20,7 @@ import { EuiFlexItem } from '../flex';
 
 import { EuiComboBoxOptionMatcher } from './types';
 import { EuiComboBox, EuiComboBoxProps } from './combo_box';
+import { EuiScreenReaderOnly } from '../accessibility';
 
 const options = [
   { label: 'Item 1' },
@@ -188,6 +189,37 @@ export const NestedOptionsGroups: Story = {
       },
     ],
     autoFocus: true,
+  },
+  render: (args) => <StatefulComboBox {...args} />,
+};
+
+// A11y testing only
+export const Screenreader: Story = {
+  tags: ['sr-only'],
+  decorators: [
+    (Story, { args }) => (
+      <>
+        <EuiScreenReaderOnly>
+          <button id="sr-test-start">screen reader start</button>
+        </EuiScreenReaderOnly>
+
+        <Story {...args} />
+      </>
+    ),
+  ],
+  parameters: {
+    loki: { skip: true },
+  },
+  args: {
+    options: [
+      ...options,
+      { label: 'Item 6' },
+      { label: 'Item 7' },
+      { label: 'Item 8' },
+      { label: 'Item 9' },
+      { label: 'Item 10' },
+    ],
+    selectedOptions: undefined,
   },
   render: (args) => <StatefulComboBox {...args} />,
 };
