@@ -341,31 +341,27 @@ const euiButtonFocusCSS = (euiThemeContext: UseEuiTheme) => {
     'buttonVariant'
   );
 
-  const classicVariantStyles =
-    !isRefreshVariant &&
-    `
-    ${euiCanAnimate} {
-      transition: transform ${euiTheme.animation.normal} ease-in-out,
-        background-color ${euiTheme.animation.normal} ease-in-out;
+  const focusCSS = isRefreshVariant
+    ? css``
+    : css`
+        ${euiCanAnimate} {
+          transition: transform ${euiTheme.animation.normal} ease-in-out,
+            background-color ${euiTheme.animation.normal} ease-in-out;
 
-      &:hover:not(:disabled) {
-        transform: translateY(-1px);
-      }
+          &:hover:not(:disabled) {
+            transform: translateY(-1px);
+          }
 
-      &:focus {
-        animation: ${euiButtonFocusAnimation} ${euiTheme.animation.normal}
-          ${euiTheme.animation.bounce};
-      }
+          &:focus {
+            animation: ${euiButtonFocusAnimation} ${euiTheme.animation.normal}
+              ${euiTheme.animation.bounce};
+          }
 
-      &:active:not(:disabled) {
-        transform: translateY(1px);
-      }
-    }
-  `;
-
-  const focusCSS = css`
-    ${classicVariantStyles}
-  `;
+          &:active:not(:disabled) {
+            transform: translateY(1px);
+          }
+        }
+      `;
   // Remove the auto-generated label.
   // We could typically avoid a label by using a plain string `` instead of css``,
   // but we need css`` for keyframes`` to work for the focus animation
