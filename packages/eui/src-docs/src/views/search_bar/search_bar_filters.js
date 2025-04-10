@@ -90,6 +90,7 @@ const CustomComponent = ({ query, onChange }) => {
       iconType="arrowDown"
       iconSide="right"
       onClick={() => setIsOpen((prev) => !prev)}
+      isSelected={isOpen}
       hasActiveFilters={isOnlySales}
       numActiveFilters={isOnlySales ? 1 : undefined}
       grow

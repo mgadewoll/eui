@@ -51,6 +51,11 @@ export const FilterGroupExample = {
             Set <EuiCode>hasActiveFilters</EuiCode> to true when the filter is
             active.
           </p>
+          <p>
+            Use <EuiCode>isToggle</EuiCode> to change the visual and functional
+            type of the button element that's being rendered from a regular
+            button to a toggle button.
+          </p>
         </Fragment>
       ),
       props: { EuiFilterGroup, EuiFilterButton },

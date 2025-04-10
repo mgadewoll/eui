@@ -56,49 +56,59 @@ export default () => {
   });
 
   return (
-    <EuiFilterGroup fullWidth={true}>
-      <EuiFilterButton
-        grow={false}
-        hasActiveFilters={isFilterOn}
-        onClick={toggleFilter}
-      >
-        Filter
-      </EuiFilterButton>
-      <EuiFilterButton
-        withNext
-        grow={false}
-        hasActiveFilters={isOnFilterOn}
-        onClick={toggleOnFilter}
-      >
-        On
-      </EuiFilterButton>
-      <EuiFilterButton
-        grow={false}
-        hasActiveFilters={isOffFilterOn}
-        onClick={toggleOffFilter}
-      >
-        Off
-      </EuiFilterButton>
-      <EuiPopover
-        id={filterGroupPopoverId}
-        button={button}
-        isOpen={isPopoverOpen}
-        closePopover={closePopover}
-        panelPaddingSize="none"
-      >
-        <EuiSelectableMessage>
-          <EuiIcon type="minusInCircle" />
-          <EuiSpacer size="xs" />
-          <p>No filters found</p>
-        </EuiSelectableMessage>
-      </EuiPopover>
-      <EuiFilterButton
-        numFilters={12}
-        hasActiveFilters={isFilterOn}
-        onClick={toggleFilter}
-      >
-        Filter with a very long name
-      </EuiFilterButton>
-    </EuiFilterGroup>
+    <>
+      <EuiFilterGroup fullWidth={true}>
+        <EuiFilterButton
+          grow={false}
+          hasActiveFilters={isFilterOn}
+          isSelected={isFilterOn}
+          onClick={toggleFilter}
+          isToggle
+        >
+          Filter
+        </EuiFilterButton>
+        <EuiFilterButton
+          withNext
+          grow={false}
+          hasActiveFilters={isOnFilterOn}
+          isSelected={isOnFilterOn}
+          onClick={toggleOnFilter}
+          isToggle
+        >
+          On
+        </EuiFilterButton>
+        <EuiFilterButton
+          grow={false}
+          hasActiveFilters={isOffFilterOn}
+          isSelected={isOffFilterOn}
+          onClick={toggleOffFilter}
+          isToggle
+        >
+          Off
+        </EuiFilterButton>
+        <EuiPopover
+          id={filterGroupPopoverId}
+          button={button}
+          isOpen={isPopoverOpen}
+          closePopover={closePopover}
+          panelPaddingSize="none"
+        >
+          <EuiSelectableMessage>
+            <EuiIcon type="minusInCircle" />
+            <EuiSpacer size="xs" />
+            <p>No filters found</p>
+          </EuiSelectableMessage>
+        </EuiPopover>
+        <EuiFilterButton
+          numFilters={12}
+          isSelected={isFilterOn}
+          hasActiveFilters={isFilterOn}
+          onClick={toggleFilter}
+          isToggle
+        >
+          Filter with a very long name
+        </EuiFilterButton>
+      </EuiFilterGroup>
+    </>
   );
 };

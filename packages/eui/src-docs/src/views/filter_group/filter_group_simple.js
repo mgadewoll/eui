@@ -31,19 +31,28 @@ export default () => {
       canFullWidth
     >
       <EuiFilterGroup>
-        <EuiFilterButton hasActiveFilters={isFilterOn} onClick={toggleFilter}>
+        <EuiFilterButton
+          hasActiveFilters={isFilterOn}
+          isSelected={isFilterOn}
+          onClick={toggleFilter}
+          isToggle
+        >
           Single filter
         </EuiFilterButton>
         <EuiFilterButton
           withNext
           hasActiveFilters={isOnFilterOn}
+          isSelected={isOnFilterOn}
           onClick={toggleOnFilter}
+          isToggle
         >
           On
         </EuiFilterButton>
         <EuiFilterButton
           hasActiveFilters={isOffFilterOn}
+          isSelected={isOffFilterOn}
           onClick={toggleOffFilter}
+          isToggle
         >
           Off
         </EuiFilterButton>
