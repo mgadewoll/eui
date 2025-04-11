@@ -78,9 +78,9 @@ exports[`useEuiButtonColorCSS base 1`] = `
   },
   "disabled": {
     "map": undefined,
-    "name": "1b0ek63-displaysColorsMap-display-color",
+    "name": "up0w9g-displaysColorsMap-display-color",
     "next": undefined,
-    "styles": "color:#798EAF;background-color:#FFFFFF; 
+    "styles": "color:#798EAF;background-color:#ECF1F9; 
                 
     position: relative;
         overflow: hidden;
