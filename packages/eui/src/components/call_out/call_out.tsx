@@ -19,6 +19,7 @@ import { EuiPanel } from '../panel';
 import { EuiSpacer } from '../spacer';
 import { EuiTitle } from '../title';
 import { EuiI18n } from '../i18n';
+import { EuiScreenReaderLive } from '../accessibility';
 
 import { euiCallOutStyles, euiCallOutHeaderStyles } from './call_out.styles';
 
@@ -51,6 +52,7 @@ export type EuiCallOutProps = CommonProps &
      * removing the callout or other actions.
      */
     onDismiss?: () => void;
+    disableScreenReaderOutput?: boolean;
   };
 
 export const EuiCallOut = forwardRef<HTMLDivElement, EuiCallOutProps>(
@@ -64,6 +66,7 @@ export const EuiCallOut = forwardRef<HTMLDivElement, EuiCallOutProps>(
       className,
       heading = 'p',
       onDismiss,
+      disableScreenReaderOutput = true,
       ...rest
     },
     ref
@@ -170,6 +173,12 @@ export const EuiCallOut = forwardRef<HTMLDivElement, EuiCallOutProps>(
             </>
           )
         }
+        {!disableScreenReaderOutput && (
+          <EuiScreenReaderLive type="mount" usePortal>
+            {title && <div>{`${title}. `}</div>}
+            {children}
+          </EuiScreenReaderLive>
+        )}
       </EuiPanel>
     );
   }

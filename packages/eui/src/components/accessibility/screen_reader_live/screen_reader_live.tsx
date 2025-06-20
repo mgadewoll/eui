@@ -16,6 +16,7 @@ import React, {
   useState,
 } from 'react';
 
+import { EuiPortal } from '../../portal';
 import { EuiScreenReaderOnly } from '../screen_reader_only';
 
 export interface EuiScreenReaderLiveProps {
@@ -44,9 +45,19 @@ export interface EuiScreenReaderLiveProps {
    * a certain part of the page is desired.
    */
   focusRegionOnTextChange?: boolean;
+
+  /**
+   * Sets the type of announcement, defined by the time the announcement happens.
+   *
+   * `update`: announces content on children update
+   * `mount`: announces content only on initial mount
+   * `both`: announces content on both mount and children update
+   */
+  type?: 'update' | 'mount' | 'both';
+  usePortal?: boolean;
 }
 
-export const EuiScreenReaderLive: FunctionComponent<
+export const EuiScreenReaderLiveInner: FunctionComponent<
   EuiScreenReaderLiveProps
 > = ({
   children,
@@ -54,9 +65,12 @@ export const EuiScreenReaderLive: FunctionComponent<
   role = 'status',
   'aria-live': ariaLive = 'polite',
   focusRegionOnTextChange = false,
+  type = 'update',
+  usePortal = false,
 }) => {
   const [toggle, setToggle] = useState(false);
   const focusRef = useRef<HTMLDivElement>(null);
+  const announceOnMountOnly = type === 'mount';
 
   useEffect(() => {
     setToggle((toggle) => !toggle);
@@ -68,8 +82,26 @@ export const EuiScreenReaderLive: FunctionComponent<
     }
   }, [toggle, focusRegionOnTextChange]);
 
-  return (
+  const content = announceOnMountOnly ? (
     /**
+     * Announces only on mount if `type` is set to `mount` or `both`.
+     */
+    <EuiScreenReaderOnly>
+      <div ref={focusRef} tabIndex={focusRegionOnTextChange ? -1 : undefined}>
+        <div
+          role={role}
+          aria-atomic="true"
+          aria-live={ariaLive}
+          aria-hidden={!isActive ? 'true' : undefined}
+        >
+          {isActive ? children : ''}
+        </div>
+      </div>
+    </EuiScreenReaderOnly>
+  ) : (
+    /**
+     * Announces content update changes
+     *
      * Intentionally uses two persistent live regions with oscillating content updates.
      * This resolves the problem of duplicate screen reader announcements in rapid succession
      * caused by React's virtual DOM behaviour (https://github.com/nvaccess/nvda/issues/7996#issuecomment-413641709)
@@ -101,5 +133,30 @@ export const EuiScreenReaderLive: FunctionComponent<
         </div>
       </div>
     </EuiScreenReaderOnly>
+  );
+
+  return usePortal ? <EuiPortal>{content}</EuiPortal> : content;
+};
+
+export const EuiScreenReaderLive: FunctionComponent<
+  EuiScreenReaderLiveProps
+> = ({ children, type = 'update', ...rest }) => {
+  const announceOnMount = type === 'mount' || type === 'both';
+  const [isMounted, setMounted] = useState(announceOnMount ? false : true);
+
+  useEffect(() => {
+    if (!announceOnMount) return;
+
+    setMounted(true);
+
+    return () => {
+      setMounted(false);
+    };
+  }, [announceOnMount]);
+
+  return (
+    <EuiScreenReaderLiveInner {...rest} type={type}>
+      {isMounted ? children : ''}
+    </EuiScreenReaderLiveInner>
   );
 };

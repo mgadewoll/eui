@@ -60,7 +60,7 @@ const StatefulFlyout = (
   >
 ) => {
   const { isOpen, onToggle } = props;
-  const [_isOpen, setIsOpen] = useState(isOpen ?? true);
+  const [_isOpen, setIsOpen] = useState(isOpen ?? false);
 
   const handleToggle = (open: boolean) => {
     setIsOpen(open);
@@ -102,6 +102,65 @@ export const Playground: Story = {
     ),
   },
   render: ({ ...args }) => <StatefulFlyout {...args} />,
+};
+
+export const TESTING_EXAMPLE: Story = {
+  args: {
+    children: (
+      <>
+        <EuiFlyoutHeader hasBorder>
+          <EuiTitle size="m">
+            <h2>Flyout header</h2>
+          </EuiTitle>
+        </EuiFlyoutHeader>
+        <EuiFlyoutBody>Flyout body</EuiFlyoutBody>
+        <EuiFlyoutFooter>
+          <EuiButton fill>Flyout footer</EuiButton>
+        </EuiFlyoutFooter>
+      </>
+    ),
+  },
+  render: function Render() {
+    const [isSubmited, setSubmited] = useState(false);
+
+    const handleSubmit = () => {
+      setSubmited((submited) => !submited);
+    };
+
+    const content = (
+      <>
+        <EuiFlyoutHeader hasBorder>
+          <EuiTitle size="m">
+            <h2>Flyout header</h2>
+          </EuiTitle>
+        </EuiFlyoutHeader>
+        <EuiFlyoutBody
+          banner={
+            isSubmited && (
+              <EuiCallOut
+                title="Success"
+                color="success"
+                iconType="cheer"
+                onDismiss={() => {}}
+                disableScreenReaderOutput={false}
+              >
+                <p>Successfully submitted</p>
+              </EuiCallOut>
+            )
+          }
+        >
+          <p>lorem ipsum dolor sit</p>
+        </EuiFlyoutBody>
+        <EuiFlyoutFooter>
+          <EuiButton fill onClick={handleSubmit}>
+            Submit
+          </EuiButton>
+        </EuiFlyoutFooter>
+      </>
+    );
+
+    return <StatefulFlyout>{content}</StatefulFlyout>;
+  },
 };
 
 export const PushFlyouts: Story = {
