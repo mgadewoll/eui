@@ -361,10 +361,10 @@ export const EuiFlyout = forwardRef(
       styles.paddingSizes[paddingSize],
       isEuiFlyoutSizeNamed(size) && styles[size],
       maxWidth === false && styles.noMaxWidth,
+      styles[side],
       isPushed ? styles.push.push : styles.overlay.overlay,
       isPushed ? styles.push[side] : styles.overlay[side],
       isPushed && !pushAnimation && styles.push.noAnimation,
-      styles[side],
     ];
 
     const classes = classnames('euiFlyout', ...childFlyoutClasses, className);
