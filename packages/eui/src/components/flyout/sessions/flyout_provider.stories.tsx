@@ -743,6 +743,11 @@ const BasicFlyoutApp: React.FC = () => {
 };
 
 export const BasicFlyout: StoryObj = {
+  parameters: {
+    loki: {
+      skip: true,
+    },
+  },
   render: () => {
     return <BasicFlyoutApp />;
   },

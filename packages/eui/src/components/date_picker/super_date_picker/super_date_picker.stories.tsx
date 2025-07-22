@@ -135,7 +135,7 @@ export const QuickSelectOnly: Story = {
     loki: { chromeSelector: LOKI_SELECTORS.portal },
   },
   args: {
-    start: '2025-01-01T00:00:00',
+    start: '2024-01-01T00:00:00',
     end: 'now',
     isQuickSelectOnly: false,
   },
