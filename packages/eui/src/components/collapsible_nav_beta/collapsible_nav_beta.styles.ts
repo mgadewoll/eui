@@ -11,6 +11,10 @@ import { UseEuiTheme } from '../../services';
 import { logicalCSS } from '../../global_styling';
 import { euiShadowFlat } from '../../themes';
 import { euiHeaderVariables } from '../header/header.styles';
+import {
+  flyoutLeftBoxShadowStyle,
+  flyoutRightBoxShadowStyle,
+} from '../flyout/flyout.styles';
 
 import { hideScrollbars } from './collapsible_nav_body_footer.styles';
 
@@ -38,9 +42,17 @@ export const euiCollapsibleNavBetaStyles = (euiThemeContext: UseEuiTheme) => {
     right: css`
       ${logicalCSS('border-left', euiTheme.border.thin)}
     `,
-    isPush: css`
-      ${euiShadowFlat(euiThemeContext)}
-    `,
+    isPush: {
+      isPush: css`
+        ${euiShadowFlat(euiThemeContext)}
+      `,
+      left: css`
+        ${flyoutLeftBoxShadowStyle}
+      `,
+      right: css`
+        ${flyoutRightBoxShadowStyle}
+      `,
+    },
     isPushCollapsed: css`
       ${hideScrollbars}
     `,

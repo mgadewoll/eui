@@ -201,7 +201,8 @@ const _EuiCollapsibleNavBeta: FunctionComponent<EuiCollapsibleNavBetaProps> = ({
   const cssStyles = [
     styles.euiCollapsibleNavBeta,
     styles[side],
-    isPush && styles.isPush,
+    isPush && styles.isPush.isPush,
+    isPush && styles.isPush[side],
     isPush && isCollapsed && styles.isPushCollapsed,
     isOverlayFullWidth && styles.isOverlayFullWidth,
   ];

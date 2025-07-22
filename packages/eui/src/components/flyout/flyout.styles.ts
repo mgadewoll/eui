@@ -22,6 +22,12 @@ import { euiFormMaxWidth } from '../form/form.styles';
 
 export const FLYOUT_BREAKPOINT = 'm' as const;
 
+export const flyoutRightBoxShadowStyle =
+  'clip-path: polygon(-50% 0, 100% 0, 100% 100%, -50% 100%)';
+
+export const flyoutLeftBoxShadowStyle =
+  'clip-path: polygon(0 0, 150% 0, 150% 100%, 0 100%)';
+
 export const euiFlyoutSlideInRight = keyframes`
   0% {
     opacity: 0;
@@ -92,8 +98,8 @@ export const euiFlyoutStyles = (euiThemeContext: UseEuiTheme) => {
 
     // Side
     right: css`
-      clip-path: polygon(-50% 0, 100% 0, 100% 100%, -50% 100%);
       ${logicalCSS('right', 0)}
+      ${flyoutRightBoxShadowStyle}
 
       ${euiCanAnimate} {
         animation: ${euiFlyoutSlideInRight} ${euiTheme.animation.normal}
@@ -107,7 +113,7 @@ export const euiFlyoutStyles = (euiThemeContext: UseEuiTheme) => {
     // Left-side flyouts should only be used for navigation
     left: css`
       ${logicalCSS('left', 0)}
-      clip-path: polygon(0 0, 150% 0, 150% 100%, 0 100%);
+      ${flyoutRightBoxShadowStyle}
 
       ${euiCanAnimate} {
         animation: ${euiFlyoutSlideInLeft} ${euiTheme.animation.normal}
