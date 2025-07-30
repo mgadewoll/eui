@@ -19,7 +19,6 @@ import {
   logicalCSS,
   mathWithUnits,
 } from '../../../global_styling';
-import { euiPanelBorderStyles } from '../../panel/panel.styles';
 
 export const openAnimationTiming = 'slow';
 
@@ -58,10 +57,6 @@ export const euiPopoverPanelStyles = (euiThemeContext: UseEuiTheme) => {
         /* 2 */
         transition: ${opacityTransition}, ${transformTransition};
       }
-
-      ${euiPanelBorderStyles(euiThemeContext, {
-        borderColor: euiTheme.colors.borderBaseFloating,
-      })}
 
       &:focus {
         outline-offset: 0;

@@ -118,19 +118,21 @@ export const euiFlyoutStyles = (euiThemeContext: UseEuiTheme) => {
     // Type
     overlay: {
       overlay: css`
-        ${euiShadowXLarge(euiThemeContext, {
-          borderAllInHighContrastMode: true,
-        })}
-
         &:has(.euiResizableButton) {
           border-inline: none;
         }
       `,
       left: css`
-        border-inline-end: none;
+        ${euiShadowXLarge(euiThemeContext, {
+          borderAllInHighContrastMode: true,
+          border: 'right',
+        })}
       `,
       right: css`
-        border-inline-start: none;
+        ${euiShadowXLarge(euiThemeContext, {
+          borderAllInHighContrastMode: true,
+          border: 'left',
+        })}
       `,
     },
     push: {

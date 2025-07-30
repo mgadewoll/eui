@@ -7,7 +7,7 @@
  */
 
 import { css } from '@emotion/react';
-import { euiShadow } from '@elastic/eui-theme-common';
+import { euiShadow, euiBorderStyles } from '@elastic/eui-theme-common';
 
 import { UseEuiTheme } from '../../services';
 import {
@@ -26,23 +26,7 @@ export const euiPanelBorderStyles = (
   const { euiTheme } = euiThemeContext;
   const { borderColor = euiTheme.border.color } = options ?? {};
 
-  return /*css*/ `
-    &::after {
-      content: '';
-      position: absolute;
-      /* ensure to keep on top of flush content */
-      z-index: 0;
-      inset: 0;
-      /* using 'box-shadow' instead of 'border' so that the border
-         matches the floating border included in shadows for DARK mode,
-         again so that bordered and shadowed panels have the exact same size 
-         - but this is problematic because box-shadow is not part of the box model 
-         (drawn outside of the element's layout) and it could eventually be cut off */
-      box-shadow: 0 0 0 ${euiTheme.border.width.thin} ${borderColor};
-      border-radius: inherit;
-      pointer-events: none;
-    }
-  `;
+  return euiBorderStyles(euiThemeContext, { borderColor });
 };
 
 export const euiPanelStyles = (euiThemeContext: UseEuiTheme) => {

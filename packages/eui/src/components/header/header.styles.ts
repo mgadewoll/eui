@@ -36,8 +36,14 @@ export const euiHeaderStyles = (euiThemeContext: UseEuiTheme) => {
       justify-content: space-between;
       ${logicalCSS('height', height)}
       ${logicalCSS('padding-horizontal', padding)}
-      
-      ${euiShadowXSmall(euiThemeContext)}
+      ${logicalCSS('border-bottom', euiTheme.border.thin)}
+      ${euiShadowXSmall(euiThemeContext, {
+        border: 'none',
+      })};
+
+      & + & {
+        clip-path: polygon(0 0, 100% 0, 100% 100vh, 0 100vh);
+      }
     `,
     // Position
     static: css`
