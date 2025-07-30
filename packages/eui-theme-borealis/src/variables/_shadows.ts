@@ -354,11 +354,11 @@ export const shadows: _EuiThemeShadows = {
   xs: {
     down: {
       LIGHT: formatMultipleBoxShadow(shadowPrimitives.xs.light),
-      DARK: formatMultipleBoxShadow(shadowPrimitives.xs.dark),
+      DARK: formatMultipleBoxShadow(shadowPrimitives.xs.dark.slice(1)),
     },
     up: {
       LIGHT: formatMultipleBoxShadow(shadowPrimitives.xs.light, { up: true }),
-      DARK: formatMultipleBoxShadow(shadowPrimitives.xs.dark, {
+      DARK: formatMultipleBoxShadow(shadowPrimitives.xs.dark.slice(1), {
         up: true,
       }),
     },
@@ -366,11 +366,11 @@ export const shadows: _EuiThemeShadows = {
   s: {
     down: {
       LIGHT: formatMultipleBoxShadow(shadowPrimitives.s.light),
-      DARK: formatMultipleBoxShadow(shadowPrimitives.s.dark),
+      DARK: formatMultipleBoxShadow(shadowPrimitives.s.dark.slice(1)),
     },
     up: {
       LIGHT: formatMultipleBoxShadow(shadowPrimitives.s.light, { up: true }),
-      DARK: formatMultipleBoxShadow(shadowPrimitives.s.dark, {
+      DARK: formatMultipleBoxShadow(shadowPrimitives.s.dark.slice(1), {
         up: true,
       }),
     },
@@ -378,11 +378,11 @@ export const shadows: _EuiThemeShadows = {
   m: {
     down: {
       LIGHT: formatMultipleBoxShadow(shadowPrimitives.m.light),
-      DARK: formatMultipleBoxShadow(shadowPrimitives.m.dark),
+      DARK: formatMultipleBoxShadow(shadowPrimitives.m.dark.slice(1)),
     },
     up: {
       LIGHT: formatMultipleBoxShadow(shadowPrimitives.m.light, { up: true }),
-      DARK: formatMultipleBoxShadow(shadowPrimitives.m.dark, {
+      DARK: formatMultipleBoxShadow(shadowPrimitives.m.dark.slice(1), {
         up: true,
       }),
     },
@@ -390,11 +390,11 @@ export const shadows: _EuiThemeShadows = {
   l: {
     down: {
       LIGHT: formatMultipleBoxShadow(shadowPrimitives.l.light),
-      DARK: formatMultipleBoxShadow(shadowPrimitives.l.dark),
+      DARK: formatMultipleBoxShadow(shadowPrimitives.l.dark.slice(1)),
     },
     up: {
       LIGHT: formatMultipleBoxShadow(shadowPrimitives.l.light, { up: true }),
-      DARK: formatMultipleBoxShadow(shadowPrimitives.l.dark, {
+      DARK: formatMultipleBoxShadow(shadowPrimitives.l.dark.slice(1), {
         up: true,
       }),
     },
@@ -402,11 +402,11 @@ export const shadows: _EuiThemeShadows = {
   xl: {
     down: {
       LIGHT: formatMultipleBoxShadow(shadowPrimitives.xl.light),
-      DARK: formatMultipleBoxShadow(shadowPrimitives.xl.dark),
+      DARK: formatMultipleBoxShadow(shadowPrimitives.xl.dark.slice(1)),
     },
     up: {
       LIGHT: formatMultipleBoxShadow(shadowPrimitives.xl.light, { up: true }),
-      DARK: formatMultipleBoxShadow(shadowPrimitives.xl.dark, {
+      DARK: formatMultipleBoxShadow(shadowPrimitives.xl.dark.slice(1), {
         up: true,
       }),
     },
@@ -414,14 +414,14 @@ export const shadows: _EuiThemeShadows = {
   hover: {
     base: {
       down: {
-        LIGHT: formatMultipleBoxShadow(shadowPrimitives.s.light.slice(1)),
-        DARK: formatMultipleBoxShadow(shadowPrimitives.s.dark.slice(1)),
+        LIGHT: formatMultipleBoxShadow(shadowPrimitives.s.light),
+        DARK: formatMultipleBoxShadow(shadowPrimitives.s.dark),
       },
       up: {
-        LIGHT: formatMultipleBoxShadow(shadowPrimitives.s.light.slice(1), {
+        LIGHT: formatMultipleBoxShadow(shadowPrimitives.s.light, {
           up: true,
         }),
-        DARK: formatMultipleBoxShadow(shadowPrimitives.s.dark.slice(1), {
+        DARK: formatMultipleBoxShadow(shadowPrimitives.s.dark, {
           up: true,
         }),
       },
@@ -445,11 +445,11 @@ export const shadows: _EuiThemeShadows = {
   flat: {
     down: {
       LIGHT: formatMultipleBoxShadow(shadowPrimitives.xs.light),
-      DARK: formatMultipleBoxShadow(shadowPrimitives.xs.dark),
+      DARK: formatMultipleBoxShadow(shadowPrimitives.xs.dark.slice(1)),
     },
     up: {
       LIGHT: formatMultipleBoxShadow(shadowPrimitives.xs.light, { up: true }),
-      DARK: formatMultipleBoxShadow(shadowPrimitives.xs.dark, {
+      DARK: formatMultipleBoxShadow(shadowPrimitives.xs.dark.slice(1), {
         up: true,
       }),
     },

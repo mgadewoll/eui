@@ -9,6 +9,7 @@
 import type { UseEuiTheme } from '../../services/theme/types';
 import { boxShadowToFilterDropShadow } from '../functions';
 import { _EuiThemeShadowSize } from '../variables/shadow';
+import { BorderDirection, euiBorderStyles } from './borders';
 
 export interface EuiShadowOptions {
   /** @deprecated */
@@ -20,45 +21,56 @@ export interface EuiShadowOptions {
    */
   property?: 'box-shadow' | 'filter';
   borderAllInHighContrastMode?: boolean;
+  border?: BorderDirection | 'none';
 }
 
 /**
  * euiSlightShadow
  */
 export const euiShadowXSmall = (
-  { euiTheme, highContrastMode }: UseEuiTheme,
+  euiThemeContext: UseEuiTheme,
   options?: EuiShadowOptions
 ) => {
+  const { euiTheme, highContrastMode } = euiThemeContext;
+
   if (highContrastMode) {
     return _highContrastBorder(euiTheme, options);
   }
   const direction = options?.direction ?? 'down';
 
-  return `box-shadow: ${euiTheme.shadows.xs[direction]};`;
+  return shadowStyles(euiThemeContext, euiTheme.shadows.xs[direction], {
+    border: options?.border,
+  });
 };
 
 /**
  * bottomShadowSmall
  */
 export const euiShadowSmall = (
-  { euiTheme, highContrastMode }: UseEuiTheme,
+  euiThemeContext: UseEuiTheme,
   options?: EuiShadowOptions
 ) => {
+  const { euiTheme, highContrastMode } = euiThemeContext;
+
   if (highContrastMode) {
     return _highContrastBorder(euiTheme, options);
   }
   const direction = options?.direction ?? 'down';
 
-  return `box-shadow: ${euiTheme.shadows.s[direction]};`;
+  return shadowStyles(euiThemeContext, euiTheme.shadows.s[direction], {
+    border: options?.border,
+  });
 };
 
 /**
  * bottomShadowMedium
  */
 export const euiShadowMedium = (
-  { euiTheme, highContrastMode }: UseEuiTheme,
+  euiThemeContext: UseEuiTheme,
   options?: EuiShadowOptions
 ) => {
+  const { euiTheme, highContrastMode } = euiThemeContext;
+
   if (highContrastMode) {
     return _highContrastBorder(euiTheme, options);
   }
@@ -66,25 +78,36 @@ export const euiShadowMedium = (
   const boxShadow = euiTheme.shadows.m[direction];
 
   if (options?.property === 'filter') {
-    return boxShadow ? boxShadowToFilterDropShadow(boxShadow) : '';
+    return boxShadow
+      ? shadowStyles(euiThemeContext, boxShadowToFilterDropShadow(boxShadow), {
+          border: options?.border,
+          type: 'filter',
+        })
+      : '';
   }
 
-  return `box-shadow: ${boxShadow};`;
+  return shadowStyles(euiThemeContext, boxShadow, {
+    border: options?.border,
+  });
 };
 
 /**
  * bottomShadow
  */
 export const euiShadowLarge = (
-  { euiTheme, highContrastMode }: UseEuiTheme,
+  euiThemeContext: UseEuiTheme,
   options?: EuiShadowOptions
 ) => {
+  const { euiTheme, highContrastMode } = euiThemeContext;
+
   if (highContrastMode) {
     return _highContrastBorder(euiTheme, options);
   }
   const direction = options?.direction ?? 'down';
 
-  return `box-shadow: ${euiTheme.shadows.l[direction]};`;
+  return shadowStyles(euiThemeContext, euiTheme.shadows.l[direction], {
+    border: options?.border,
+  });
 };
 
 /**
@@ -94,43 +117,55 @@ export interface EuiShadowXLarge extends EuiShadowOptions {
   reverse?: boolean;
 }
 export const euiShadowXLarge = (
-  { euiTheme, highContrastMode }: UseEuiTheme,
+  euiThemeContext: UseEuiTheme,
   options?: EuiShadowXLarge
 ) => {
+  const { euiTheme, highContrastMode } = euiThemeContext;
+
   if (highContrastMode) {
     return _highContrastBorder(euiTheme, options);
   }
   const direction = options?.direction ?? 'down';
 
-  return `box-shadow: ${euiTheme.shadows.hover.xl[direction]};`;
+  return shadowStyles(euiThemeContext, euiTheme.shadows.xl[direction], {
+    border: options?.border,
+  });
 };
 
 export const euiShadowXLargeHover = (
-  { euiTheme, highContrastMode }: UseEuiTheme,
+  euiThemeContext: UseEuiTheme,
   options?: EuiShadowXLarge
 ) => {
+  const { euiTheme, highContrastMode } = euiThemeContext;
+
   if (highContrastMode) {
     return _highContrastBorder(euiTheme, options);
   }
   const reverse = options?.reverse ?? false;
   const direction = options?.direction ?? reverse ? 'up' : 'down';
 
-  return `box-shadow: ${euiTheme.shadows.hover.xl[direction]};`;
+  return shadowStyles(euiThemeContext, euiTheme.shadows.hover.xl[direction], {
+    border: options?.border,
+  });
 };
 
 /**
  * @deprecated slightShadowHover
  */
 export const euiSlightShadowHover = (
-  { euiTheme, highContrastMode }: UseEuiTheme,
+  euiThemeContext: UseEuiTheme,
   options?: EuiShadowOptions
 ) => {
+  const { euiTheme, highContrastMode } = euiThemeContext;
+
   if (highContrastMode) {
     return _highContrastBorder(euiTheme, options);
   }
   const direction = options?.direction ?? 'down';
 
-  return `box-shadow: ${euiTheme.shadows.s[direction]};`;
+  return shadowStyles(euiThemeContext, euiTheme.shadows.s[direction], {
+    border: options?.border,
+  });
 };
 
 /**
@@ -138,15 +173,19 @@ export const euiSlightShadowHover = (
  * of bordered panels.
  */
 export const euiShadowHover = (
-  { euiTheme, highContrastMode }: UseEuiTheme,
+  euiThemeContext: UseEuiTheme,
   options?: EuiShadowOptions
 ) => {
+  const { euiTheme, highContrastMode } = euiThemeContext;
+
   if (highContrastMode) {
     return _highContrastBorder(euiTheme, options);
   }
   const direction = options?.direction ?? 'down';
 
-  return `box-shadow: ${euiTheme.shadows.hover.base[direction]};`;
+  return shadowStyles(euiThemeContext, euiTheme.shadows.hover.base[direction], {
+    border: options?.border,
+  });
 };
 
 /**
@@ -156,9 +195,11 @@ export const euiShadowHover = (
  * Useful for popovers that drop UP rather than DOWN.
  */
 export const euiShadowFlat = (
-  { euiTheme, highContrastMode }: UseEuiTheme,
+  euiThemeContext: UseEuiTheme,
   options?: EuiShadowOptions
 ) => {
+  const { euiTheme, highContrastMode } = euiThemeContext;
+
   if (highContrastMode) {
     return _highContrastBorder(euiTheme, options);
   }
@@ -166,7 +207,9 @@ export const euiShadowFlat = (
   const value =
     euiTheme.shadows.flat?.[direction] ?? euiTheme.shadows.xs[direction];
 
-  return `box-shadow: ${value};`;
+  return shadowStyles(euiThemeContext, value, {
+    border: options?.border,
+  });
 };
 
 export const euiShadow = (
@@ -213,4 +256,29 @@ const _highContrastBorder = (
   return borderAllInHighContrastMode
     ? `border: ${border.thin};`
     : `border-block-end: ${border.thin};`;
+};
+
+const shadowStyles = (
+  euiThemeContext: UseEuiTheme,
+  shadow: string | undefined,
+  options: {
+    border?: EuiShadowOptions['border'];
+    type?: 'box-shadow' | 'filter';
+  }
+) => {
+  const { border = 'all', type = 'box-shadow' } = options;
+  const borderStyle =
+    euiThemeContext.colorMode === 'DARK' && border !== 'none'
+      ? `${euiBorderStyles(euiThemeContext, {
+          direction: border ?? 'all',
+        })}`
+      : '';
+  const shadowStyle = type === 'filter' ? shadow : `box-shadow: ${shadow};`;
+
+  console.log('shadowStyles', shadowStyle, borderStyle);
+
+  return `
+    ${shadowStyle};
+    ${borderStyle};
+  `;
 };
