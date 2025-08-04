@@ -17,4 +17,5 @@ export type EuiThemeVariantFlags = {
 export type _EuiThemeFlags = {
   hasGlobalFocusColor: boolean;
   hasVisColorAdjustment: boolean;
+  hasShadowFloatingBorder: boolean;
 } & EuiThemeVariantFlags;
