@@ -33,14 +33,13 @@ export const euiPanelBorderStyles = (
 
   return highContrastModeStyles(euiThemeContext, {
     none: `
-      border: ${euiTheme.border.width.thin} solid
-        ${
-          borderColor ?? hasVisibleBorder
-            ? euiTheme.border.color
-            : colorMode === 'DARK'
-            ? euiTheme.colors.borderBaseFloating
-            : 'none'
-        };
+      border: ${
+        borderColor ?? hasVisibleBorder
+          ? `${euiTheme.border.width.thin} solid ${euiTheme.border.color}`
+          : colorMode === 'DARK'
+          ? `${euiTheme.border.width.thin} solid ${euiTheme.colors.borderBaseFloating}`
+          : 'none'
+      };  
     `,
     preferred: `
       border: ${euiTheme.border.thin};
