@@ -88,6 +88,11 @@ export interface EuiPopoverProps extends PropsWithChildren, CommonProps {
    */
   attachToAnchor?: boolean;
   /**
+   * Element type to render as the popover container
+   * @default 'div'
+   */
+  element?: 'div' | 'span';
+  /**
    * Triggering element for which to align the popover to
    */
   button: NonNullable<ReactNode>;
@@ -655,6 +660,7 @@ export class EuiPopover extends Component<Props, State> {
       'aria-labelledby': ariaLabelledBy,
       'aria-live': ariaLiveProp,
       container,
+      element: Element = 'div',
       focusTrapProps,
       initialFocus: initialFocusProp,
       tabIndex: _tabIndexProp,
@@ -787,7 +793,7 @@ export class EuiPopover extends Component<Props, State> {
     // when disabled, so we still need to conditionally check for that ourselves
     if (ownFocus) {
       return (
-        <div
+        <Element
           css={popoverStyles}
           className={classes}
           ref={this.popoverRef}
@@ -795,12 +801,12 @@ export class EuiPopover extends Component<Props, State> {
         >
           {button instanceof HTMLElement ? null : button}
           {panel}
-        </div>
+        </Element>
       );
     } else {
       return (
         <EuiOutsideClickDetector onOutsideClick={this.closePopover}>
-          <div
+          <Element
             css={popoverStyles}
             className={classes}
             ref={this.popoverRef}
@@ -809,7 +815,7 @@ export class EuiPopover extends Component<Props, State> {
           >
             {button instanceof HTMLElement ? null : button}
             {panel}
-          </div>
+          </Element>
         </EuiOutsideClickDetector>
       );
     }
