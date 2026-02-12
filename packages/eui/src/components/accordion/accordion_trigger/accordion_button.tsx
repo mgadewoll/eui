@@ -81,6 +81,16 @@ export const EuiAccordionButton: FunctionComponent<
       type={elementIsButton ? 'button' : undefined}
       disabled={elementIsButton ? isDisabled : undefined}
     >
+      {elementIsButton && (
+        <span
+          className="euiAccordionButton__fauxArrow"
+          css={[
+            styles.fauxArrow.fauxArrow,
+            arrowDisplay === 'left' && styles.fauxArrow.arrowLeft,
+            arrowDisplay === 'right' && styles.fauxArrow.arrowRight,
+          ]}
+        />
+      )}
       <span className={buttonContentClasses}>{children}</span>
     </ButtonElement>
   );

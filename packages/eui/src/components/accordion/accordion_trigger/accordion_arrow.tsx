@@ -14,6 +14,7 @@ import { EuiButtonIcon, EuiButtonIconPropsForButton } from '../../button';
 
 import { EuiAccordionProps } from '../accordion';
 import { euiAccordionArrowStyles } from './accordion_arrow.styles';
+import { EuiIcon } from '../../icon';
 
 type _EuiAccordionArrowProps = Partial<EuiButtonIconPropsForButton> &
   Pick<EuiAccordionProps, 'arrowDisplay' | 'arrowProps'> & {
@@ -24,21 +25,34 @@ export const EuiAccordionArrow: FunctionComponent<_EuiAccordionArrowProps> = ({
   arrowDisplay = 'left',
   arrowProps,
   isOpen,
+  isDisabled,
+  tabIndex,
   ...rest
 }) => {
   const euiTheme = useEuiTheme();
 
   if (arrowDisplay === 'none') return null;
 
+  const isInteractive = tabIndex !== -1;
+
   const styles = euiAccordionArrowStyles(euiTheme);
   const cssStyles = [
     styles.euiAccordion__arrow,
     styles[arrowDisplay],
     isOpen ? styles.isOpen : styles.isClosed,
+    !isInteractive && isDisabled && styles.isDisabled,
     arrowProps?.css,
   ];
 
   const classes = classNames('euiAccordion__arrow', arrowProps?.className);
+
+  if (!isInteractive) {
+    return (
+      <span css={cssStyles} className={classes}>
+        <EuiIcon type="arrowRight" />
+      </span>
+    );
+  }
 
   return (
     <EuiButtonIcon
@@ -48,6 +62,8 @@ export const EuiAccordionArrow: FunctionComponent<_EuiAccordionArrowProps> = ({
       className={classes}
       css={cssStyles}
       iconType="arrowRight"
+      isDisabled={isDisabled}
+      tabIndex={tabIndex}
     />
   );
 };

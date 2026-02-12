@@ -6,9 +6,11 @@
  * Side Public License, v 1.
  */
 
+import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import { EuiAccordion, EuiAccordionProps } from './accordion';
+import { EuiButtonIcon } from '../button';
 
 const meta: Meta<EuiAccordionProps> = {
   title: 'Layout/EuiAccordion',
@@ -39,5 +41,6 @@ export const Playground: Story = {
   args: {
     buttonContent: 'Accordion toggle content',
     children: 'Accordion content',
+    extraAction: <EuiButtonIcon iconType="plus" />,
   },
 };

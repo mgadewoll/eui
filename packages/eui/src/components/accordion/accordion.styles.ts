@@ -13,7 +13,9 @@ import { logicalCSS } from '../../global_styling';
 
 export const euiAccordionStyles = ({ euiTheme }: UseEuiTheme) => {
   return {
-    euiAccordion: css``,
+    euiAccordion: css`
+      position: relative;
+    `,
     // Borders
     borders: {
       // Prevent border repeats

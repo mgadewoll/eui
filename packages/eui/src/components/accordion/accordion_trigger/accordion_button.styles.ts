@@ -10,16 +10,23 @@ import { css } from '@emotion/react';
 
 import { UseEuiTheme } from '../../../services';
 import {
+  euiButtonSizeMap,
+  euiDisabledSelector,
   euiFontSize,
   logicalCSS,
   logicalTextAlignCSS,
 } from '../../../global_styling';
+import { euiAccordionArrowStyles } from './accordion_arrow.styles';
 
 export const euiAccordionButtonStyles = (euiThemeContext: UseEuiTheme) => {
   const { euiTheme } = euiThemeContext;
+  const buttonSizes = euiButtonSizeMap(euiThemeContext);
+  const arrowStyles = euiAccordionArrowStyles(euiThemeContext);
+
   return {
     euiAccordion__button: css`
       ${euiFontSize(euiThemeContext, 's')}
+      z-index: 1;
       align-items: center;
       display: flex;
       flex-grow: 1;
@@ -31,6 +38,14 @@ export const euiAccordionButtonStyles = (euiThemeContext: UseEuiTheme) => {
       &:focus {
         cursor: pointer;
         text-decoration: underline;
+      }
+
+      &:not(:is(${euiDisabledSelector})):has(
+          .euiAccordionButton__fauxArrow:hover
+        ) {
+        ~ .euiAccordion__arrow {
+          ${arrowStyles.isHovered}
+        }
       }
     `,
     // Triggering button needs separate `disabled` key because the element that renders may not support `:disabled`;
@@ -60,5 +75,19 @@ export const euiAccordionButtonStyles = (euiThemeContext: UseEuiTheme) => {
     arrowRight: css`
       ${logicalCSS('padding-right', 0)}
     `,
+    fauxArrow: {
+      fauxArrow: css`
+        position: absolute;
+        inset-block-start: 0;
+        block-size: ${buttonSizes.xs.height};
+        inline-size: ${buttonSizes.xs.height};
+      `,
+      arrowLeft: css`
+        inset-inline-start: 0;
+      `,
+      arrowRight: css`
+        inset-inline-end: 0;
+      `,
+    },
   };
 };
