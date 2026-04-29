@@ -6,7 +6,7 @@
  * Side Public License, v 1.
  */
 
-import React, { ReactNode } from 'react';
+import React, { forwardRef, ReactNode } from 'react';
 
 import { act, fireEvent } from '@testing-library/react';
 import { shouldRenderCustomStyles } from '../../test/internal';
@@ -39,12 +39,20 @@ const getId = () => `${id++}`;
 const closingTransitionTime = 250; // TODO: DRY out var when converting to CSS-in-JS
 const openingTransitionTime = closingTransitionTime;
 
+const TriggerButton = forwardRef((props: any, ref) => (
+  <button ref={ref} {...props}>
+    trigger
+  </button>
+));
+
+TriggerButton.displayName = 'TriggerButton';
+
 describe('EuiPopover', () => {
   shouldRenderCustomStyles(
-    <EuiPopover button={<button />} closePopover={() => {}} />
+    <EuiPopover button={<TriggerButton />} closePopover={() => {}} />
   );
   shouldRenderCustomStyles(
-    <EuiPopover button={<button />} closePopover={() => {}} isOpen />,
+    <EuiPopover button={<TriggerButton />} closePopover={() => {}} isOpen />,
     {
       childProps: ['panelProps'],
       skip: {
@@ -58,7 +66,7 @@ describe('EuiPopover', () => {
     const { container } = render(
       <EuiPopover
         id={getId()}
-        button={<button />}
+        button={<TriggerButton />}
         closePopover={() => {}}
         {...requiredProps}
       />
@@ -69,7 +77,11 @@ describe('EuiPopover', () => {
 
   test('children is rendered', () => {
     const { container } = render(
-      <EuiPopover id={getId()} button={<button />} closePopover={() => {}}>
+      <EuiPopover
+        id={getId()}
+        button={<TriggerButton />}
+        closePopover={() => {}}
+      >
         Children
       </EuiPopover>
     );
@@ -84,7 +96,7 @@ describe('EuiPopover', () => {
           <EuiPopover
             id={getId()}
             display="block"
-            button={<button />}
+            button={<TriggerButton />}
             closePopover={() => {}}
           />
         );
@@ -104,7 +116,7 @@ describe('EuiPopover', () => {
         const { container, rerender } = render(
           <EuiPopover
             id={id}
-            button={<button />}
+            button={<TriggerButton />}
             closePopover={closePopoverHandler}
             isOpen
           />
@@ -119,7 +131,7 @@ describe('EuiPopover', () => {
         rerender(
           <EuiPopover
             id={id}
-            button={<button />}
+            button={<TriggerButton />}
             closePopover={closePopoverHandler}
             isOpen={false}
           />
@@ -134,7 +146,7 @@ describe('EuiPopover', () => {
         const { container } = render(
           <EuiPopover
             id={getId()}
-            button={<button />}
+            button={<TriggerButton />}
             closePopover={closePopoverHandler}
             isOpen={false}
           />
@@ -155,7 +167,7 @@ describe('EuiPopover', () => {
         const { container } = render(
           <EuiPopover
             id={getId()}
-            button={<button />}
+            button={<TriggerButton />}
             closePopover={() => {}}
           />
         );
@@ -167,7 +179,7 @@ describe('EuiPopover', () => {
         const { container } = render(
           <EuiPopover
             id={getId()}
-            button={<button />}
+            button={<TriggerButton />}
             closePopover={() => {}}
             anchorPosition="leftCenter"
           />
@@ -180,7 +192,7 @@ describe('EuiPopover', () => {
         const { container } = render(
           <EuiPopover
             id={getId()}
-            button={<button />}
+            button={<TriggerButton />}
             closePopover={() => {}}
             anchorPosition="downRight"
           />
@@ -195,7 +207,7 @@ describe('EuiPopover', () => {
         const { container } = render(
           <EuiPopover
             id={getId()}
-            button={<button />}
+            button={<TriggerButton />}
             closePopover={() => {}}
           />
         );
@@ -208,7 +220,7 @@ describe('EuiPopover', () => {
           <div>
             <EuiPopover
               id={getId()}
-              button={<button />}
+              button={<TriggerButton />}
               closePopover={() => {}}
               isOpen
             />
@@ -226,7 +238,7 @@ describe('EuiPopover', () => {
             <EuiPopover
               id={getId()}
               isOpen
-              button={<button />}
+              button={<TriggerButton />}
               closePopover={() => {}}
             />
           </div>
@@ -242,7 +254,7 @@ describe('EuiPopover', () => {
               ownFocus={false}
               id={getId()}
               isOpen
-              button={<button />}
+              button={<TriggerButton />}
               closePopover={() => {}}
             />
           </div>
@@ -257,7 +269,7 @@ describe('EuiPopover', () => {
           <div>
             <EuiPopover
               id={getId()}
-              button={<button />}
+              button={<TriggerButton />}
               closePopover={() => {}}
               panelClassName="test"
               isOpen
@@ -275,7 +287,7 @@ describe('EuiPopover', () => {
           <div>
             <EuiPopover
               id={getId()}
-              button={<button />}
+              button={<TriggerButton />}
               closePopover={() => {}}
               panelPaddingSize="s"
               isOpen
@@ -293,7 +305,7 @@ describe('EuiPopover', () => {
           <div>
             <EuiPopover
               id={getId()}
-              button={<button />}
+              button={<TriggerButton />}
               closePopover={() => {}}
               panelProps={requiredProps}
               isOpen
@@ -311,7 +323,7 @@ describe('EuiPopover', () => {
           <div>
             <EuiPopover
               id={getId()}
-              button={<button />}
+              button={<TriggerButton />}
               closePopover={() => {}}
               focusTrapProps={{
                 clickOutsideDisables: false,
@@ -332,7 +344,7 @@ describe('EuiPopover', () => {
         const { baseElement } = render(
           <EuiPopover
             id={getId()}
-            button={<button />}
+            button={<TriggerButton />}
             closePopover={() => {}}
             offset={10}
             isOpen
@@ -349,7 +361,7 @@ describe('EuiPopover', () => {
         const { baseElement } = render(
           <EuiPopover
             id={getId()}
-            button={<button />}
+            button={<TriggerButton />}
             closePopover={() => {}}
             offset={10}
             hasArrow={false}
@@ -366,7 +378,7 @@ describe('EuiPopover', () => {
         const { baseElement } = render(
           <EuiPopover
             id={getId()}
-            button={<button />}
+            button={<TriggerButton />}
             closePopover={() => {}}
             offset={10}
             attachToAnchor={true}
@@ -386,7 +398,7 @@ describe('EuiPopover', () => {
           <div>
             <EuiPopover
               id={getId()}
-              button={<button />}
+              button={<TriggerButton />}
               closePopover={() => {}}
               arrowChildren={<span />}
               isOpen
@@ -403,7 +415,7 @@ describe('EuiPopover', () => {
         <div>
           <EuiPopover
             id={getId()}
-            button={<button />}
+            button={<TriggerButton />}
             closePopover={() => {}}
             buffer={0}
             isOpen
@@ -419,7 +431,7 @@ describe('EuiPopover', () => {
         <div>
           <EuiPopover
             id={getId()}
-            button={<button />}
+            button={<TriggerButton />}
             closePopover={() => {}}
             buffer={[20, 40, 60, 80]}
             isOpen
@@ -435,7 +447,7 @@ describe('EuiPopover', () => {
         <div>
           <EuiPopover
             id={getId()}
-            button={<button />}
+            button={<TriggerButton />}
             closePopover={() => {}}
             isOpen
             ownFocus={false}
@@ -485,7 +497,7 @@ describe('EuiPopover', () => {
       const { rerender, unmount } = render(
         <EuiPopover
           id={getId()}
-          button={<button />}
+          button={<TriggerButton />}
           closePopover={() => {}}
           panelPaddingSize="s"
           isOpen={false}
@@ -497,7 +509,7 @@ describe('EuiPopover', () => {
         <EuiPopover
           id={getId()}
           isOpen={true}
-          button={<button />}
+          button={<TriggerButton />}
           closePopover={() => {}}
           panelPaddingSize="s"
         />
@@ -508,7 +520,7 @@ describe('EuiPopover', () => {
       expect(activeAnimationFrames.size).toEqual(1);
 
       unmount();
-      expect(window.clearTimeout).toHaveBeenCalledTimes(9);
+      expect(window.clearTimeout).toHaveBeenCalledTimes(10);
       expect(cafSpy).toHaveBeenCalledTimes(1);
       expect(activeAnimationFrames.size).toEqual(0);
 
@@ -538,7 +550,9 @@ describe('EuiPopover', () => {
     it('closes the popover and refocuses the toggle button', async () => {
       const toggleButtonEl = React.createRef<HTMLButtonElement>();
       const toggleButton = (
-        <button ref={toggleButtonEl} data-test-subj="toggleButton" />
+        <TriggerButton ref={toggleButtonEl} data-test-subj="toggleButton">
+          trigger
+        </TriggerButton>
       );
 
       const { container, getByTestSubject, rerender } = render(
@@ -577,12 +591,14 @@ describe('EuiPopover', () => {
       const toggleButtonEl = React.createRef<HTMLButtonElement>();
       const toggleDiv = (
         <div>
-          <button
+          <TriggerButton
             ref={toggleButtonEl}
             tabIndex={-1}
             data-test-subj="toggleButton"
-          />
-          <button tabIndex={-1} />
+          >
+            trigger
+          </TriggerButton>
+          <button tabIndex={-1}>button</button>
         </div>
       );
 
@@ -661,7 +677,9 @@ describe('EuiPopover', () => {
     afterAll(() => jest.useRealTimers());
 
     it('sets aria-expanded="false" and no aria-controls on initial render', async () => {
-      const buttonTrigger = <button data-test-subj="buttonTrigger" />;
+      const buttonTrigger = (
+        <TriggerButton data-test-subj="buttonTrigger">trigger</TriggerButton>
+      );
 
       const { getByTestSubject } = render(
         <EuiPopover button={buttonTrigger} closePopover={() => {}} />
@@ -689,7 +707,9 @@ describe('EuiPopover', () => {
     });
 
     it('updates ARIA attributes to reflect the open state', async () => {
-      const buttonTrigger = <button data-test-subj="buttonTrigger" />;
+      const buttonTrigger = (
+        <TriggerButton data-test-subj="buttonTrigger">trigger</TriggerButton>
+      );
 
       const { rerender, getByTestSubject } = render(
         <EuiPopover

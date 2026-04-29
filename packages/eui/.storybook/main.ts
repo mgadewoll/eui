@@ -33,7 +33,9 @@ const config: StorybookConfig = {
   ],
   framework: {
     name: '@storybook/react-webpack5',
-    options: {},
+    options: {
+      strictMode: true,
+    },
   },
   webpackFinal: async (config) => {
     // Fix for `css` prop - Emotion doesn't work otherwise

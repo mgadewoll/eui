@@ -28,7 +28,7 @@ import { useResizeObserver } from '../observer/resize_observer';
 import { EuiFocusTrap } from '../focus_trap';
 import { euiFormMaxWidth } from '../form/form.styles';
 
-import { EuiPopover, EuiPopoverProps } from './popover';
+import { EuiPopover, EuiPopoverProps, EuiPopoverRef } from './popover';
 
 export interface _EuiInputPopoverProps
   extends Omit<EuiPopoverProps, 'button' | 'buttonRef' | 'anchorPosition'> {
@@ -90,7 +90,7 @@ export const EuiInputPopover: FunctionComponent<EuiInputPopoverProps> = ({
    * Ref setup
    */
 
-  const popoverClassRef = useRef<EuiPopover>(null);
+  const popoverClassRef = useRef<EuiPopoverRef>(null);
   // The inputEl state ensures that width is correctly tracked on initial load
   const [inputEl, setInputEl] = useState<HTMLElement | null>(null);
   // The panelEl state ensures that width is correctly set every time the popover opens

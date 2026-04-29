@@ -26,6 +26,7 @@ type EuiSelectableTemplateSitewidePopoverProps = Partial<EuiPopoverProps> & {
   footer?: EuiSelectableTemplateSitewideProps['popoverFooter'];
   width: CSSProperties['width'];
   isOpen: boolean;
+  closePopover: EuiPopoverProps['closePopover'];
 };
 
 export const EuiSelectableTemplateSitewidePopover: FunctionComponent<

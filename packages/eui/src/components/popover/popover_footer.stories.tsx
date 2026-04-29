@@ -23,7 +23,11 @@ const meta: Meta<EuiPopoverFooterProps> = {
   },
   decorators: [
     (Story, { args }) => (
-      <EuiPopover isOpen button={<EuiButton>trigger</EuiButton>}>
+      <EuiPopover
+        isOpen
+        button={<EuiButton>trigger</EuiButton>}
+        closePopover={() => {}}
+      >
         <Story {...args} />
       </EuiPopover>
     ),
