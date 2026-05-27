@@ -24,6 +24,8 @@ import { isNil } from '../../services/predicate';
 
 import { useEuiTheme, makeHighContrastColor } from '../../services';
 import { EuiScreenReaderOnly } from '../accessibility';
+import { getLinearGradient } from '../color_picker/utils';
+import type { PaletteColorStop } from '../color_picker/color_palette_picker';
 import {
   euiProgressStyles,
   euiProgressDataStyles,
@@ -65,6 +67,16 @@ export type EuiProgressProps = CommonProps & {
    */
   color?: EuiProgressColor | CSSProperties['color'];
   position?: EuiProgressPosition;
+  /**
+   * A color palette — either an array of CSS color strings or an array of
+   * `PaletteColorStop` objects (same format accepted by `getLinearGradient`) —
+   * used to paint a gradient fill on the progress bar. The gradient is anchored
+   * to the full width of the track so that advancing the bar reveals more of a
+   * fixed gradient rather than stretching it.
+   * When set, the `color` prop is ignored.
+   */
+  palette?: string[] | PaletteColorStop[];
+  direction?: 'ltr' | 'rtl';
 };
 
 type Indeterminate = EuiProgressProps & HTMLAttributes<HTMLDivElement>;
@@ -101,6 +113,8 @@ export const EuiProgress: FunctionComponent<
   label,
   value,
   labelProps,
+  palette,
+  direction = 'ltr',
   ...rest
 }) => {
   const valueTextRef: MutableRefObject<HTMLSpanElement | null> = useRef(null);
@@ -109,22 +123,34 @@ export const EuiProgress: FunctionComponent<
   const [labelText, setLabelText] = useState<string | undefined>();
 
   const determinate = !isNil(max);
-  const isNamedColor = COLORS.includes(color as EuiProgressColor);
+  const isNamedColor = !palette && COLORS.includes(color as EuiProgressColor);
 
   const euiTheme = useEuiTheme();
-  const customColorStyles = !isNamedColor ? { color } : {};
-  const customTextColorStyles = !isNamedColor
-    ? { color: makeHighContrastColor(color)(euiTheme.euiTheme) }
+  const customColorStyles = palette || isNamedColor ? {} : { color };
+  const customTextColorStyles =
+    palette || isNamedColor
+      ? {}
+      : { color: makeHighContrastColor(color)(euiTheme.euiTheme) };
+
+  const gradientStyles: CSSProperties = palette
+    ? ({
+        '--euiProgressGradient': getLinearGradient(palette),
+        '--euiProgressDirection': direction === 'rtl' ? 'right' : 'left',
+      } as CSSProperties)
     : {};
 
   const styles = euiProgressStyles(euiTheme, determinate);
   const cssStyles = [
     styles.euiProgress,
     determinate && styles.native,
-    !determinate && styles.indeterminate,
+    !determinate && !palette && styles.indeterminate,
     styles[size],
     styles[position],
-    isNamedColor ? styles[color as EuiProgressColor] : styles.customColor,
+    palette
+      ? styles.gradient
+      : isNamedColor
+      ? styles[color as EuiProgressColor]
+      : styles.customColor,
   ];
 
   const dataStyles = euiProgressDataStyles(euiTheme);
@@ -216,11 +242,12 @@ export const EuiProgress: FunctionComponent<
         <progress
           css={cssStyles}
           className={classes}
-          style={customColorStyles}
+          style={{ ...customColorStyles, ...gradientStyles }}
           max={max}
           value={value}
           aria-valuetext={innerValueText || undefined}
           aria-label={labelText || undefined}
+          dir={direction}
           {...(rest as ProgressHTMLAttributes<HTMLProgressElement>)}
         />
       </>
@@ -229,8 +256,9 @@ export const EuiProgress: FunctionComponent<
     return (
       <div
         css={cssStyles}
-        style={customColorStyles}
+        style={{ ...customColorStyles, ...gradientStyles }}
         className={classes}
+        dir={direction}
         {...(rest as HTMLAttributes<HTMLDivElement>)}
       />
     );

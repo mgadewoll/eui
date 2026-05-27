@@ -15,7 +15,10 @@ import {
   euiFontSize,
   euiTextTruncate,
 } from '../../global_styling';
-import { highContrastModeStyles } from '../../global_styling/functions/high_contrast';
+import {
+  highContrastModeStyles,
+  preventForcedColors,
+} from '../../global_styling/functions/high_contrast';
 import { UseEuiTheme, makeHighContrastColor } from '../../services';
 import { euiText } from '../text/text.styles';
 
@@ -26,6 +29,7 @@ const crossBrowserProgressValue = (cssProperties: string) => `
   &::-webkit-progress-value {
     ${cssProperties}
   }
+
   &::-moz-progress-bar {
     ${cssProperties}
   }
@@ -37,10 +41,99 @@ const indeterminateProgressValue = (cssProperties: string) => `
 `;
 
 /**
+ * Gradient fill anchored to the full track width.
+ * The `<progress>` element itself is a container (`container-type: inline-size`)
+ * so that `100cqi` inside its pseudo-elements always resolves to the
+ * track's own inline size
+ */
+const gradientFillStyles = `
+  background: var(--euiProgressGradient);
+  background-size: 100cqi 100%;
+  background-repeat: no-repeat;
+  background-position: var(--euiProgressDirection) center;
+`;
+
+const crossBrowserProgressGradient = (
+  euiThemeContext: UseEuiTheme,
+  isNative: boolean
+) => {
+  const { euiTheme, highContrastMode } = euiThemeContext;
+
+  const outlineStyles = `
+  outline: ${euiTheme.border.width.thin} solid ${
+    highContrastMode
+      ? euiTheme.border.color
+      : euiTheme.colors.backgroundBasePlain
+  };`;
+
+  if (isNative) {
+    return `
+      container-type: inline-size;
+      ${crossBrowserProgressValue(`
+        ${gradientFillStyles}
+        border-radius: ${euiTheme.size.s};
+        ${outlineStyles}
+
+        ${preventForcedColors(euiThemeContext)}
+      `)}
+
+      ${highContrastModeStyles(euiThemeContext, {
+        forced: `
+          border: ${euiTheme.border.thin};
+        `,
+      })}
+    `;
+  }
+
+  // Indeterminate gradient: the gradient is set directly on the <div> background
+  // (overriding the track color). A single `::before` pill travels across via
+  // `translateX` with a large spread box-shadow in the track color. The shadow
+  // covers the gradient on both sides of the pill. The pill interior is transparent
+  // so the gradient shows through, giving a rounded reveal window that sweeps left-to-right.
+  return `
+    background: var(--euiProgressGradient);
+    background-size: 100% 100%;
+
+    ${highContrastModeStyles(euiThemeContext, {
+      preferred: `
+        border: ${euiTheme.border.thin};
+      `,
+    })}
+
+    &::before {
+      position: absolute;
+      content: '';
+      ${logicalCSS('width', '100%')}
+      ${logicalCSS('top', 0)}
+      ${logicalCSS('bottom', 0)}
+      ${logicalCSS('left', 0)}
+      border-radius: ${euiTheme.size.s};
+      ${outlineStyles}
+      background: transparent;
+      box-shadow: 0 0 0 100vw var(--euiProgressBackgroundColor); // 100vw ensures the shadow covers the entire track
+      transform: translateX(-100%);
+
+      ${euiCantAnimate} {
+        display: none;
+      }
+
+      ${highContrastModeStyles(euiThemeContext, {
+        forced: `
+          background: var(--euiProgressGradient);
+
+          ${preventForcedColors(euiThemeContext)}
+        `,
+      })}
+    }
+  `;
+};
+
+/**
  * Color utilities
  */
 
 const nativeVsIndeterminateColor = (
+  { euiTheme }: UseEuiTheme,
   color: string,
   isNative: boolean,
   highContrastMode: UseEuiTheme['highContrastMode']
@@ -49,7 +142,10 @@ const nativeVsIndeterminateColor = (
     ? crossBrowserProgressValue
     : indeterminateProgressValue;
   return `
-    ${selectors(`background-color: ${color};`)}
+    ${selectors(`
+      background-color: ${color};
+      border-radius: ${euiTheme.size.s};
+    `)}
     ${
       isNative && highContrastMode === 'preferred' // see highContrastModeStyles.preferred comment below
         ? `border-color: ${color};`
@@ -81,10 +177,10 @@ const nonStaticPositioning = (isNative: boolean) => `
  */
 const euiIndeterminateAnimation = keyframes`
   0% {
-    transform: scaleX(1) translateX(-100%);
+    transform: scaleX(1) translateX(var(--euiProgressAnimationStart));
   }
   100% {
-    transform: scaleX(1) translateX(100%);
+    transform: scaleX(1) translateX(var(--euiProgressAnimationEnd));
   }
 `;
 
@@ -102,8 +198,17 @@ export const euiProgressStyles = (
 
   return {
     euiProgress: css`
+      --euiProgressBackgroundColor: ${backgroundColor};
+      --euiProgressAnimationStart: -100%;
+      --euiProgressAnimationEnd: 100%;
+
+      background-color: var(--euiProgressBackgroundColor);
       overflow: hidden;
-      background-color: ${backgroundColor};
+
+      &[dir='rtl'] {
+        --euiProgressAnimationStart: 100%;
+        --euiProgressAnimationEnd: -100%;
+      }
     `,
     // https://css-tricks.com/html5-progress-element/
     // Good resource if you need to work in here. There's some gotchas with
@@ -113,7 +218,7 @@ export const euiProgressStyles = (
       ${logicalCSS('width', '100%')}
 
       &::-webkit-progress-bar {
-        background-color: ${backgroundColor};
+        background-color: var(--euiProgressBackgroundColor);
       }
 
       ${highContrastModeStyles(euiThemeContext, {
@@ -187,6 +292,7 @@ export const euiProgressStyles = (
     // Sizes
     _sharedSizeCSS: (size: string) => `
       ${logicalCSS('height', size)}
+      border-radius: ${euiTheme.size.s};
       ${highContrastModeStyles(euiThemeContext, {
         forced: `
           &::before {
@@ -229,6 +335,7 @@ export const euiProgressStyles = (
     // Colors
     primary: css`
       ${nativeVsIndeterminateColor(
+        euiThemeContext,
         euiTheme.colors.primary,
         isNative,
         highContrastMode
@@ -236,6 +343,7 @@ export const euiProgressStyles = (
     `,
     success: css`
       ${nativeVsIndeterminateColor(
+        euiThemeContext,
         euiTheme.colors.success,
         isNative,
         highContrastMode
@@ -243,6 +351,7 @@ export const euiProgressStyles = (
     `,
     warning: css`
       ${nativeVsIndeterminateColor(
+        euiThemeContext,
         euiTheme.colors.warning,
         isNative,
         highContrastMode
@@ -250,6 +359,7 @@ export const euiProgressStyles = (
     `,
     danger: css`
       ${nativeVsIndeterminateColor(
+        euiThemeContext,
         euiTheme.colors.danger,
         isNative,
         highContrastMode
@@ -257,6 +367,7 @@ export const euiProgressStyles = (
     `,
     subdued: css`
       ${nativeVsIndeterminateColor(
+        euiThemeContext,
         euiTheme.colors.textSubdued,
         isNative,
         highContrastMode
@@ -264,6 +375,7 @@ export const euiProgressStyles = (
     `,
     accent: css`
       ${nativeVsIndeterminateColor(
+        euiThemeContext,
         euiTheme.colors.accent,
         isNative,
         highContrastMode
@@ -271,6 +383,7 @@ export const euiProgressStyles = (
     `,
     accentSecondary: css`
       ${nativeVsIndeterminateColor(
+        euiThemeContext,
         euiTheme.colors.accentSecondary,
         isNative,
         highContrastMode
@@ -278,6 +391,7 @@ export const euiProgressStyles = (
     `,
     vis0: css`
       ${nativeVsIndeterminateColor(
+        euiThemeContext,
         euiTheme.colors.vis.euiColorVis0,
         isNative,
         highContrastMode
@@ -285,6 +399,7 @@ export const euiProgressStyles = (
     `,
     vis1: css`
       ${nativeVsIndeterminateColor(
+        euiThemeContext,
         euiTheme.colors.vis.euiColorVis1,
         isNative,
         highContrastMode
@@ -292,6 +407,7 @@ export const euiProgressStyles = (
     `,
     vis2: css`
       ${nativeVsIndeterminateColor(
+        euiThemeContext,
         euiTheme.colors.vis.euiColorVis2,
         isNative,
         highContrastMode
@@ -299,6 +415,7 @@ export const euiProgressStyles = (
     `,
     vis3: css`
       ${nativeVsIndeterminateColor(
+        euiThemeContext,
         euiTheme.colors.vis.euiColorVis3,
         isNative,
         highContrastMode
@@ -306,6 +423,7 @@ export const euiProgressStyles = (
     `,
     vis4: css`
       ${nativeVsIndeterminateColor(
+        euiThemeContext,
         euiTheme.colors.vis.euiColorVis4,
         isNative,
         highContrastMode
@@ -313,6 +431,7 @@ export const euiProgressStyles = (
     `,
     vis5: css`
       ${nativeVsIndeterminateColor(
+        euiThemeContext,
         euiTheme.colors.vis.euiColorVis5,
         isNative,
         highContrastMode
@@ -320,6 +439,7 @@ export const euiProgressStyles = (
     `,
     vis6: css`
       ${nativeVsIndeterminateColor(
+        euiThemeContext,
         euiTheme.colors.vis.euiColorVis6,
         isNative,
         highContrastMode
@@ -327,6 +447,7 @@ export const euiProgressStyles = (
     `,
     vis7: css`
       ${nativeVsIndeterminateColor(
+        euiThemeContext,
         euiTheme.colors.vis.euiColorVis7,
         isNative,
         highContrastMode
@@ -334,6 +455,7 @@ export const euiProgressStyles = (
     `,
     vis8: css`
       ${nativeVsIndeterminateColor(
+        euiThemeContext,
         euiTheme.colors.vis.euiColorVis8,
         isNative,
         highContrastMode
@@ -341,13 +463,30 @@ export const euiProgressStyles = (
     `,
     vis9: css`
       ${nativeVsIndeterminateColor(
+        euiThemeContext,
         euiTheme.colors.vis.euiColorVis9,
         isNative,
         highContrastMode
       )}
     `,
     customColor: css`
-      ${nativeVsIndeterminateColor('currentColor', isNative, highContrastMode)}
+      ${nativeVsIndeterminateColor(
+        euiThemeContext,
+        'currentColor',
+        isNative,
+        highContrastMode
+      )}
+    `,
+    gradient: css`
+      ${crossBrowserProgressGradient(euiThemeContext, isNative)}
+
+      ${!isNative &&
+      css`
+        &::before {
+          animation: ${euiIndeterminateAnimation} 1s
+            ${euiTheme.animation.resistance} infinite;
+        }
+      `}
     `,
   };
 };
