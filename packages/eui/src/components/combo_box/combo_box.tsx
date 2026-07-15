@@ -155,9 +155,23 @@ export interface _EuiComboBoxProps<T>
    */
   append?: EuiFormControlLayoutProps['append'];
   /**
-   * A special character to use as a value separator. Typically a comma `,`
+   * A special character to use as a value separator. Typically a comma `,`.
+   * When multiple values are created at once (e.g. pasting a newline-separated list),
+   * consider using `onCreateDelimitedOptions` to receive all values in a single call
+   * and avoid stale-closure issues in controlled components.
    */
   delimiter?: string;
+  /**
+   * Called with all new custom values at once when a `delimiter` splits input into
+   * multiple values. Use this instead of `onCreateOption` when using `delimiter` to
+   * avoid stale-closure issues in controlled components (e.g. react-hook-form), where
+   * multiple sequential `onCreateOption` calls may all receive the same snapshot of
+   * `selectedOptions`.
+   */
+  onCreateDelimitedOptions?: (
+    searchValues: string[],
+    options: Array<EuiComboBoxOptionOption<T>>
+  ) => void | boolean;
   /**
    * Specifies that the input should have focus when the component loads
    */
@@ -485,14 +499,47 @@ export class EuiComboBox<T> extends Component<
 
   setCustomOptions = (isContainerBlur: boolean) => {
     const { searchValue } = this.state;
-    const { delimiter } = this.props;
+    const {
+      isCaseSensitive,
+      delimiter,
+      onCreateOption,
+      onCreateDelimitedOptions,
+      options,
+      selectedOptions,
+    } = this.props;
+
     if (delimiter) {
       const trimmed = searchValue.split(delimiter).map((value) => value.trim());
-      const values = [...new Set([...trimmed])];
+      const values = [...new Set(trimmed)].filter((v) => v.length > 0);
 
-      values.forEach((option: string) => {
-        if (option.length > 0) this.addCustomOption(isContainerBlur, option);
+      if (values.length <= 1) {
+        return this.addCustomOption(isContainerBlur, values[0] ?? '');
+      }
+
+      if (!onCreateOption && !onCreateDelimitedOptions) return;
+
+      const flatOptions = flattenOptionGroups(options);
+      const newValues = values.filter(
+        (value) =>
+          !getSelectedOptionForSearchValue({
+            isCaseSensitive,
+            searchValue: value,
+            selectedOptions,
+          })
+      );
+
+      if (onCreateDelimitedOptions) {
+        const isCreated = onCreateDelimitedOptions(newValues, flatOptions);
+        if (isCreated !== false) this.clearSearchValue();
+        return;
+      }
+
+      let anyCreated = false;
+      newValues.forEach((value) => {
+        const isCreated = onCreateOption!(value, flatOptions);
+        if (isCreated !== false) anyCreated = true;
       });
+      if (anyCreated) this.clearSearchValue();
     } else {
       this.addCustomOption(isContainerBlur, searchValue);
     }
@@ -793,6 +840,7 @@ export class EuiComboBox<T> extends Component<
       onBlur,
       onChange,
       onCreateOption,
+      onCreateDelimitedOptions: _onCreateDelimitedOptions, // prevent spreading onto DOM element
       onSearchChange,
       options,
       placeholder,

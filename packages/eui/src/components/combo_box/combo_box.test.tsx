@@ -548,6 +548,53 @@ describe('EuiComboBox', () => {
             expect(onCreateOptionHandler).toHaveBeenCalledTimes(1);
             expect(onCreateOptionHandler).toHaveBeenCalledWith('a', options);
           });
+
+          it('calls onCreateDelimitedOptions once with all values when delimiter splits input', () => {
+            const onCreateDelimitedOptions = jest.fn();
+
+            const { getByTestSubject } = render(
+              <EuiComboBox
+                delimiter=","
+                options={options}
+                selectedOptions={[]}
+                onCreateDelimitedOptions={onCreateDelimitedOptions}
+              />
+            );
+            const input = getByTestSubject('comboBoxSearchInput');
+
+            fireEvent.change(input, { target: { value: 'foo, bar, baz' } });
+            fireEvent.keyDown(input, { key: 'Enter' });
+
+            expect(onCreateDelimitedOptions).toHaveBeenCalledTimes(1);
+            expect(onCreateDelimitedOptions).toHaveBeenCalledWith(
+              ['foo', 'bar', 'baz'],
+              options
+            );
+          });
+
+          it('normalizes newlines to the delimiter on paste and creates options', () => {
+            const onCreateOptionHandler = jest.fn();
+
+            const { getByTestSubject } = render(
+              <EuiComboBox
+                delimiter=","
+                options={options}
+                selectedOptions={[]}
+                onCreateOption={onCreateOptionHandler}
+              />
+            );
+            const input = getByTestSubject('comboBoxSearchInput');
+
+            fireEvent.paste(input, {
+              clipboardData: { getData: () => 'foo\nbar\nbaz' },
+            });
+            fireEvent.keyDown(input, { key: 'Enter' });
+
+            expect(onCreateOptionHandler).toHaveBeenCalledTimes(3);
+            expect(onCreateOptionHandler).toHaveBeenCalledWith('foo', options);
+            expect(onCreateOptionHandler).toHaveBeenCalledWith('bar', options);
+            expect(onCreateOptionHandler).toHaveBeenCalledWith('baz', options);
+          });
         });
       });
 
