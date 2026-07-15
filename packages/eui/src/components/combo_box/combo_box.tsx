@@ -11,6 +11,7 @@
  * from the tab order with tabindex={-1} so that we can control the keyboard navigation interface.
  */
 import React, {
+  ClipboardEventHandler,
   Component,
   FocusEventHandler,
   HTMLAttributes,
@@ -725,6 +726,17 @@ export class EuiComboBox<T> extends Component<
     }
   };
 
+  onSearchInputPaste: ClipboardEventHandler<HTMLInputElement> = (event) => {
+    const { delimiter } = this.props;
+    if (!delimiter) return;
+
+    const rawText = event.clipboardData.getData('text');
+    if (!rawText || !/[\r\n]/.test(rawText)) return;
+
+    event.preventDefault();
+    this.onSearchChange(rawText.replace(/[\r\n]+/g, delimiter));
+  };
+
   static getDerivedStateFromProps<T>(
     nextProps: _EuiComboBoxProps<T>,
     prevState: EuiComboBoxState<T>
@@ -942,6 +954,7 @@ export class EuiComboBox<T> extends Component<
                     isListOpen={isListOpen}
                     noIcon={!!noSuggestions}
                     onChange={this.onSearchChange}
+                    onPaste={this.onSearchInputPaste}
                     onClear={
                       isClearable && !isDisabled
                         ? this.clearSelectedOptions

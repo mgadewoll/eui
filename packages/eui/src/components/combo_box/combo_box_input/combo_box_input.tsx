@@ -7,6 +7,7 @@
  */
 
 import React, {
+  ClipboardEventHandler,
   Component,
   FocusEventHandler,
   KeyboardEventHandler,
@@ -52,6 +53,7 @@ export interface EuiComboBoxInputProps<T> extends CommonProps {
   onChange: (searchValue: string) => void;
   onClear?: () => void;
   onClick: () => void;
+  onPaste?: ClipboardEventHandler<HTMLInputElement>;
   onCloseListClick: () => void;
   onFocus: FocusEventHandler<HTMLInputElement>;
   onOpenListClick: () => void;
@@ -237,6 +239,7 @@ export class EuiComboBoxInput<T> extends Component<
       onFocus,
       onCloseListClick,
       onOpenListClick,
+      onPaste,
       placeholder,
       rootId,
       searchValue,
@@ -393,6 +396,7 @@ export class EuiComboBoxInput<T> extends Component<
                     onChange={(event) => onChange(event.target.value)}
                     onFocus={this.onFocus}
                     onKeyDown={this.onKeyDown}
+                    onPaste={onPaste}
                     ref={this.inputRefCallback}
                     role="combobox"
                     style={{
