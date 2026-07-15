@@ -756,6 +756,47 @@ describe('EuiComboBox', () => {
         });
       });
 
+      describe('clicking the combo box', () => {
+        it('does not steal focus when the user has a text selection', () => {
+          const { getByTestSubject } = render(
+            <EuiComboBox
+              options={options}
+              selectedOptions={[options[0], options[1]]}
+            />
+          );
+          const input = getByTestSubject('comboBoxSearchInput');
+          const comboBoxInputWrap = getByTestSubject('comboBoxInput');
+
+          const mockSelection = { toString: () => 'Titan' } as Selection;
+          jest.spyOn(window, 'getSelection').mockReturnValue(mockSelection);
+
+          fireEvent.click(comboBoxInputWrap);
+
+          expect(input).not.toHaveFocus();
+
+          jest.restoreAllMocks();
+        });
+
+        it('focuses the search input when there is no text selection', () => {
+          const { getByTestSubject } = render(
+            <EuiComboBox
+              options={options}
+              selectedOptions={[options[0], options[1]]}
+            />
+          );
+          const input = getByTestSubject('comboBoxSearchInput');
+          const comboBoxInputWrap = getByTestSubject('comboBoxInput');
+
+          jest.spyOn(window, 'getSelection').mockReturnValue(null);
+
+          fireEvent.click(comboBoxInputWrap);
+
+          expect(input).toHaveFocus();
+
+          jest.restoreAllMocks();
+        });
+      });
+
       describe('isCaseSensitive', () => {
         const isCaseSensitiveOptions = [{ label: 'Case sensitivity' }];
 

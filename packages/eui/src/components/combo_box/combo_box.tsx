@@ -721,6 +721,10 @@ export class EuiComboBox<T> extends Component<
   };
 
   onComboBoxClick = () => {
+    // Don't steal focus if the user just finished a drag-select over pill text —
+    // grabbing focus would collapse the selection before they can copy it.
+    if (window?.getSelection()?.toString()) return;
+
     // When the user clicks anywhere on the box, enter the interaction state.
     this.searchInputRefInstance?.focus();
 
