@@ -785,7 +785,15 @@ export class EuiComboBox<T> extends Component<
     if (!rawText || !/[\r\n]/.test(rawText)) return;
 
     event.preventDefault();
-    this.onSearchChange(rawText.replace(/[\r\n]+/g, delimiter));
+    const escapedDelimiter = delimiter.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const normalized = rawText.replace(
+      new RegExp(
+        `\\s*${escapedDelimiter}?\\s*[\\r\\n]+\\s*${escapedDelimiter}?\\s*`,
+        'g'
+      ),
+      delimiter
+    );
+    this.onSearchChange(normalized);
   };
 
   static getDerivedStateFromProps<T>(

@@ -572,28 +572,107 @@ describe('EuiComboBox', () => {
             );
           });
 
-          it('normalizes newlines to the delimiter on paste and creates options', () => {
-            const onCreateOptionHandler = jest.fn();
+          describe('onPaste with delimiter', () => {
+            const renderWithDelimiter = () => {
+              const onCreateOptionHandler = jest.fn();
+              const { getByTestSubject } = render(
+                <EuiComboBox
+                  delimiter=","
+                  options={options}
+                  selectedOptions={[]}
+                  onCreateOption={onCreateOptionHandler}
+                />
+              );
+              return {
+                input: getByTestSubject('comboBoxSearchInput'),
+                onCreateOptionHandler,
+              };
+            };
 
-            const { getByTestSubject } = render(
-              <EuiComboBox
-                delimiter=","
-                options={options}
-                selectedOptions={[]}
-                onCreateOption={onCreateOptionHandler}
-              />
-            );
-            const input = getByTestSubject('comboBoxSearchInput');
+            const paste = (input: HTMLElement, text: string) => {
+              fireEvent.paste(input, {
+                clipboardData: { getData: () => text },
+              });
+              fireEvent.keyDown(input, { key: 'Enter' });
+            };
 
-            fireEvent.paste(input, {
-              clipboardData: { getData: () => 'foo\nbar\nbaz' },
+            it('splits newline-only content into separate options', () => {
+              const { input, onCreateOptionHandler } = renderWithDelimiter();
+              paste(input, 'foo\nbar\nbaz');
+              expect(onCreateOptionHandler).toHaveBeenCalledTimes(3);
+              expect(onCreateOptionHandler).toHaveBeenCalledWith(
+                'foo',
+                options
+              );
+              expect(onCreateOptionHandler).toHaveBeenCalledWith(
+                'bar',
+                options
+              );
+              expect(onCreateOptionHandler).toHaveBeenCalledWith(
+                'baz',
+                options
+              );
             });
-            fireEvent.keyDown(input, { key: 'Enter' });
 
-            expect(onCreateOptionHandler).toHaveBeenCalledTimes(3);
-            expect(onCreateOptionHandler).toHaveBeenCalledWith('foo', options);
-            expect(onCreateOptionHandler).toHaveBeenCalledWith('bar', options);
-            expect(onCreateOptionHandler).toHaveBeenCalledWith('baz', options);
+            it('splits delimiter+newline content without creating empty options', () => {
+              const { input, onCreateOptionHandler } = renderWithDelimiter();
+              paste(input, 'foo,\nbar,\nbaz');
+              expect(onCreateOptionHandler).toHaveBeenCalledTimes(3);
+              expect(onCreateOptionHandler).toHaveBeenCalledWith(
+                'foo',
+                options
+              );
+              expect(onCreateOptionHandler).toHaveBeenCalledWith(
+                'bar',
+                options
+              );
+              expect(onCreateOptionHandler).toHaveBeenCalledWith(
+                'baz',
+                options
+              );
+            });
+
+            it('does not intercept paste without newlines, leaving normal flow to handle it', () => {
+              const { input, onCreateOptionHandler } = renderWithDelimiter();
+              // No newlines — our handler returns early; browser inserts text natively.
+              // Simulate that browser insertion since JSDOM does not do it automatically.
+              fireEvent.paste(input, {
+                clipboardData: { getData: () => 'foo,bar,baz' },
+              });
+              fireEvent.change(input, { target: { value: 'foo,bar,baz' } });
+              fireEvent.keyDown(input, { key: 'Enter' });
+              expect(onCreateOptionHandler).toHaveBeenCalledTimes(3);
+              expect(onCreateOptionHandler).toHaveBeenCalledWith(
+                'foo',
+                options
+              );
+              expect(onCreateOptionHandler).toHaveBeenCalledWith(
+                'bar',
+                options
+              );
+              expect(onCreateOptionHandler).toHaveBeenCalledWith(
+                'baz',
+                options
+              );
+            });
+
+            it('does not intercept paste when no delimiter is set', () => {
+              const onCreateOptionHandler = jest.fn();
+              const { getByTestSubject } = render(
+                <EuiComboBox
+                  options={options}
+                  selectedOptions={[]}
+                  onCreateOption={onCreateOptionHandler}
+                />
+              );
+              const input = getByTestSubject('comboBoxSearchInput');
+              fireEvent.paste(input, {
+                clipboardData: { getData: () => 'foo\nbar\nbaz' },
+              });
+              // without delimiter, newlines are stripped by the browser and
+              // onCreateOption is not called until the user confirms
+              expect(onCreateOptionHandler).not.toHaveBeenCalled();
+            });
           });
         });
       });
