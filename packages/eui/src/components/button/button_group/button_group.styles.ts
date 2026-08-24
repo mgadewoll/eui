@@ -20,7 +20,6 @@ import {
 } from '../../../global_styling/functions/high_contrast';
 import { euiFormVariables } from '../../form/form.styles';
 
-const hasButtonOnlySelector = ':not(:has(.euiButtonIcon))';
 const hasButtonIconOnlySelector = ':not(:has(.euiButton, .euiButtonEmpty))';
 const buttonItemSelector =
   '.euiButtonGroup__item, .euiToolTipAnchor, .euiPopover, .euiButton';
@@ -252,7 +251,8 @@ export const euiButtonGroupButtonsStyles = (euiThemeContext: UseEuiTheme) => {
 
         /* Ensure buttons shrink properly (resulting in truncation) */
         ${buttonOnlyItemSelector} {
-          flex: 0 1 auto;
+          flex-shrink: 1;
+          flex-basis: auto;
           min-inline-size: 0;
 
           .euiButton .eui-textTruncate {
@@ -270,7 +270,7 @@ export const euiButtonGroupButtonsStyles = (euiThemeContext: UseEuiTheme) => {
 
       .euiButtonGroupButton,
       .euiButtonGroup__tooltipWrapper {
-        flex: 1;
+        flex-grow: 1;
         ${logicalCSS('width', '100%')}
       }
 
@@ -288,18 +288,12 @@ export const euiButtonGroupButtonsStyles = (euiThemeContext: UseEuiTheme) => {
       }
 
       &:where([data-variant='segmented'] &) {
-        &${hasButtonIconOnlySelector} {
-          inline-size: auto;
+        .euiButtonGroup__buttons {
+          inline-size: 100%;
         }
 
-        &${hasButtonOnlySelector} {
-          .euiButtonGroup__buttons {
-            inline-size: 100%;
-          }
-
-          ${buttonOnlyItemSelector} {
-            flex-grow: 1;
-          }
+        *:is(${buttonItemSelector}, .euiButtonIcon) {
+          flex-grow: 1;
         }
       }
     `,

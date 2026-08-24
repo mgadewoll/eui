@@ -302,7 +302,6 @@ export type EuiButtonGroupChildrenProps = CommonProps &
     gutterSize?: EuiButtonGroupGutterSize;
     /**
      * Expands the whole group to the full width of the container.
-     * `EuiButton` children will stretch to fill the available space via their `fullWidth` prop.
      * Does not apply when `layout="vertical"`.
      * @default false
      */
